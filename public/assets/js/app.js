@@ -2,7 +2,14 @@
 (function() {
     'use strict';
 
-    angular.module('theDivisionAgent', ['ui.router', 'angular-google-gapi', 'ui.bootstrap', 'angular-clipboard']);
+    angular.module('theDivisionAgent', [
+        'ui.router',
+        'ui.bootstrap',
+        'angular-clipboard',
+        'angular-google-gapi',
+        'angulartics',
+        'angulartics.google.analytics'
+    ]);
 
     angular.module('theDivisionAgent')
         .config(function($stateProvider, $urlRouterProvider, $locationProvider) {
@@ -10,7 +17,7 @@
             $locationProvider.html5Mode(true).hashPrefix('*');
             $stateProvider
                 .state('map', {
-                    url: '/map?path',
+                    url: '/map?path&debug',
                     templateUrl: '/assets/js/components/map/map.html',
                     controller: 'MapController',
                     controllerAs: 'vm'

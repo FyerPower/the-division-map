@@ -4,14 +4,14 @@
     angular.module('theDivisionAgent')
         .directive('leaflet', MapDirective);
 
-    MapDirective.$inject = ['$rootScope'];
-    function MapDirective($rootScope){
+    MapDirective.$inject = ['$rootScope', '$stateParams'];
+    function MapDirective($rootScope, $stateParams){
         return {
             restrict: 'E',
             replace: true,
             template: '<div></div>',
             link: function(scope, elem, attrs){
-                var DEBUG_MODE = false;
+                var DEBUG_MODE = false || $stateParams.debug;
                 var MAX_ZOOM = 4;
                 var MIN_ZOOM = 2;
                 var STARTING_LAT = -60;
@@ -383,11 +383,11 @@
                             { id: 160,  lat: -46.86,  long: -23,    label: "<b>Named Bosses:</b><br/>Mazeroski<br/>???"},
                             { id: 161,  lat: -41.7,   long: 27.9,   label: "<b>Named Bosses:</b><br/>Zeke<br/>Animal"}, // Kalkesse Sporting Store
                             { id: 162,  lat: -42,     long: 60.8,   label: "<b>Named Bosses:</b><br/>Cannibal<br/>Boomerang<br/>Animal"}, // The Library
-                            { id: 163,  lat: -13,     long: -25.3,  label: "<b>(Subway) Named Bosses:</b>"}, // Bryant Park Station (Subway)
-                            { id: 164,  lat: 30,      long: -50,    label: "<b>Named Bosses:</b>"},
-                            { id: 165,  lat: 39.2,    long: -23.2,  label: "<b>Named Bosses:</b>"},
+                            { id: 163,  lat: -13,     long: -25.3,  label: "<b>(Subway) Named Bosses:</b><br/>O'Rourke"}, // Bryant Park Station (Subway)
+                            { id: 164,  lat: 30,      long: -50,    label: "<b>Named Bosses:</b><br/>Hot Rod"}, // West 54th
+                            { id: 165,  lat: 39.2,    long: -23.2,  label: "<b>Named Bosses:</b><br/>No Boss Spawn?"}, // [VERIFY] NO BOSS SPAWN??
                             { id: 166,  lat: 59,      long: 17.5,   label: "<b>Named Bosses:</b><br/>Cpt.Wilson<br/>Cpt.Carter<br/>Sgt.Thompson<br/>"}, // The Pit
-                            { id: 167,  lat: 62.3,    long: -23,    label: "<b>Named Bosses:</b><br/>Shadow<br/>Cpt.Bryant"}, // Mid Town Music
+                            { id: 167,  lat: 62.3,    long: -23,    label: "<b>Named Bosses:</b><br/>Shadow<br/>Cpt.Bryant<br/>Gambit"}, // Mid Town Music
                             { id: 168,  lat: 72.15,   long: -59.3,  label: "<b>(Subway) Named Bosses:</b><br/>Greenberg<br/>Coveleski"}, // 7th Ave Station (Subway)
                             { id: 169,  lat: 70.0,    long: 0,      label: "<b>Named Bosses:</b><br/>Coveleski"}, // Q Building
                             { id: 170,  lat: 45,      long: -28.2,  label: "<b>(Subway) Named Bosses:</b><br/>Barkley"}, // 47-50th St Rockefeller Center station (Subway)
@@ -417,10 +417,11 @@
 // ||  Cpt. Carter    ||  Leader         ||  LMB       ||
 // ||  Draxler        ||                 ||            ||
 // ||  Dropkick       ||  Heavy Weapons  ||  Rioter    ||
-// ||  Greenberg      ||                 ||            ||
+// ||  Gambit         ||  Specialist     ||  LMB       ||
+// ||  Greenberg      ||  Thrower        ||  Cleaner   || Holster
 // ||  Hardaway       ||  Tank           ||  Cleaner   ||
 // ||  Hawkeye        ||  Sniper         ||  Riker     || Midas
-// ||  Hot Rod        ||                 ||            ||
+// ||  Hot Rod        ||  Thrower        ||  Riker     || Mag (Mod)
 // ||  Hundly         ||  Sniper         ||  Cleaner   || M1911
 // ||  Mazeroski      ||                 ||            ||
 // ||  McGrady        ||                 ||            ||

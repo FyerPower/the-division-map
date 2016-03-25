@@ -34,12 +34,17 @@
         </div>
         <div id="map-sidebar-buttons" ng-class="{'map-sidebar-force-right': (vm.menuCollapsed && !vm.initialized)}">
             <div class="btn-group-vertical">
-                <a class="btn btn-default" ng-click="vm.toggleMenu();"><i class="fa fa-bars"></i></a>
+                <a class="btn btn-default" tda-popover="Collapse / Expand Menu" popover-position="left" ng-click="vm.toggleMenu();"><i class="fa fa-bars"></i></a>
                 <a class="btn btn-default" tda-popover="Coming Soon" popover-position="left"><i class="fa fa-search"></i></a>
             </div>
+            <div class="btn-group-vertical" ng-show="vm.fullscreenEnabled">
+                <a class="btn btn-default" tda-popover="Toggle Fullscreen" popover-position="left" ng-click="vm.toggleFullscreen();">
+                    <i class="fa" ng-class="{'fa-arrows-alt': !vm.fullscreenActive, 'fa-compress': vm.fullscreenActive}"></i>
+                </a>
+            </div>
             <div class="btn-group-vertical">
-                <a class="btn btn-default" ng-click="vm.zoomIncrease();" ng-disabled="vm.zoomAtMax"><i class="fa fa-plus"></i></a>
-                <a class="btn btn-default" ng-click="vm.zoomDecrease();" ng-disabled="vm.zoomAtMin"><i class="fa fa-minus"></i></a>
+                <a class="btn btn-default" tda-popover="Zoom In" popover-position="left" ng-click="vm.zoomIncrease();" ng-disabled="vm.zoomAtMax"><i class="fa fa-plus"></i></a>
+                <a class="btn btn-default" tda-popover="Zoom Out" popover-position="left" ng-click="vm.zoomDecrease();" ng-disabled="vm.zoomAtMin"><i class="fa fa-minus"></i></a>
             </div>
         </div>
     </div>

@@ -15,7 +15,7 @@
                         animation: false,
                         trigger: 'hover',
                         placement: attr.popoverPosition,
-                        delay: {show: parseInt(attr.popoverDelay || 0), hide: (parseInt(attr.popoverDelay || 0) / 5)},
+                        delay: {show: parseInt(attr.popoverDelay || 400), hide: (parseInt(attr.popoverDelay || 400) / 5)},
                         container: 'body'
                     });
                 }

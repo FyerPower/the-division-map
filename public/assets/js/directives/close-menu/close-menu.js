@@ -3,12 +3,13 @@
         .module('theDivisionAgent')
         .directive('tdaCloseMenu', tdaCloseMenu);
 
-    function tdaCloseMenu() {
+    tdaCloseMenu.$inject = ['$window'];
+    function tdaCloseMenu($window) {
         return {
             restrict: 'A',
             link: function(scope, elem, attr) {
                 $(elem).on('click', function(){
-                    if( scope.windowInnerWidth < 768 ) {
+                    if( $window.innerWidth < 768 ) {
                         $(elem).closest('nav').find('button.navbar-toggle').click();
                     }
                 });

@@ -123,9 +123,9 @@
                         var pointA = new L.LatLng(lastPoint[0], lastPoint[1]); // Last Point
                         var pointB = new L.LatLng(lat, lng); // New Point
                         var polyline = new L.Polyline([pointA, pointB], {
-                            color: 'yellow',
+                            color: '#39FF14',
                             weight: 5,
-                            opacity: 0.5,
+                            opacity: 0.7,
                             smoothFactor: 1
                         });
                         polyline.addTo(theDivisionMap);
@@ -389,7 +389,7 @@
                             { id: 166,  lat: 59,      long: 17.5,   label: "<b>Named Bosses:</b><br/>Cpt.Wilson<br/>Cpt.Carter<br/>Sgt.Thompson<br/>"}, // The Pit
                             { id: 167,  lat: 62.3,    long: -23,    label: "<b>Named Bosses:</b><br/>Shadow<br/>Cpt.Bryant<br/>Gambit"}, // Mid Town Music
                             { id: 168,  lat: 72.15,   long: -59.3,  label: "<b>(Subway) Named Bosses:</b><br/>Greenberg<br/>Coveleski"}, // 7th Ave Station (Subway)
-                            { id: 169,  lat: 70.0,    long: 0,      label: "<b>Named Bosses:</b><br/>Coveleski"}, // Q Building
+                            { id: 169,  lat: 70.0,    long: 0,      label: "<b>Named Bosses:</b><br/>Coveleski<br/>Mazeroski"}, // Q Building
                             { id: 170,  lat: 45,      long: -28.2,  label: "<b>(Subway) Named Bosses:</b><br/>Barkley"}, // 47-50th St Rockefeller Center station (Subway)
                         ]}
                     ];
@@ -407,7 +407,7 @@
 // ||  Barkley        ||  Controller     ||  Cleaner   ||
 // ||  Baz            ||  Leader         ||  Riker     || Socom M1A
 // ||  Bonnie         ||  Special        ||  Rioter    ||
-// ||  Boomerang      ||  Sniper         ||  Riker     ||
+// ||  Boomerang      ||  Sniper         ||  Riker     || Angled Grip
 // ||  Buckshot       ||  Sniper         ||  Rioter    ||
 // ||  Cannibal       ||  Tank           ||  Riker     ||
 // ||  Claxton        ||  Engineer       ||  Cleaner   ||
@@ -415,6 +415,7 @@
 // ||  Cpt. Wilson    ||  Sniper         ||  LMB       ||
 // ||  Cpt. Bryant    ||                 ||  LMB       ||
 // ||  Cpt. Carter    ||  Leader         ||  LMB       ||
+// ||  Cpl. Newhouser ||  Engineer       ||  LMB       ||
 // ||  Draxler        ||                 ||            ||
 // ||  Dropkick       ||  Heavy Weapons  ||  Rioter    ||
 // ||  Gambit         ||  Specialist     ||  LMB       ||
@@ -423,10 +424,11 @@
 // ||  Hawkeye        ||  Sniper         ||  Riker     || Midas
 // ||  Hot Rod        ||  Thrower        ||  Riker     || Mag (Mod)
 // ||  Hundly         ||  Sniper         ||  Cleaner   || M1911
-// ||  Mazeroski      ||                 ||            ||
+// ||  Mazeroski      ||  Tank           ||  Cleaner   ||
 // ||  McGrady        ||                 ||            ||
 // ||  O'Rourke       ||  Tank           ||  Cleaner   ||
 // ||  Scrapper       ||  Heavy Weapons  ||  Rioter    ||
+// ||  Stojacovich    ||                 ||            ||
 // ||  Sgt. Thompson  ||  Heavy Weapons  ||  LMB       ||
 // ||  Shadow         ||  Special        ||  LMB       ||
 // ||  Short Fuse     ||  Leader         ||  Riker     ||

@@ -4,22 +4,16 @@
     angular.module('theDivisionAgent')
         .controller('MapController', MapController);
 
-    MapController.$inject = ['$scope', '$rootScope', '$stateParams', '$timeout', 'GoogleURLShortener'];
-    function MapController($scope, $rootScope, $stateParams, $timeout, GoogleURLShortener){
+    MapController.$inject = ['$scope', '$rootScope', '$stateParams', '$timeout', '$document', '$window', 'GoogleURLShortener'];
+    function MapController($scope, $rootScope, $stateParams, $timeout, $document, $window, GoogleURLShortener){
         var vm = this;
-        vm.zoomAtMin = false;
-        vm.zoomAtMax = false;
 
         vm.initialized = false;
         $timeout(function(){ vm.initialized = true; }, 100);
-        vm.menuCollapsed = ($rootScope.windowInnerWidth < 768);
-        $scope.$on('window-resize', function(e, newWidth, oldWidth){
-            if(newWidth < 768 && oldWidth >= 768){
-                vm.menuCollapsed = true;
-            } else if( newWidth >= 768 && oldWidth < 768 ) {
-                vm.menuCollapsed = false;
-            }
-        });
+        vm.menuCollapsed = ($window.innerWidth < 768);
+        vm.toggleMenu = function(){
+            vm.menuCollapsed = !vm.menuCollapsed;
+        };
 
         vm.filters = [
             { enabled: true, markerType: 'Checkpoints', icon: "/assets/img/icons/checkpoint.png",        name: "Checkpoints" },
@@ -49,10 +43,6 @@
             });
         };
 
-        vm.toggleMenu = function(){
-            vm.menuCollapsed = !vm.menuCollapsed;
-        };
-
         if($stateParams.path) {
             getShareableURL($stateParams.path);
             var points = $stateParams.path.split('_');
@@ -64,7 +54,6 @@
                 $rootScope.$broadcast('map-pathing-init', points);
             }, 100);
         }
-
 
         vm.pathing = false;
         vm.shareableUrl = null;
@@ -101,6 +90,12 @@
             pathArray = newPathArray;
         });
 
+        //
+        // Zoom In / Out
+        //
+
+        vm.zoomAtMin = false;
+        vm.zoomAtMax = false;
         vm.zoomDecrease = function(){
             $rootScope.$broadcast('map-decrease-zoom-level', updateZoomSettings);
         };
@@ -118,6 +113,46 @@
             vm.zoomAtMin = atMinimumZoom;
             vm.zoomAtMax = atMaximumZoom;
         }
+
+        //
+        // Full Screen
+        //
+
+        vm.fullscreenEnabled = (document.fullscreenEnabled || document.webkitFullscreenEnabled || document.mozFullScreenEnabled || document.msFullscreenEnabled);
+        vm.fullscreenActive = false;
+        vm.toggleFullscreen = function(){
+            if( vm.fullscreenEnabled ){
+                if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) {
+                    // exit full-screen
+                    if (document.exitFullscreen) {
+                    	document.exitFullscreen();
+                    } else if (document.webkitExitFullscreen) {
+                    	document.webkitExitFullscreen();
+                    } else if (document.mozCancelFullScreen) {
+                    	document.mozCancelFullScreen();
+                    } else if (document.msExitFullscreen) {
+                    	document.msExitFullscreen();
+                    }
+                } else {
+                    var i = document.getElementById("the-division-agent-site");
+                    // go full-screen
+                    if (i.requestFullscreen) {
+                        i.requestFullscreen();
+                    } else if (i.webkitRequestFullscreen) {
+                        i.webkitRequestFullscreen();
+                    } else if (i.mozRequestFullScreen) {
+                        i.mozRequestFullScreen();
+                    } else if (i.msRequestFullscreen) {
+                        i.msRequestFullscreen();
+                    }
+                }
+            }
+        };
+        $document.on("fullscreenchange webkitfullscreenchange mozfullscreenchange MSFullscreenChange", function() {
+            $scope.$apply(function(){
+                vm.fullscreenActive = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
+            });
+        });
 
         return vm;
     }

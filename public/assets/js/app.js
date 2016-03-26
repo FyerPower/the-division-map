@@ -31,8 +31,8 @@
                     url: '/news',
                     templateUrl: '/assets/js/components/news/news.html'
                 })
-                .state('talents', {
-                    url: '/talents?slot',
+                .state('equipment', {
+                    url: '/equipment?slot',
                     templateUrl: '/assets/js/components/talents/talents.html',
                     controller: 'TalentsController',
                     controllerAs: 'vm',

@@ -1,0 +1,104 @@
+<div id="page-talents">
+    <div class="jumbotron header-cover">
+        <div class="container">
+            <h2><b>Equipment Attributes</b></h2>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                <!-- <h4>Select an item type</h4> -->
+                <a class="btn btn-gear-icon" ng-class="{'btn-div-primary': (vm.filter.slot != 'Weapon'),   'btn-div-secondary': (vm.filter.slot == 'Weapon')}" ng-click="vm.selectSlot('Weapon')">
+                    <i class="gear-icon gear-icon-weapon"></i>
+                </a>
+                <a class="btn btn-gear-icon" ng-class="{'btn-div-primary': (vm.filter.slot != 'Chest'),    'btn-div-secondary': (vm.filter.slot == 'Chest')}" ng-click="vm.selectSlot('Chest')">
+                    <i class="gear-icon gear-icon-chest"></i>
+                </a>
+                <a class="btn btn-gear-icon" ng-class="{'btn-div-primary': (vm.filter.slot != 'Mask'),     'btn-div-secondary': (vm.filter.slot == 'Mask')}" ng-click="vm.selectSlot('Mask')">
+                    <i class="gear-icon gear-icon-mask"></i>
+                </a>
+                <a class="btn btn-gear-icon" ng-class="{'btn-div-primary': (vm.filter.slot != 'Kneepads'), 'btn-div-secondary': (vm.filter.slot == 'Kneepads')}" ng-click="vm.selectSlot('Kneepads')">
+                    <i class="gear-icon gear-icon-kneepads"></i>
+                </a>
+                <a class="btn btn-gear-icon" ng-class="{'btn-div-primary': (vm.filter.slot != 'Backpack'), 'btn-div-secondary': (vm.filter.slot == 'Backpack')}" ng-click="vm.selectSlot('Backpack')">
+                    <i class="gear-icon gear-icon-backpack"></i>
+                </a>
+                <a class="btn btn-gear-icon" ng-class="{'btn-div-primary': (vm.filter.slot != 'Gloves'),   'btn-div-secondary': (vm.filter.slot == 'Gloves')}" ng-click="vm.selectSlot('Gloves')">
+                    <i class="gear-icon gear-icon-gloves"></i>
+                </a>
+                <a class="btn btn-gear-icon" ng-class="{'btn-div-primary': (vm.filter.slot != 'Holster'),  'btn-div-secondary': (vm.filter.slot == 'Holster')}" ng-click="vm.selectSlot('Holster')">
+                    <i class="gear-icon gear-icon-holster"></i>
+                </a>
+            </div>
+        </div>
+        <br>
+        <div class="row menu-box-height" ng-show="vm.filter.slot && vm.filter.slot == 'Weapon'">
+            <div class="text-center"><h4>Available Talents</h4></div>
+            <div class="col-md-6" ng-repeat="talent in vm.talents | orderBy:'name' | filter:vm.filter">
+                <div class="menu-box">
+                    <div class="">
+                        <span class="menu-box--type"><b>Talent</b></span>
+                        <span><b>{{talent.name}}</b></span>
+                    </div>
+                    <div class="">
+                        <span>{{talent.description}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row empty-message" ng-hide="vm.filter.slot">
+            <div class="col-md-12">
+                Select an Equipment Slot above
+            </div>
+        </div>
+        <div class="row" ng-show="vm.filter.slot && vm.filter.slot != 'Weapon'">
+            <div class="col-md-6 col-md-push-6">
+                <div class="text-center"><h4>Available Stats</h4></div>
+                    <div class="menu-box">
+                    <div ng-show="vm.slotDetails[vm.filter.slot].Major">
+                        <div><span><b>Major Attributes</b></span></div>
+                        <div class="menu-box--stat" ng-repeat="stat in vm.slotDetails[vm.filter.slot].Major">
+                            <span ng-show="stat.low">+({{stat.low}}-{{stat.high}})</span>
+                            <span>{{stat.name}}<span>
+                        </div>
+                    </div>
+                    <div ng-show="vm.slotDetails[vm.filter.slot].Minor">
+                        <div><span><b>Minor Attributes</b></span></div>
+                        <div class="menu-box--stat" ng-repeat="stat in vm.slotDetails[vm.filter.slot].Minor">
+                            <span ng-show="stat.low">+({{stat.low}}-{{stat.high}})</span>
+                            <span>{{stat.name}}<span>
+                        </div>
+                    </div>
+                    <div ng-show="vm.slotDetails[vm.filter.slot].Skill">
+                        <div><span><b>Skill Attributes</b></span></div>
+                        <div class="menu-box--stat" ng-repeat="stat in vm.slotDetails[vm.filter.slot].Skill">
+                            <span ng-show="stat.low">+({{stat.low}}-{{stat.high}})</span>
+                            <span>{{stat.name}}<span>
+                        </div>
+                    </div>
+                    <div class="menu-box--footnote">
+                        * Values above represent the available range for an item level 31 High End.
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-md-pull-6">
+                <div class="text-center"><h4>Available Talents</h4></div>
+                <div class="menu-box" ng-repeat="talent in vm.talents | orderBy:'name' | filter:vm.filter">
+                    <div class="">
+                        <span class="menu-box--type"><b>Talent</b></span>
+                        <span><b>{{talent.name}}</b></span>
+                    </div>
+                    <div class="">
+                        <span>{{talent.description}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="footer">
+        <p>Created By Michael Lynch (<a href="http://www.reddit.com/u/gamegenius86" target="_blank">/u/gamegenius86</a>)</p>
+        <p><a href="https://www.paypal.me/yourfriend" target="">Buy me a beer!</a></p>
+    </footer>
+</div>

@@ -16,16 +16,16 @@
         };
 
         vm.filters = [
-            { enabled: true, markerType: 'Checkpoints', icon: "/assets/img/icons/checkpoint.png",        name: "Checkpoints" },
-            { enabled: true, markerType: 'DZEntrances', icon: "/assets/img/icons/dz-enterance.png",      name: "DZ Entrances" },
-            { enabled: true, markerType: 'SafeHouses', icon: "/assets/img/icons/saferoom.png",           name: "Safe Houses" },
-            { enabled: true, markerType: 'Extractions', icon: "/assets/img/icons/extraction.png",        name: "Extractions" },
-            { enabled: true, markerType: 'Landmarks', icon: "/assets/img/icons/landmark-off.png",        name: "Landmarks" },
-            { enabled: true, markerType: 'SubwayEntrances', icon: "/assets/img/icons/subway.png",        name: "Subway Entrances"},
-            // { enabled: true, markerType: 'Containment', icon: "/assets/img/icons/containment-zone.png",  name: "Containment Zone" },
-            { enabled: true, markerType: 'DivisionTech', icon: "/assets/img/icons/division-tech.png",    name: "Division Tech" },
-            { enabled: true, markerType: "DarkzoneChests", icon: "/assets/img/icons/darkzone-chest.png", name: "Darkzone Chests"},
-            { enabled: true, markerType: 'NamedBosses', icon: "/assets/img/icons/enemy-named.png",       name: "Named Bosses" },
+            { enabled: true, markerType: 'Checkpoints',     icon: "/assets/img/icons/checkpoint.png",       name: "Checkpoints" },
+            { enabled: true, markerType: 'DZEntrances',     icon: "/assets/img/icons/dz-enterance.png",     name: "DZ Entrances" },
+            { enabled: true, markerType: 'SafeHouses',      icon: "/assets/img/icons/saferoom.png",         name: "Safe Houses" },
+            { enabled: true, markerType: 'Extractions',     icon: "/assets/img/icons/extraction.png",       name: "Extractions" },
+            { enabled: true, markerType: 'Landmarks',       icon: "/assets/img/icons/landmark-off.png",     name: "Landmarks" },
+            { enabled: true, markerType: 'SubwayEntrances', icon: "/assets/img/icons/subway.png",           name: "Subway Entrances"},
+        //  { enabled: true, markerType: 'Containment',     icon: "/assets/img/icons/containment-zone.png", name: "Containment Zone" },
+            { enabled: true, markerType: 'DivisionTech',    icon: "/assets/img/icons/division-tech.png",    name: "Division Tech" },
+            { enabled: true, markerType: "DarkzoneChests",  icon: "/assets/img/icons/darkzone-chest.png",   name: "Darkzone Chests"},
+            { enabled: true, markerType: 'NamedBosses',     icon: "/assets/img/icons/enemy-named.png",      name: "Named Bosses" },
         ];
 
         vm.toggleFilter = function(filter){

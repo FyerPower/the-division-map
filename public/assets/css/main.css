@@ -1,11 +1,20 @@
 body {
     /* for fixed header*/
     padding-top: 50px;
-    padding-bottom: 20px;
     font-family: 'Titillium Web', sans-serif;
     font-weight: 300;
     font-size: 16px;
 }
+
+h4 {
+    font-weight: 300;
+    font-size: 20px;
+}
+h5 {
+    font-weight: 300;
+    font-size: 16px;
+}
+
 
 /* Map */
 
@@ -82,8 +91,6 @@ body {
 
 
 #map-sidebar h4 {
-    font-weight: 300;
-    font-size: 20px;
     margin-top: 0px;
     color: orange;
 }
@@ -92,8 +99,6 @@ body {
     padding-top: 5px;
 }
 #map-sidebar h5 {
-    font-weight: 300;
-    font-size: 16px;
     color: orange;
 }
 
@@ -291,7 +296,32 @@ body {
     border-radius: 0px;
     padding: 4px 24px;
     font-size: 16px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
+
+.btn-div-primary {
+    color: white;
+    background-color: #898989;
+    text-transform: uppercase;
+    border-radius: 0px;
+    padding: 4px 24px;
+    font-size: 16px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.btn-div-primary.active {
+    border-bottom: 2px orange solid;
+}
+
 
 /* Other */
 
@@ -300,19 +330,141 @@ body {
     padding-bottom: 18px;
 }
 
-/*.jumbotron.home-page-cover {
-    background: url(/assets/img/division-cover.jpg) no-repeat center center;
-    text-shadow: 0px 0px 5px rgba(255, 255, 255, 1);
+
+.jumbotron.header-cover {
 }
 
-.jumbotron.home-page-cover .container{
-    padding-left: 24%;
-}*/
+#page-talents .header-cover, #page-news .header-cover {
+    background: url(/assets/img/division-cover.jpg) no-repeat center center;
+    text-shadow: 0px 0px 8px rgba(0, 0, 0, 1);
+    color: #fff;
+    border-bottom: 2px solid rgba(100,100,100,1);
+}
 
-.blog-footer {
-    padding: 40px 0;
+.blog-snippet {
+    border-bottom: 1px solid #ccc;
+}
+.blog-snippet--title {
+    font-weight: bold;
+}
+.blog-snippet--meta {
+    font-style: italic;
+    color: #666;
+}
+.blog-snippet--content {
+    padding: 15px;
+}
+
+#footer {
+    margin-top: 20px;
+    padding: 30px 0;
     color: #999;
     text-align: center;
     background-color: #f9f9f9;
     border-top: 1px solid #e5e5e5;
+}
+
+
+/*  */
+
+.menu-box {
+    position: relative;
+    background: url(/assets/img/highlight-blur-bg.jpg);
+    padding: 20px;
+    color: white;
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+.menu-box::before {
+    display: block;
+    height: 4px;
+    width: 100%;
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    border-left: 4px solid rgba(255,255,255,0.7);
+    border-right: 4px solid rgba(255,255,255,0.7);
+}
+.menu-box::after {
+    display: block;
+    height: 4px;
+    width: 100%;
+    position: absolute;
+    content: "";
+    bottom: 0;
+    left: 0;
+    border-left: 4px solid rgba(255,255,255,0.7);
+    border-right: 4px solid rgba(255,255,255,0.7);
+}
+.menu-box div + div{
+    margin-top: 4px;
+}
+.menu-box span {
+    display: inline-block;
+}
+.menu-box--type {
+    color: #F4B959;
+    padding-right: 15px;
+    margin-right: 15px;
+    border-right: 1px solid rgba(255,255,255,0.4);
+}
+.menu-box--stat {
+    margin-left: 15px;
+    font-size: 18px;
+}
+.menu-box--stat span:first-child {
+    color: #F4B959;
+}
+.menu-box--footnote {
+    font-size: 14px;
+    text-align: center;
+    padding-top: 10px;
+    color: rgba(255,255,255,0.8);
+}
+
+@media (min-width: 992px) {
+    .menu-box-height .menu-box {
+        min-height: 136px;
+    }
+}
+
+#page-talents {
+    min-height: 800px;
+}
+.btn-gear-icon {
+    padding: 10px;
+    margin: 0 2px 4px 2px;
+}
+.gear-icon {
+    width: 64px;
+    height: 64px;
+    background-image: url(/assets/img/gear-icons.png);
+    background-repeat: no-repeat;
+    display: block;
+}
+.gear-icon-weapon { background-position: 0 0; }
+.gear-icon-chest { background-position: 0 -64px; }
+.gear-icon-mask { background-position: 0 -128px; }
+.gear-icon-kneepads { background-position: 0 -192px; }
+.gear-icon-backpack { background-position: 0 -256px; }
+.gear-icon-gloves { background-position: 0 -320px; }
+.gear-icon-holster { background-position: 0 -384px; }
+
+@media (max-width: 700px) {
+    .gear-icon {
+        zoom: .5;
+    }
+}
+
+#page-talents .empty-message {
+    min-height: 700px;
+    padding-top: 200px;
+}
+
+.empty-message {
+    text-align: center;
+    font-size: 36px;
+    font-weight: bold;
+    color: rgba(0,0,0,0.3);
 }

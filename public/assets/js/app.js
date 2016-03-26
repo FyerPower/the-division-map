@@ -5,6 +5,7 @@
     angular.module('theDivisionAgent', [
         'ui.router',
         'ui.bootstrap',
+        'ngAnimate',
         'angular-clipboard',
         'angular-google-gapi',
         'angulartics',
@@ -25,6 +26,19 @@
                 .state('home', {
                     url: '/home',
                     templateUrl: '/assets/js/components/home/home.html'
+                })
+                .state('news', {
+                    url: '/news',
+                    templateUrl: '/assets/js/components/news/news.html'
+                })
+                .state('talents', {
+                    url: '/talents?slot',
+                    templateUrl: '/assets/js/components/talents/talents.html',
+                    controller: 'TalentsController',
+                    controllerAs: 'vm',
+                    params: {
+                        slot: { value: '', squash: true },
+                    }
                 });
         });
 

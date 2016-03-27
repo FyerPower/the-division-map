@@ -432,7 +432,7 @@
 // ||  Stojacovich    ||                 ||            ||
 // ||  Sgt. Thompson  ||  Heavy Weapons  ||  LMB       ||
 // ||  Shadow         ||  Special        ||  LMB       ||
-// ||  Short Fuse     ||  Leader         ||  Riker     ||
-// ||  Torch          ||  Thrower        ||  Riker     || Spec-ops gloves
+// ||  Short Fuse     ||  Leader         ||  Riker     || Prototype Performance Mod
+// ||  Torch          ||  Thrower        ||  Riker     || Spec-ops gloves/ Prototype Performance Mod
 // ||  Zeke           ||  Tank           ||  Riker     ||
 // ||===========================================================================||

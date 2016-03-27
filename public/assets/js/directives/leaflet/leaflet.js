@@ -372,7 +372,7 @@
                         ]},
                         { type: "NamedBosses", locations: [
                             { id: 150,  lat: 17.5,    long: 19,     label: "<b>Named Bosses:</b><br/>Boomerang<br/>Hawkeye"}, // W 43rd St parking
-                            { id: 151,  lat: -11.5,   long: 30.5,   label: "<b>Named Bosses:</b><br/>Short Fuse"}, // Refueling Station
+                            { id: 151,  lat: -11.5,   long: 30.5,   label: "<b>Named Bosses:</b><br/>Short Fuse<br/>Animal"}, // Refueling Station
                             { id: 152,  lat: -12.8,   long: -4,     label: "<b>Named Bosses:</b><br/>Animal<br/>Torch"}, // Bryant Park
                             { id: 153,  lat: -6,      long: 11,     label: "<b>(Subway) Named Bosses:</b><br/>McGrady<br/>Hundly<br/>O'Rourke"}, // Public Library Station (Subway)
                             { id: 154,  lat: 62.3,    long: -70.3,  label: "<b>Named Bosses:</b><br/>Hardaway<br/>McGrady<br/>Claxton<br/>Draxler<br/>O'Rourke<br/>Hundly"}, // Containment zone next to DZ06 West Entrance
@@ -391,7 +391,7 @@
                             { id: 167,  lat: 62.3,    long: -23,    label: "<b>Named Bosses:</b><br/>Shadow<br/>Cpt.Bryant<br/>Gambit"}, // Mid Town Music
                             { id: 168,  lat: 72.15,   long: -59.3,  label: "<b>(Subway) Named Bosses:</b><br/>Greenberg<br/>Coveleski"}, // 7th Ave Station (Subway)
                             { id: 169,  lat: 70.0,    long: 0,      label: "<b>Named Bosses:</b><br/>Coveleski<br/>Mazeroski"}, // Q Building
-                            { id: 170,  lat: 45,      long: -28.2,  label: "<b>(Subway) Named Bosses:</b><br/>Barkley"}, // 47-50th St Rockefeller Center station (Subway)
+                            { id: 170,  lat: 45,      long: -28.2,  label: "<b>(Subway) Named Bosses:</b><br/>Barkley<br/>O'Rourke"}, // 47-50th St Rockefeller Center station (Subway)
                         ]}
                     ];
                 }
@@ -404,7 +404,7 @@
 // ||===========================================================================||
 // ||  [Boss Name]    || [Archtype]      || [Faction]  || [Confirmed HE Drops]  ||
 // ||===========================================================================||
-// ||  Animal         ||  Tank           ||  Riker     || Midas
+// ||  Animal         ||  Tank           ||  Riker     || Midas/ Gloves/ Strike pack/ Advanced Stamina Mod
 // ||  Barkley        ||  Controller     ||  Cleaner   ||
 // ||  Baz            ||  Leader         ||  Riker     || Socom M1A
 // ||  Bonnie         ||  Special        ||  Rioter    ||
@@ -424,7 +424,7 @@
 // ||  Hardaway       ||  Tank           ||  Cleaner   ||
 // ||  Hawkeye        ||  Sniper         ||  Riker     || Midas
 // ||  Hot Rod        ||  Thrower        ||  Riker     || Magazine
-// ||  Hundly         ||  Sniper         ||  Cleaner   || M1911
+// ||  Hundly         ||  Sniper         ||  Cleaner   || M1911/ Spec-ops pads/ Operator pads/ Prototype Performance Mod
 // ||  Mazeroski      ||  Tank           ||  Cleaner   ||
 // ||  McGrady        ||                 ||            ||
 // ||  O'Rourke       ||  Tank           ||  Cleaner   ||
@@ -433,6 +433,6 @@
 // ||  Sgt. Thompson  ||  Heavy Weapons  ||  LMB       ||
 // ||  Shadow         ||  Special        ||  LMB       ||
 // ||  Short Fuse     ||  Leader         ||  Riker     ||
-// ||  Torch          ||  Thrower        ||  Riker     ||
+// ||  Torch          ||  Thrower        ||  Riker     || Spec-ops gloves
 // ||  Zeke           ||  Tank           ||  Riker     ||
 // ||===========================================================================||

@@ -1,7 +1,7 @@
 <div id="map-container" ng-class="{'map-pathing':vm.pathing}" ng-cloak>
     <div id="map-sidebar" ng-class="{collapsed: vm.menuCollapsed}">
         <div id="map-sidebar-content" ng-show="!vm.menuCollapsed || vm.initialized">
-            <div class="sidebar-component">
+            <div class="sidebar-component" ng-show="vm.tab == 'filters'">
                 <h4>Map Filters</h4>
                 <div class="filter-item" ng-repeat="filter in vm.filters" ng-click="vm.toggleFilter(filter)" ng-class="{'disabled': !filter.enabled}">
                     <img ng-src="{{filter.icon}}"/>
@@ -9,18 +9,35 @@
                 </div>
                 <br><a class="block-link" style="display:block;" ng-click="vm.toggleAllFilters()">Hide / Show All Filters</a>
             </div>
+            <div class="sidebar-component" ng-show="vm.tab == 'filters'">
+                <h4>Marker Size</h4>
+                <rzslider rz-slider-model="slider.value" rz-slider-options="slider.options"></rzslider>
+            </div>
 
-            <div class="sidebar-component">
+            <div class="sidebar-component" ng-show="vm.tab == 'paths'">
                 <h4>Custom Map Paths</h4>
-                <div class="input-group" ng-show="vm.shareableUrl">
-                    <input class="form-control" type="text" name="sharableUrl" ng-model="vm.shareableUrl">
-                    <span class="input-group-btn">
-                        <button clipboard text="vm.shareableUrl" class="btn btn-secondary" type="button">Copy</button>
-                    </span>
+                <div class="text-center" ng-show="!vm.pathing && !vm.shareableUrl">
+                    <p>Create the custom routes / paths that you like taking and share them with your friends and the community.</p>
+                    <p>Click the Start button below to begin making your own personal route now!</p>
                 </div>
-                <a class="block-link" style="display:block;" ng-click="vm.endPathing()" ng-show="vm.pathing">Finish Making Path</a>
-                <a class="block-link" style="display:block;" ng-click="vm.beginPathing()" ng-show="!vm.pathing && !vm.shareableUrl">Create & Share Path</a>
-                <a class="block-link" style="display:block;" ng-click="vm.beginPathing()" ng-show="!vm.pathing && vm.shareableUrl">Create Another Path</a>
+                <div class="text-center" ng-show="vm.pathing">
+                    <p>You can now start clicking anywhere on the map to make paths.  If you mess up and want to undo, simply click the undo button below.</p>
+                    <a class="block-link" ng-click="vm.undoLastPath()"><i class="fa fa-undo"></i> Undo</a><br/><br/>
+                </div>
+                <div ng-show="!vm.pathing && vm.shareableUrl">
+                    <p>You've successfully created a custom path! Copy and share the link below.</p>
+                    <div class="input-group">
+                        <input class="form-control" type="text" name="sharableUrl" ng-model="vm.shareableUrl">
+                        <span class="input-group-btn">
+                            <button clipboard text="vm.shareableUrl" class="btn btn-secondary" type="button">Copy</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="clearfix">
+                    <a class="block-link" style="display:block;" ng-click="vm.endPathing()" ng-show="vm.pathing">Finish Making Path</a>
+                    <a class="block-link" style="display:block;" ng-click="vm.beginPathing()" ng-show="!vm.pathing && !vm.shareableUrl">Create & Share Path</a>
+                    <a class="block-link" style="display:block;" ng-click="vm.beginPathing()" ng-show="!vm.pathing && vm.shareableUrl">Create Another Path</a>
+                </div>
             </div>
 
             <div class="sidebar-component">
@@ -35,7 +52,9 @@
         <div id="map-sidebar-buttons" ng-class="{'map-sidebar-force-right': (vm.menuCollapsed && !vm.initialized)}">
             <div class="btn-group-vertical">
                 <a class="btn btn-default" tda-popover="Collapse / Expand Menu" popover-position="left" ng-click="vm.toggleMenu();"><i class="fa fa-bars"></i></a>
-                <a class="btn btn-default" tda-popover="Coming Soon" popover-position="left"><i class="fa fa-search"></i></a>
+                <a class="btn btn-default" ng-class="{'btn-primary': vm.tab == 'filters'}" tda-popover="Manage Map Markers" popover-position="left" ng-click="vm.showTab('filters');"><i class="fa fa-map"></i></a>
+                <!-- <a class="btn btn-default" ng-class="{'btn-primary': vm.tab == 'paths'}" tda-popover="Create & Share Custom Paths" popover-position="left" ng-click="vm.showTab('paths');"><i class="fa fa-road"></i></a> -->
+                <a class="btn btn-default" ng-class="{'btn-primary': vm.tab == 'paths'}" tda-popover="Create & Share Custom Paths" popover-position="left" ng-click="vm.showTab('paths');"><i class="tda-icon tda-path"></i></a>
             </div>
             <div class="btn-group-vertical" ng-show="vm.fullscreenEnabled">
                 <a class="btn btn-default" tda-popover="Toggle Fullscreen" popover-position="left" ng-click="vm.toggleFullscreen();">

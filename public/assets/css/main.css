@@ -55,7 +55,7 @@ h5 {
     height: 100%;
     width: 300px;
     transition: all 500ms;
-    pointer-events: auto;
+    pointer-events: none;
     overflow-x: hidden;
     overflow-y: auto;
 }
@@ -101,6 +101,12 @@ h5 {
 #map-sidebar h5 {
     color: orange;
 }
+#map-sidebar p {
+    color: #ccc;
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 10px;
+}
 
 #map-sidebar .filter-item {
     line-height: 24px;
@@ -129,6 +135,7 @@ h5 {
     border-bottom: 2px #6ec449 solid;
     border-left: 2px #555 solid;
     background-color: rgba(60,60,60,0.9);
+    pointer-events: auto;
 }
 #map-sidebar .sidebar-component:last-of-type {
     margin-bottom: 0px;
@@ -422,6 +429,10 @@ h5 {
     padding-top: 10px;
     color: rgba(255,255,255,0.8);
 }
+.menu-box--sidenote {
+    font-size: 14px;
+    color: rgba(255,255,255,0.8);
+}
 
 @media (min-width: 992px) {
     .menu-box-height .menu-box {
@@ -468,3 +479,29 @@ h5 {
     font-weight: bold;
     color: rgba(0,0,0,0.3);
 }
+
+
+/* Slider Customizations */
+rzslider .rz-pointer{
+    background-color: orange;
+}
+rzslider .rz-pointer.rz-active:after{
+    background-color: white;
+}
+rzslider .rz-ticks .rz-tick .rz-tick-value {
+    top: -35px;
+    color: #ccc;
+}
+
+
+/* Icon */
+#map-sidebar-buttons .tda-icon { margin: 2px 0 2px -2px; }
+.tda-icon {
+    width: 16px;
+    height: 16px;
+    background-image: url(/assets/img/division-icons.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    display: block;
+}
+.tda-icon.tda-path { background-position: 0 0; }

@@ -9,7 +9,9 @@
         'angular-clipboard',
         'angular-google-gapi',
         'angulartics',
-        'angulartics.google.analytics'
+        'angulartics.google.analytics',
+        'rzModule',
+        'LocalStorageModule'
     ]);
 
     angular.module('theDivisionAgent')

@@ -4,8 +4,8 @@
     angular.module('theDivisionAgent')
         .directive('leaflet', MapDirective);
 
-    MapDirective.$inject = ['$rootScope', '$stateParams'];
-    function MapDirective($rootScope, $stateParams){
+    MapDirective.$inject = ['$rootScope', '$stateParams', 'localStorageService'];
+    function MapDirective($rootScope, $stateParams, localStorageService){
         return {
             restrict: 'E',
             replace: true,
@@ -14,11 +14,11 @@
                 var DEBUG_MODE = false || $stateParams.debug;
                 var MAX_ZOOM = 4;
                 var MIN_ZOOM = 2;
-                var STARTING_LAT = -60;
-                var STARTING_LNG = 40;
                 var ICON_SIZE = 32;
-                var current_zoom = 3;
-                var icon_scale = 1;
+                var STARTING_LAT = localStorageService.get('map-last-lat') || -60;
+                var STARTING_LNG = localStorageService.get('map-last-lng') || 40;
+                var current_zoom = localStorageService.get('map-zoom') || 3;
+                var icon_scale = localStorageService.get('map-icon-scale') || 1;
                 var Icons = {};
                 var Markers = {};
 
@@ -45,26 +45,28 @@
 
                 // Loop over all our markers and place them on the map
                 _.each(Markers, function(marker){
-                    var icon = _.get(Icons, marker.type);
-                    _.each(marker.locations, function(loc){
-                        loc.marker = L.marker([loc.lat, loc.long], {icon: icon});
-                        if(DEBUG_MODE) {
-                            loc.label = "("+loc.id+"): "+loc.label;
-                        }
-                        if(loc.label !== "") {
-                            loc.marker.bindPopup(loc.label);
-                            loc.marker.on('mouseover', function (e) {
-                                this.openPopup();
+                    if( localStorageService.get('map-filter-'+marker.type.toLowerCase()) != false ) {
+                        var icon = _.get(Icons, marker.type);
+                        _.each(marker.locations, function(loc){
+                            loc.marker = L.marker([loc.lat, loc.long], {icon: icon});
+                            if(DEBUG_MODE) {
+                                loc.label = "("+loc.id+"): "+loc.label;
+                            }
+                            if(loc.label !== "") {
+                                loc.marker.bindPopup(loc.label);
+                                loc.marker.on('mouseover', function (e) {
+                                    this.openPopup();
+                                });
+                                loc.marker.on('mouseout', function (e) {
+                                    this.closePopup();
+                                });
+                            }
+                            loc.marker.on('click', function(e){
+                                mapPointClicked(e);
                             });
-                            loc.marker.on('mouseout', function (e) {
-                                this.closePopup();
-                            });
-                        }
-                        loc.marker.on('click', function(e){
-                            mapPointClicked(e);
+                            loc.marker.addTo(theDivisionMap);
                         });
-                        loc.marker.addTo(theDivisionMap);
-                    });
+                    }
                 });
 
                 //
@@ -97,6 +99,15 @@
                         pathArray = [];
                         pathPolygons = [];
                     }
+                });
+
+                scope.$on('map-pathing-undo', function(){
+                    pathArray.pop();
+                    $rootScope.$broadcast('map-pathing-update', pathArray);
+
+                    var lastPolygon = pathPolygons[pathPolygons.length - 1];
+                    theDivisionMap.removeLayer(lastPolygon);
+                    pathPolygons.pop();
                 });
 
                 // attaching function on map click
@@ -161,13 +172,31 @@
 
                 theDivisionMap.on('zoomend', function(e){
                     current_zoom = e.target._zoom;
+                    localStorageService.set('map-zoom', current_zoom);
                     $rootScope.$broadcast('map-zoom-changed', current_zoom === MIN_ZOOM, current_zoom === MAX_ZOOM);
                 });
 
+                theDivisionMap.on('moveend', function(e){
+                    var center = theDivisionMap.getCenter();
+                    localStorageService.set('map-last-lat', center.lat);
+                    localStorageService.set('map-last-lng', center.lng);
+                });
 
+                //
+                // Icon Size Change
+                //
 
-
-
+                scope.$on('map-marker-size', function(e, scale){
+                    icon_scale = scale;
+                    localStorageService.set('map-icon-scale', icon_scale);
+                    buildIcons();
+                    _.each(Markers, function(marker){
+                        var icon = _.get(Icons, marker.type);
+                        _.each(marker.locations, function(loc){
+                            loc.marker.setIcon(icon);
+                        });
+                    });
+                });
 
 
                 //
@@ -283,7 +312,7 @@
                             { id: 66,   lat: 15.3,    long: -57,    label: ""},
                             { id: 67,   lat: 9.5,     long: 53.6,   label: ""},
                             { id: 68,   lat: 6.5,     long: 53.6,   label: ""},
-                            { id: 69,   lat: 13.5,    long: 68.6,   label: ""},
+                            { id: 69,   lat: 13.5,    long: 68.6,   label: "End of street, south side."},
                             { id: 70,   lat: 19.6,    long: 16,     label: "By the truck in the middle"},
                             { id: 71,   lat: 29.5,    long: 28,     label: ""},
                             { id: 72,   lat: 31,      long: 29,     label: ""},
@@ -307,7 +336,7 @@
                             { id: 90,   lat: 50.5,    long: -31.1,  label: ""},
                             { id: 91,   lat: 55,      long: 3.8,    label: ""},
                             { id: 92,   lat: 59.2,    long: 20.3,   label: "Top of Stairs"}, // Near The Pit
-                            { id: 93,   lat: -13.6,   long: 79.4,   label: ""},
+                            { id: 93,   lat: -13.6,   long: 79.4,   label: "Middle of street inside the fencing"},
                             { id: 94,   lat: 70,      long: -7,     label: ""},
                             { id: 95,   lat: 70,      long: -25.3,  label: ""},
                             { id: 96,   lat: 70,      long: -29.4,  label: ""},

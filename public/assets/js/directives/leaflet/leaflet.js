@@ -11,6 +11,8 @@
             replace: true,
             template: '<div></div>',
             link: function(scope, elem, attrs){
+                fixUserLastCenter(); // if the users last location was far out of bounds, reset to edge of map
+
                 var DEBUG_MODE = false || $stateParams.debug;
                 var MAX_ZOOM = 4;
                 var MIN_ZOOM = 2;
@@ -23,7 +25,11 @@
                 var Markers = {};
 
                 // Create Map
-                var theDivisionMap = L.map(attrs.id, { center: [STARTING_LAT, STARTING_LNG], zoom: current_zoom, zoomControl: false }); // Default
+                var theDivisionMap = L.map(attrs.id, {
+                    center: [STARTING_LAT, STARTING_LNG],
+                    zoom: current_zoom,
+                    zoomControl: false,
+                }); // Default
 
                 // Add Mouse Position to bottom left of map
                 L.control.mousePosition().addTo(theDivisionMap);
@@ -201,6 +207,18 @@
                     });
                 });
 
+                function fixUserLastCenter(){
+                    var lat = localStorageService.get('map-last-lat') || -60;
+                    var lng = localStorageService.get('map-last-lng') || 40;
+                    if(lat < -90)
+                        localStorageService.set('map-last-lat', -70);
+                    if(lat > 90)
+                        localStorageService.set('map-last-lat', 70);
+                    if(lng < -180)
+                        localStorageService.set('map-last-lng', -140);
+                    if(lng > 180)
+                        localStorageService.set('map-last-lng', 140);
+                }
 
                 //
                 // Special Icons

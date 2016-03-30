@@ -45,28 +45,28 @@
 
                 // Loop over all our markers and place them on the map
                 _.each(Markers, function(marker){
-                    if( localStorageService.get('map-filter-'+marker.type.toLowerCase()) != false ) {
-                        var icon = _.get(Icons, marker.type);
-                        _.each(marker.locations, function(loc){
-                            loc.marker = L.marker([loc.lat, loc.long], {icon: icon});
-                            if(DEBUG_MODE) {
-                                loc.label = "("+loc.id+"): "+loc.label;
-                            }
-                            if(loc.label !== "") {
-                                loc.marker.bindPopup(loc.label);
-                                loc.marker.on('mouseover', function (e) {
-                                    this.openPopup();
-                                });
-                                loc.marker.on('mouseout', function (e) {
-                                    this.closePopup();
-                                });
-                            }
-                            loc.marker.on('click', function(e){
-                                mapPointClicked(e);
+                    var icon = _.get(Icons, marker.type);
+                    _.each(marker.locations, function(loc){
+                        loc.marker = L.marker([loc.lat, loc.long], {icon: icon});
+                        if(DEBUG_MODE) {
+                            loc.label = "("+loc.id+"): "+loc.label;
+                        }
+                        if(loc.label !== "") {
+                            loc.marker.bindPopup(loc.label);
+                            loc.marker.on('mouseover', function (e) {
+                                this.openPopup();
                             });
-                            loc.marker.addTo(theDivisionMap);
+                            loc.marker.on('mouseout', function (e) {
+                                this.closePopup();
+                            });
+                        }
+                        loc.marker.on('click', function(e){
+                            mapPointClicked(e);
                         });
-                    }
+                        if( localStorageService.get('map-filter-'+marker.type.toLowerCase()) !== false ) {
+                            loc.marker.addTo(theDivisionMap);
+                        }
+                    });
                 });
 
                 //
@@ -192,8 +192,11 @@
                     buildIcons();
                     _.each(Markers, function(marker){
                         var icon = _.get(Icons, marker.type);
+                        console.log("marker type", marker.type);
                         _.each(marker.locations, function(loc){
-                            loc.marker.setIcon(icon);
+                            if(loc.marker) {
+                                loc.marker.setIcon(icon);
+                            }
                         });
                     });
                 });

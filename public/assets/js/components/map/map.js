@@ -28,7 +28,7 @@
         ];
 
         function filterEnabled(key){
-            return localStorageService.get('map-filter-'+key.toLowerCase()) != false;
+            return localStorageService.get('map-filter-'+key.toLowerCase()) !== false;
         }
 
         vm.toggleFilter = function(filter){

@@ -11,17 +11,16 @@ Welcome to The Division Agent.  I've created this site for the sole purpose of p
 * Fullscreen option on map
 * Equipment Attribute Information
 * Clean interface
-
-#### Upcoming Features
 * Undo functionality when adding custom paths
 * Scale Markers on Map
 * Remember user map preferences
+
+#### Upcoming Features
 * Search feature to search all markers
 * Add image preview of locations on hover
 * Add boss profiles (Name, Faction, Archetype, Image, Known Drops)
 * Improved Map Graphics
 * Underground / Subway Maps
-* Hide markers
 * Other Pages
 
 

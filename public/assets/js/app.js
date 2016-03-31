@@ -30,8 +30,10 @@
                     templateUrl: '/assets/js/components/home/home.html'
                 })
                 .state('news', {
-                    url: '/news',
-                    templateUrl: '/assets/js/components/news/news.html'
+                    url: '/news/{slug}',
+                    templateUrl: function (stateParams){
+                        return '/assets/js/components/news/news-' + stateParams.slug + '.html';
+                    }
                 })
                 .state('equipment', {
                     url: '/equipment?slot',

@@ -351,6 +351,9 @@ h5 {
 .blog-snippet {
     border-bottom: 1px solid #ccc;
 }
+.blog-snippet + .blog-snippet {
+    margin-top: 15px;
+}
 .blog-snippet--title {
     font-weight: bold;
 }

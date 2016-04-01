@@ -215,7 +215,6 @@
                 },
                 "Talents": [
                     { name: "Savage",         description: "Your critical hit chance is increased by 13% against targets out of cover" },
-                    { name: "Reckless",       description: "You deal 12.5% more damage and receive 10% more damage" },
                     { name: "Cunning",        description: "After reloading, your next shot with this weapon has a 9.5% higher critical hit chance" },
                     { name: "Decisive",       description: "Headshots with your sidearm deal 25% more damage" },
                     { name: "Astute",         description: "The first three bullets of your magazine have a 9.5% higher chance to do a critical hit" },

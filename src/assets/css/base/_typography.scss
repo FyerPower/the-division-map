@@ -1,0 +1,38 @@
+h1, h2 {
+    font-weight: 300;
+    font-size: 1.75rem;
+}
+h3 {
+    font-weight: 300;
+    font-size: 1.5rem;
+}
+h4 {
+    font-weight: 300;
+    font-size: 1.25rem;
+}
+h5 {
+    font-weight: 300;
+    font-size: 1rem;
+}
+
+.divided-header {
+    padding: 3px 12px;
+    background-color: $orange;
+    color: white;
+    display: inline-block;
+    margin: 10px 0 10px -15px;
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.2);
+    h2 { margin: 0px; padding: 0px; }
+}
+
+.text-footnote { color: #666; font-style: italic; }
+
+.fa {
+    line-height: 1.2rem;
+}
+
+a:link { text-decoration: none; color: $division-orange; -moz-outline-style: none; font-weight: bold;}
+a:active { text-decoration: underline; color: $division-orange; -moz-outline-style: none;}
+a:visited { text-decoration: none; color: $division-orange; -moz-outline-style: none;}
+a:hover { text-decoration: underline; color: lighten($division-orange, 20%); -moz-outline-style: none;}
+a:focus { outline: none;-moz-outline-style: none;}

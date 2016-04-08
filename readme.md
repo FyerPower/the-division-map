@@ -32,7 +32,9 @@ If you notice anything missing or have any improvements please create a pull req
 How do I contribute code changes?
 --------------------------------------
 
-Fork & Pull Request.
+`npm install`: Install all dev dependencies (livereload, sass, minification, etc)
+`gulp`: run gulp build processes and then starts to watch for changes.
+
 
 Credits & Licence
 --------------------------------------

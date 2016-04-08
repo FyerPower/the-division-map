@@ -1,0 +1,297 @@
+// CSS Architecture follows these guidelines:
+// http://sass-guidelin.es/#the-7-1-pattern
+// https://scotch.io/tutorials/aesthetic-sass-1-architecture-and-style-organization
+
+@import
+    "abstracts/variables",
+    "abstracts/functions",
+    "abstracts/mixins";
+
+@import
+    "base/typography",
+    "base/buttons";
+
+@import
+    "pages/map",
+    "pages/talents";
+
+@import "modal";
+
+
+
+
+
+
+html {
+    font-size: 16px;
+}
+body {
+    /* for fixed header*/
+    padding-top: 68px;
+    font-family: 'Titillium Web', sans-serif;
+    font-weight: 300;
+
+    background: #000000;
+    background-image: url(/img/background.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: top center;
+}
+
+
+
+.container {
+    background-color: rgba(20, 20, 20, .9);
+    color: #ddd;
+}
+
+
+#footer {
+    margin: 20px -15px 0 -15px;
+    padding: 30px 0;
+    color: #999;
+    text-align: center;
+    background-color: rgba(0,0,0,0.2);
+    border-top: 1px solid #e5e5e5;
+}
+
+.jumbotron {
+    padding: 0px;
+    margin: 0px;
+    background-color: transparent;
+    text-align: center;
+    color:white;
+    h1 {
+        @extend h1;
+        font-weight: bold;
+        margin-bottom: 0.3rem;
+    }
+    .metatext {
+        color: #777;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        margin-bottom: 1rem;
+    }
+}
+
+/* Header */
+
+.navbar {
+    background-color: #444444;
+    border: 0px;
+    min-height: 68px;
+}
+
+.navbar-toggle {
+    margin-top: 17px;
+}
+
+.navbar-fixed-top {
+    z-index: 3000;
+}
+
+.navbar-right {
+    margin-right: 0px;
+}
+
+.navbar .navbar-brand {
+    height: auto;
+    padding: 0 0 0 15px;
+}
+.navbar .navbar-brand img {
+    width: 250px;
+    height: 68px;
+}
+
+.navbar .navbar-nav>li>a {
+    font-weight: 500;
+    color: #fff;
+}
+
+@media (min-width: 768px) {
+    a.block-link, .navbar .navbar-nav > li > a.block-link {
+        background: rgba(255,255,255,0.2);
+        text-align: center;
+        padding: 4px 20px;
+        border-bottom: 2px transparent solid;
+        color: #fff;
+        text-decoration: none;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    a.block-link:hover, .navbar .navbar-nav > li > a.block-link:hover {
+        background: rgba(255,255,255,0.4);
+        cursor: pointer;
+    }
+    .navbar .navbar-nav > li > a.block-link {
+        margin-top: 19px;
+        margin-right: 10px;
+        width: 110px;
+    }
+    a.block-link.active, .navbar .navbar-nav > li > a.block-link.active {
+        border-bottom: 2px $division-orange solid;
+    }
+}
+
+
+
+
+.media {
+    border-bottom: 1px solid #333;
+    padding-bottom: 15px;
+    &:last-of-type {
+        border-bottom: none;
+    }
+    & + .blog-snippet {
+        margin-top: 15px;
+    }
+
+    &-heading {
+        font-weight: bold;
+        font-size: 1.2rem;
+        margin-bottom: 0px;
+    }
+
+    &-meta {
+        color: #666;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        margin-bottom: 0.6rem;
+    }
+
+    .img-thumbnail {
+        background-color: rgba(255,255,255,.1);
+        border: 1px solid #000;
+        border-radius: 0px;
+        padding: 8px;
+        width: 200px;
+        height: 200px;
+        transition: all 100ms;
+
+        &:hover {
+            background-color: transparentize($division-orange, .4);
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .media .img-thumbnail {
+        width: 120px;
+        height: 120px;
+    }
+}
+
+.list-group {
+    &-item {
+        border: none;
+        background-color: transparent;
+        padding: 0 0 20px;
+        div {
+            padding-bottom: 3px;
+        }
+        span {
+            margin-right: 10px;
+        }
+        &:last-child {
+            padding-bottom: 0px;
+        }
+    }
+}
+
+.label.label-division {
+    background-color: rgba(255, 255, 255, 0.25);
+    border-radius: 0px;
+    padding: .1rem .4rem;
+}
+
+
+/*  */
+
+.menu-box {
+    position: relative;
+    background-color: rgba(255,255,255,0.25);
+    padding: 1.25rem;
+    color: white;
+    margin-bottom: 15px;
+    font-size: 1.25rem;
+}
+.menu-box::before {
+    display: block;
+    height: 4px;
+    width: 100%;
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    border-left: 4px solid rgba(255,255,255,0.6);
+    border-right: 4px solid rgba(255,255,255,0.6);
+}
+.menu-box::after {
+    display: block;
+    height: 4px;
+    width: 100%;
+    position: absolute;
+    content: "";
+    bottom: 0;
+    left: 0;
+    border-left: 4px solid rgba(255,255,255,0.6);
+    border-right: 4px solid rgba(255,255,255,0.6);
+}
+.menu-box div + div{
+    margin-top: 4px;
+}
+.menu-box span {
+    display: inline-block;
+}
+.menu-box--type {
+    color: $division-orange;
+    padding-right: 15px;
+    margin-right: 15px;
+    border-right: 1px solid rgba(255,255,255,0.4);
+}
+.menu-box--stat {
+    margin-left: 15px;
+    font-size: 18px;
+}
+.menu-box--stat span:first-child {
+    color: $division-orange;
+}
+.menu-box--footnote {
+    font-size: 14px;
+    text-align: center;
+    padding-top: 10px;
+    color: rgba(255,255,255,0.8);
+}
+.menu-box--sidenote {
+    font-size: 14px;
+    color: rgba(255,255,255,0.8);
+}
+
+@media (min-width: 992px) {
+    .menu-box-height .menu-box {
+        min-height: 136px;
+    }
+}
+
+
+
+// ================================ //
+// TDA ICONS                        //
+// ================================ //
+
+.tda-icon {
+    width: 16px;
+    height: 16px;
+    background-image: url(/img/division-icons.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    display: inline-block;
+    margin: 0 0 -2px 0;
+}
+.tda-icon.tda-path { background-position: 0 0; }
+.tda-icon.tda-fire { background-position: 0 -16px; }
+#map-sidebar-buttons .tda-icon { margin: 2px 0 2px -2px; }

@@ -1,0 +1,44 @@
+#page-talents {
+    min-height: 800px;
+}
+.btn-gear-icon {
+    padding: 10px;
+    margin: 0 2px 4px 2px;
+    width: 86px;
+    height: 86px;
+    &:hover {
+        .gear-icon {
+            margin-top: -5px;
+        }
+    }
+}
+.gear-icon {
+    width: 64px;
+    height: 64px;
+    background-image: url(/img/gear-icons.png);
+    background-repeat: no-repeat;
+    display: block;
+    transition: all 200ms;
+}
+.gear-icon-weapon   { background-position: 0 0;      }
+.gear-icon-chest    { background-position: 0 -64px;  }
+.gear-icon-mask     { background-position: 0 -128px; }
+.gear-icon-kneepads { background-position: 0 -192px; }
+.gear-icon-backpack { background-position: 0 -256px; }
+.gear-icon-gloves   { background-position: 0 -320px; }
+.gear-icon-holster  { background-position: 0 -384px; }
+
+@media (max-width: 700px) {
+    .gear-icon {
+        zoom: .5;
+    }
+}
+
+#page-talents .empty-message {
+    min-height: 700px;
+    padding-top: 200px;
+    text-align: center;
+    font-size: 36px;
+    font-weight: bold;
+    color: rgba(255,255,255,0.3);
+}

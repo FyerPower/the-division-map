@@ -1,0 +1,210 @@
+/* Map */
+
+#map-container {
+    position: absolute;
+    top: 68px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+}
+
+.leaflet-container .leaflet-control-mouseposition {
+    background-color: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 0 5px #bbb;
+    padding: 0 5px;
+    margin:0;
+    color: #333;
+    font: 11px/1.5 'Titillium Web', sans-serif;
+}
+
+/* Map Sidebar */
+
+#map-container #map-sidebar {
+    position: absolute;
+    top: 20px;
+    right: 0px;
+    bottom: 20px;
+    width: 400px;
+    z-index: 2000;
+    color: #fff;
+    pointer-events: none;
+}
+
+#map-sidebar #map-sidebar-content {
+    position: absolute;
+    right: 20px;
+    height: 100%;
+    width: 300px;
+    transition: all 500ms;
+    pointer-events: none;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+#map-sidebar.collapsed #map-sidebar-content {
+    width: 0px;
+    right: 0px;
+}
+
+#map-sidebar #map-sidebar-buttons {
+    width: 30px;
+    position: absolute;
+    right: 340px;
+    pointer-events: auto;
+    transition: all 500ms;
+}
+
+#map-sidebar.collapsed #map-sidebar-buttons {
+    right: 20px;
+}
+
+#map-sidebar #map-sidebar-buttons .btn-group-vertical + .btn-group-vertical{
+    margin-top: 20px;
+}
+#map-sidebar #map-sidebar-buttons .btn{
+    width: 36px;
+    text-align: center;
+}
+#map-sidebar #map-sidebar-buttons.map-sidebar-force-right {
+    right: 20px;
+    transition: none;
+}
+
+
+#map-sidebar h4 {
+    margin-top: 0px;
+    color: orange;
+}
+#map-sidebar h4 small {
+    float:right;
+    padding-top: 5px;
+}
+#map-sidebar h5 {
+    color: orange;
+}
+#map-sidebar p {
+    color: #ccc;
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 10px;
+}
+
+#map-sidebar .filter-item {
+    line-height: 24px;
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+ }
+#map-sidebar .filter-item img { width: 24px; height: 24px; }
+#map-sidebar .filter-item small { color: #999; font-style: italic; }
+
+#map-sidebar .filter-item.disabled {
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
+#map-sidebar .sidebar-component {
+    width: 300px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-top: 2px #6ec449 solid;
+    border-right: 2px #555 solid;
+    border-bottom: 2px #6ec449 solid;
+    border-left: 2px #555 solid;
+    background-color: rgba(60,60,60,0.9);
+    pointer-events: auto;
+}
+#map-sidebar .sidebar-component:last-of-type {
+    margin-bottom: 0px;
+}
+
+#map-sidebar .input-group {
+    margin-bottom: 15px;
+}
+#map-sidebar .input-group .btn {
+    background-color: orange;
+}
+
+#map-sidebar #map-sidebar-footer {
+    font-size: 12px;
+    text-align: center;
+}
+#map-sidebar #map-sidebar-footer a {
+    color: #999;
+}
+
+
+
+
+
+
+/* Map Content */
+
+#map-container #map-content {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+}
+
+#map-container.map-pathing #map-content.leaflet-container{
+    cursor: crosshair !important;
+}
+
+.leaflet-container {
+    background: #19191b;
+    background-image: url("/img/grid.png");
+}
+
+.leaflet-marker-pane img {
+    -webkit-transition: all 0.2s;
+       -moz-transition: all 0.2s;
+         -o-transition: all 0.2s;
+            transition: all 0.2s;
+}
+.leaflet-marker-pane img:hover {
+    margin-left: -32px !important;
+    margin-top: -32px !important;
+    height: 64px !important;
+    width: 64px !important;
+    border: 6px solid;
+    border-radius: 32px;
+    border-color: rgba(252, 151, 13, 0.2);
+    z-index: 10000 !important;
+}
+
+.leaflet-popup-content-wrapper {
+  background:rgba(120, 120, 120, 0.2);
+  color:#fff;
+  font-family: 'Dosis', sans-serif;
+  font-size:18px;
+  pointer-events: none;
+  border-radius: 0px;
+}
+.leaflet-popup-content{
+    margin: 5px 10px;
+}
+.leaflet-popup-tip-container, .leaflet-popup-close-button {
+  display: none;
+}
+
+//
+// Slider Customizations
+//
+
+rzslider .rz-pointer{
+    background-color: $orange;
+}
+rzslider .rz-pointer.rz-active:after{
+    background-color: white;
+}
+rzslider .rz-ticks .rz-tick .rz-tick-value {
+    top: -35px;
+    color: #ccc;
+}

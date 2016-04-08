@@ -1,0 +1,146 @@
+<div id="page-home">
+    <!-- <div class="jumbotron header-cover">
+        <div class="container">
+        </div>
+    </div> -->
+
+    <div class="container">
+        <!-- <div class="row">
+            <div class="col-md-12">
+                <center>
+                    <h4>Welcome! This site was created for the sole purpose of providing the easiest to use tools for the game!</h4>
+                </center>
+            </div>
+        </div> -->
+
+        <div class="row">
+            <div class="col-md-8">
+            </div>
+            <div class="col-md-4">
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="divided-header">
+                    <h2>Introduction</h2>
+                </div>
+                <!-- <h4>Welcome! This site was created for the sole purpose of providing the easiest to use tools for the game!</h4> -->
+                <p>Welcome to The Division Agent! I've created this site for the sole purpose of providing the easiest to use tools for the game! New and exciting features are continuously added in order to stay ahead. I'd love to know what you think, so if there's something you'd like to see implemented on the site be sure to contact me!</p>
+
+                <div class="divided-header">
+                    <h2>News & Information</h2>
+                </div>
+
+                <div class="media">
+                    <div class="media-left">
+                        <a ui-sref="news({slug: 'special-report-3-31-16'})"><img class="img-thumbnail media-object" src="/img/BlogIcons-SpecialReport.jpg" /></a>
+                    </div>
+                    <div class="media-body">
+                        <div class="media-heading">
+                            <a ui-sref="news({slug: 'special-report-3-31-16'})">The Division - Special Report - Incursions Update</a>
+                        </div>
+                        <div class="media-meta">Posted: March 31st, 2016</div>
+                        <p>NEW FEATURES</p>
+                        <ul>
+                            <li>Gear Sets</li>
+                            <li>Trading</li>
+                            <li>Assignments</li>
+                            <li>Supply Drops added to darkzone (new mechanic)</li>
+                            <li>Spectator Camera</li>
+                            <li>Incursion</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="media">
+                    <div class="media-left">
+                        <a ui-sref="home"><img class="img-thumbnail media-object" src="/img/BlogIcons-Maintenance.jpg" /></a>
+                    </div>
+                    <div class="media-body">
+                        <div class="media-heading">
+                            <a ui-sref="home">The Division - April 1, 2016 Maintenance</a>
+                        </div>
+                        <div class="media-meta">Posted: March 31st, 2016</div>
+                        <p>GAMEPLAY</p>
+                        <ul>
+                            <li>Madison Field Hospital: The Elite NPC that spawns when Hutch is killed before jumping down from the roof will no longer drop additional loot when killed repeatedly</li>
+                            <li>Missions: Named NPCs killed from outside the mission area will no longer drop additional loot when killed repeatedly</li>
+                            <li>Fixed issues which could allow groups to bypass the limit of four members</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="media">
+                    <div class="media-left">
+                        <a ui-sref="news({slug: 'patch-notes-1-0-2'})"><img class="img-thumbnail media-object" src="/img/BlogIcons-PatchNotes.jpg" /></a>
+                    </div>
+                    <div class="media-body">
+                        <div class="media-heading">
+                            <a ui-sref="news({slug: 'patch-notes-1-0-2'})">The Division - Patch Notes 1.0.2</a>
+                        </div>
+                        <div class="media-meta">Posted: March 22nd, 2016</div>
+                        <p>GAMEPLAY</p>
+                        <ul>
+                            <li>Named enemies will now drop better loot in Challenge mode than in Hard mode.</li>
+                            <li>Added a cooldown period for the Static Turret stun attack in order to avoid a stunlock in PvP and PvE game modes.</li>
+                            <li>Named NPCs will no longer respawn after being killed in the Open World. This will prevent situations where players were able to kill a same named NPC over and over again.</li>
+                        </ul>
+                        <p>Lots More...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="divided-header">
+                    <h2>Popular Routes</h2>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="route in vm.routes">
+                        <div><a ui-sref="map({path: route.path, center: route.center, zoom: route.zoom})">{{route.name}}</a></div>
+                        <span><i class="tda-icon tda-fire"></i> {{route.popularity | number}}</span>
+                        <span class="label label-division" ng-repeat="type in route.types">{{type}}</span>
+                    </li>
+                </ul>
+                <p class="text-center text-footnote">User created routes and voting will be coming soon</p>
+
+                <div class="divided-header">
+                    <h2>Recent Updates</h2>
+                </div>
+                <h5>March 29, 2016</h5>
+                <ul>
+                    <li>Map markers are now scalable</li>
+                    <li>Added instructions to path making</li>
+                    <li>Added undo functionality to path making</li>
+                    <li>Map location, zoom, marker filters, and marker scale are now remembered between sessions.</li>
+                </ul>
+                <h5>March 26, 2016</h5>
+                <ul>
+                    <li>Added News & Information</li>
+                    <li>Added more enemies and lootables to the map</li>
+                    <li>Added new page to display available attributes for each gear slot</li>
+                </ul>
+                <h5>March 24, 2016</h5>
+                <ul>
+                    <li>Performance optimizations</li>
+                    <li>Faster load times</li>
+                    <li>Map now has full screen button</li>
+                    <li>Update default color for pathing</li>
+                    <li>Added more enemies and lootables</li>
+                </ul>
+                <h5>March 23, 2016</h5>
+                <ul>
+                    <li>Mobile Friendly Version</li>
+                    <li>Added more enemies, lootables, and subways</li>
+                </ul>
+                <h5>March 22, 2016</h5>
+                <ul>
+                    <li>Initial Release</li>
+                    <li>Interactive Map w/ custom markers</li>
+                    <li>Ability to create and share custom paths</li>
+                </ul>
+            </div>
+        </div>
+        <footer></footer>
+    </div>
+</div>

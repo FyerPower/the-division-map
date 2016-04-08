@@ -431,10 +431,10 @@
                             { id: 157,  lat: -66.9,   long: -6.7,   label: "<b>(Subway) Named Bosses:</b><br/>Claxton<br/>Hardaway"}, // 33rd St station
                             { id: 158,  lat: -66.9,   long: 31.8,   label: "<b>Named Bosses:</b><br/>Buckshot<br/>Scrapper<br/>Dropkick"}, // Blockade
                             { id: 159,  lat: -57.2,   long: 46.5,   label: "<b>Named Bosses:</b><br/>Hot Rod<br/>Baz<br/>Animal"}, // 34th St Construction Site
-                            { id: 160,  lat: -46.86,  long: -23,    label: "<b>Named Bosses:</b><br/>Mazeroski<br/>Hundly"},
+                            { id: 160,  lat: -46.86,  long: -23,    label: "<b>Named Bosses:</b><br/>Mazeroski<br/>Hundly<br/>O'Rourke"},
                             { id: 161,  lat: -41.7,   long: 27.9,   label: "<b>Named Bosses:</b><br/>Zeke<br/>Animal"}, // Kalkesse Sporting Store
                             { id: 162,  lat: -42,     long: 60.8,   label: "<b>Named Bosses:</b><br/>Cannibal<br/>Boomerang<br/>Animal"}, // The Library
-                            { id: 163,  lat: -13,     long: -25.3,  label: "<b>(Subway) Named Bosses:</b><br/>O'Rourke"}, // Bryant Park Station (Subway)
+                            { id: 163,  lat: -13,     long: -25.3,  label: "<b>(Subway) Named Bosses:</b><br/>O'Rourke<br/>Mazeroski"}, // Bryant Park Station (Subway)
                             { id: 164,  lat: 30,      long: -50,    label: "<b>Named Bosses:</b><br/>Hot Rod"}, // West 54th
                             { id: 165,  lat: 39.2,    long: -23.2,  label: "<b>(Subway) Named Bosses:</b><br/>Barkley"},
                             { id: 166,  lat: 59,      long: 17.5,   label: "<b>Named Bosses:</b><br/>Cpt.Wilson<br/>Cpt.Carter<br/>Sgt.Thompson<br/>Gambit"}, // The Pit

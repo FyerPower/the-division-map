@@ -1037,11 +1037,11 @@
                             { id: 62,   lat: -13.4,   long: 30.5,   label: "Middle of the area as you walk up the steps"},
                             { id: 63,   lat: -6,      long: 6.5,    label: "Second Floor: Northeast corner of buildings"},
                             { id: 64,   lat: 8.80,    long: -4.7,   label: "Middle of building down one of the main hallways"},
-                            { id: 65,   lat: 8.80,    long: -50,    label: ""},
-                            { id: 66,   lat: 15.3,    long: -57,    label: ""},
+                            { id: 65,   lat: 8.80,    long: -50,    label: "End of Alley"},
+                            { id: 66,   lat: 15.3,    long: -57,    label: "End of street behind the truck"},
                             { id: 67,   lat: 9.5,     long: 53.6,   label: "In the backroom behind the desks"},
                             { id: 68,   lat: 6.5,     long: 53.6,   label: "Directly as you walk in from the south entrance"},
-                            { id: 69,   lat: 13.5,    long: 68.6,   label: "End of street on the south side."},
+                            { id: 69,   lat: 13.5,    long: 68.6,   label: "End of street on the south side"},
                             { id: 70,   lat: 19.6,    long: 16,     label: "Left side of the truck in the middle"},
                             { id: 71,   lat: 29.5,    long: 28,     label: "Second Floor: By a desk in southeast corner"},
                             { id: 72,   lat: 31,      long: 29,     label: "Second Floor: In the server room"},
@@ -1062,7 +1062,7 @@
                             { id: 87,   lat: 73,      long: -66.5,  label: "In a small side alley east of the street"},
                             { id: 88,   lat: -74.8,   long: 54,     label: "Southeast corner of parking lot behind cars"},
                             { id: 89,   lat: -70.3,   long: -15.2,  label: "Northeast edge of park, along the benchs"},
-                            { id: 90,   lat: 50.5,    long: -31.1,  label: ""},
+                            { id: 90,   lat: 50.5,    long: -31.1,  label: "Middle of building south passage"},
                             { id: 91,   lat: 55,      long: 3.8,    label: "South side of the street on the sidewalk"},
                             { id: 92,   lat: 59.2,    long: 20.3,   label: "Top of the stairs behind the planter"},
                             { id: 93,   lat: -13.6,   long: 79.4,   label: "Middle of street inside the fencing"},
@@ -1087,8 +1087,8 @@
                             { id: 110,  lat: -63.1,   long: -6.7,   label: "Back of Subway"},
                             { id: 111,  lat: -46.6,   long: -29.5,  label: "End of Road"},
                             { id: 112,  lat: 18.9,    long: 18,     label: "Back of truck"},
-                            { id: 113,  lat: -12.8,   long: -1.8,   label: ""},
-                            { id: 114,  lat: 27,      long: 69,     label: ""},
+                            { id: 113,  lat: -12.8,   long: -1.8,   label: "Middle of extraction near the helipad"},
+                            { id: 114,  lat: 27,      long: 69,     label: "End of Road"},
                             { id: 115,  lat: -6,      long: 12.5,   label: "In Subway"},
                             { id: 116,  lat: -13.25,  long: -22.4,  label: "In Subway"},
                             { id: 117,  lat: 58.95,   long: 13.2,   label: "Middle of the pit against the west wall"},
@@ -1142,8 +1142,8 @@
                             { id: 160,  lat: -46.86,  long: -23,    label: "<b>Named Bosses:</b><br/>Mazeroski<br/>Hundly<br/>O'Rourke"},
                             { id: 161,  lat: -41.7,   long: 27.9,   label: "<b>Named Bosses:</b><br/>Zeke<br/>Animal"}, // Kalkesse Sporting Store
                             { id: 162,  lat: -42,     long: 60.8,   label: "<b>Named Bosses:</b><br/>Cannibal<br/>Boomerang<br/>Animal"}, // The Library
-                            { id: 163,  lat: -13,     long: -25.3,  label: "<b>(Subway) Named Bosses:</b><br/>O'Rourke<br/>Mazeroski"}, // Bryant Park Station (Subway)
-                            { id: 164,  lat: 30,      long: -50,    label: "<b>Named Bosses:</b><br/>Hot Rod"}, // West 54th
+                            { id: 163,  lat: -13,     long: -25.3,  label: "<b>(Subway) Named Bosses:</b><br/>O'Rourke<br/>Mazeroski<br/>Draxler"}, // Bryant Park Station (Subway)
+                            { id: 164,  lat: 30,      long: -50,    label: "<b>Named Bosses:</b><br/>Hot Rod<br/>Animal"}, // West 54th
                             { id: 165,  lat: 39.2,    long: -23.2,  label: "<b>(Subway) Named Bosses:</b><br/>Barkley"},
                             { id: 166,  lat: 59,      long: 17.5,   label: "<b>Named Bosses:</b><br/>Cpt.Wilson<br/>Cpt.Carter<br/>Sgt.Thompson<br/>Gambit"}, // The Pit
                             { id: 167,  lat: 62.3,    long: -23,    label: "<b>Named Bosses:</b><br/>Shadow<br/>Cpt.Bryant<br/>Gambit"}, // Mid Town Music

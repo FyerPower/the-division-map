@@ -425,18 +425,18 @@
                             { id: 152,  lat: -12.8,   long: -4,     label: "<b>Named Bosses:</b><br/>Animal<br/>Torch"}, // Bryant Park
                             { id: 153,  lat: -6,      long: 11,     label: "<b>(Subway) Named Bosses:</b><br/>McGrady<br/>Hundly<br/>O'Rourke"}, // Public Library Station (Subway)
                             { id: 154,  lat: 62.3,    long: -70.3,  label: "<b>Named Bosses:</b><br/>Hardaway<br/>McGrady<br/>Claxton<br/>Draxler<br/>O'Rourke<br/>Hundly"}, // Containment zone next to DZ06 West Entrance
-                            { id: 155,  lat: 27.3,    long: 59.5,   label: "<b>Named Bosses:</b><br/>Hardaway<br/>Greenberg<br/>Claxton<br/>McGrady"}, // Containment zone East 45th St
+                            { id: 155,  lat: 27.3,    long: 59.5,   label: "<b>Named Bosses:</b><br/>Hardaway<br/>Greenberg<br/>Claxton<br/>McGrady<br/>Draxler"}, // Containment zone East 45th St
                             { id: 156,  lat: -77,     long: 52.7,   label: "<b>Named Bosses:</b><br/>Bonnie<br/>Dropkick<br/>Cowboy"}, // South Spawn (no landmark)
                             { id: 157,  lat: -66.9,   long: -6.7,   label: "<b>(Subway) Named Bosses:</b><br/>Claxton<br/>Hardaway"}, // 33rd St station
                             { id: 158,  lat: -66.9,   long: 31.8,   label: "<b>Named Bosses:</b><br/>Buckshot<br/>Scrapper<br/>Dropkick"}, // Blockade
                             { id: 159,  lat: -57.2,   long: 46.5,   label: "<b>Named Bosses:</b><br/>Hot Rod<br/>Baz<br/>Animal"}, // 34th St Construction Site
-                            { id: 160,  lat: -46.86,  long: -23,    label: "<b>Named Bosses:</b><br/>Mazeroski<br/>Hundly<br/>O'Rourke"},
+                            { id: 160,  lat: -46.86,  long: -23,    label: "<b>Named Bosses:</b><br/>Mazeroski<br/>Hundly<br/>O'Rourke<br/>Coveleski"},
                             { id: 161,  lat: -41.7,   long: 27.9,   label: "<b>Named Bosses:</b><br/>Zeke<br/>Animal"}, // Kalkesse Sporting Store
                             { id: 162,  lat: -42,     long: 60.8,   label: "<b>Named Bosses:</b><br/>Cannibal<br/>Boomerang<br/>Animal"}, // The Library
                             { id: 163,  lat: -13,     long: -25.3,  label: "<b>(Subway) Named Bosses:</b><br/>O'Rourke<br/>Mazeroski<br/>Draxler"}, // Bryant Park Station (Subway)
                             { id: 164,  lat: 30,      long: -50,    label: "<b>Named Bosses:</b><br/>Hot Rod<br/>Animal"}, // West 54th
                             { id: 165,  lat: 39.2,    long: -23.2,  label: "<b>(Subway) Named Bosses:</b><br/>Barkley"},
-                            { id: 166,  lat: 59,      long: 17.5,   label: "<b>Named Bosses:</b><br/>Cpt.Wilson<br/>Cpt.Carter<br/>Sgt.Thompson<br/>Gambit"}, // The Pit
+                            { id: 166,  lat: 59,      long: 17.5,   label: "<b>Named Bosses:</b><br/>Cpt.Wilson<br/>Cpt.Carter<br/>Sgt.Thompson<br/>Gambit<br/>Cpl. Newhouser"}, // The Pit
                             { id: 167,  lat: 62.3,    long: -23,    label: "<b>Named Bosses:</b><br/>Shadow<br/>Cpt.Bryant<br/>Gambit"}, // Mid Town Music
                             { id: 168,  lat: 72.15,   long: -59.3,  label: "<b>(Subway) Named Bosses:</b><br/>Greenberg<br/>Coveleski"}, // 7th Ave Station (Subway)
                             { id: 169,  lat: 70.0,    long: 0,      label: "<b>Named Bosses:</b><br/>Coveleski<br/>Mazeroski"}, // Q Building

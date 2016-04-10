@@ -55,6 +55,13 @@
             <div class="col-md-6 col-md-push-6">
                 <div class="text-center"><h4>Available Stats</h4></div>
                 <div class="menu-box">
+				    <div ng-show="vm.equipment[vm.slot].Base.List">
+                        <div><span><b>Base Attribute(s)</b></span> <span class="menu-box--sidenote">(Can't be recalibrated)</span></div>
+                        <div class="menu-box--stat" ng-repeat="stat in vm.equipment[vm.slot].Base.List">
+                            <span ng-show="stat.low">+({{stat.low}}-{{stat.high}})</span>
+                            <span>{{stat.name}}</span>
+                        </div>
+                    </div>
                     <div ng-show="vm.equipment[vm.slot].Primary.List">
                         <div><span><b>Primary Attributes</b></span> <span class="menu-box--sidenote">(Limit: {{vm.equipment[vm.slot].Primary.Limit}})</span></div>
                         <div class="menu-box--stat" ng-repeat="stat in vm.equipment[vm.slot].Primary.List">

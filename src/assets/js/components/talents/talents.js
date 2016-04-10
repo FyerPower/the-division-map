@@ -11,8 +11,12 @@
         vm.slot = null;
         vm.equipment = {
             "Chest": {
-                "Armor": { low: "706", high: "864" },
-                "Primary": {
+                "Base": {
+                    "List": [
+                        { name: "Armor",                           low: "706",   high: "864"   },
+                    ]
+                },
+				"Primary": {
                     "Limit": "1",
                     "List": [
                         { name: "Firearms",                        low: "470",   high: "575"   },
@@ -62,7 +66,12 @@
                 ]
             },
             "Mask": {
-                "Armor": { low: "353", high: "431" },
+                "Base": {
+                    "List": [
+                        { name: "Armor",                           low: "353",   high: "431"   },
+                        { name: "+1 Gear Mod Slot",                                            },
+                    ]
+                },
                 "Primary": {
                     "Limit": "1",
                     "List": [
@@ -117,7 +126,13 @@
                 ]
             },
             "Backpack": {
-                "Armor": { low: "470", high: "575" },
+                "Base": {
+                    "List": [
+                        { name: "Armor",                           low: "470",   high: "575"   },
+						{ name: "Backpack Capacity",               low: "21",    high: "24"    },
+                        { name: "+1 Gear Mod Slot",                                            },
+                    ]
+                },
                 "Primary": {
                     "Limit": "1",
                     "List": [
@@ -181,7 +196,11 @@
                 ]
             },
             "Gloves": {
-                "Armor": { low: "353", high: "431" },
+                "Base": {
+                    "List": [
+                        { name: "Armor",                           low: "353",   high: "431"   },
+                    ]
+                },
                 "Primary": {
                     "Limit": "1",
                     "List": [
@@ -231,7 +250,11 @@
                 ]
             },
             "Holster": {
-                "Armor": { low: "353", high: "431" },
+                "Base": {
+                    "List": [
+                        { name: "Armor",                           low: "353",   high: "431"   },
+                    ]
+                },
                 "Primary": {
                     "Limit": "2 or 3",
                     "List": [
@@ -276,7 +299,11 @@
                 ]
             },
             "Kneepads": {
-                "Armor": { low: "588", high: "719" },
+                "Base": {
+                    "List": [
+                        { name: "Armor",                           low: "588",   high: "719"   },
+                    ]
+                },
                 "Primary": {
                     "Limit": "1",
                     "List": [

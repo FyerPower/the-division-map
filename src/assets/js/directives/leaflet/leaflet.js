@@ -428,7 +428,7 @@
                             { id: 152,  lat: -12.8,   long: -4,     label: "<b>Named Bosses:</b><br/>Animal<br/>Torch"}, // Bryant Park
                             { id: 153,  lat: -6,      long: 11,     label: "<b>(Subway) Named Bosses:</b><br/>McGrady<br/>Hundly<br/>O'Rourke"}, // Public Library Station (Subway)
                             { id: 154,  lat: 62.3,    long: -70.3,  label: "<b>Named Bosses:</b><br/>Hardaway<br/>McGrady<br/>Claxton<br/>Draxler<br/>O'Rourke<br/>Hundly"}, // Containment zone next to DZ06 West Entrance
-                            { id: 155,  lat: 27.3,    long: 59.5,   label: "<b>Named Bosses:</b><br/>Hardaway<br/>Greenberg<br/>Claxton<br/>McGrady<br/>Draxler"}, // Containment zone East 45th St
+                            { id: 155,  lat: 27.3,    long: 59.5,   label: "<b>Named Bosses:</b><br/>Hardaway<br/>Greenberg<br/>Claxton<br/>McGrady<br/>Draxler<br/>Barkley"}, // Containment zone East 45th St
                             { id: 156,  lat: -77,     long: 52.7,   label: "<b>Named Bosses:</b><br/>Bonnie<br/>Dropkick<br/>Cowboy"}, // South Spawn (no landmark)
                             { id: 157,  lat: -66.9,   long: -6.7,   label: "<b>(Subway) Named Bosses:</b><br/>Claxton<br/>Hardaway"}, // 33rd St station
                             { id: 158,  lat: -66.9,   long: 31.8,   label: "<b>Named Bosses:</b><br/>Buckshot<br/>Scrapper<br/>Dropkick"}, // Blockade
@@ -457,7 +457,7 @@
 // ||  [Boss Name]    || [Archtype]      || [Faction]  || [Confirmed HE Drops]  ||
 // ||===========================================================================||
 // ||  Animal         ||  Tank           ||  Riker     || Midas/ Gloves/ Strike pack/ Advanced Stamina Mod
-// ||  Barkley        ||  Controller     ||  Cleaner   ||
+// ||  Barkley        ||  Controller     ||  Cleaner   || Tactical pack
 // ||  Baz            ||  Leader         ||  Riker     || Socom M1A
 // ||  Bonnie         ||  Special        ||  Rioter    ||
 // ||  Boomerang      ||  Sniper         ||  Riker     || Angled Grip
@@ -471,7 +471,7 @@
 // ||  Cpl. Newhouser ||  Engineer       ||  LMB       ||
 // ||  Draxler        ||                 ||            ||
 // ||  Dropkick       ||  Heavy Weapons  ||  Rioter    ||
-// ||  Gambit         ||  Specialist     ||  LMB       ||
+// ||  Gambit         ||  Specialist     ||  LMB       || Spec-ops pads
 // ||  Greenberg      ||  Thrower        ||  Cleaner   || Holster
 // ||  Hardaway       ||  Tank           ||  Cleaner   ||
 // ||  Hawkeye        ||  Sniper         ||  Riker     || Midas

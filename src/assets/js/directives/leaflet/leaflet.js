@@ -439,8 +439,8 @@
                             { id: 163,  lat: -13,     long: -25.3,  label: "<b>(Subway) Named Bosses:</b><br/>O'Rourke<br/>Mazeroski<br/>Draxler"}, // Bryant Park Station (Subway)
                             { id: 164,  lat: 30,      long: -50,    label: "<b>Named Bosses:</b><br/>Hot Rod<br/>Animal"}, // West 54th
                             { id: 165,  lat: 39.2,    long: -23.2,  label: "<b>(Subway) Named Bosses:</b><br/>Barkley"},
-                            { id: 166,  lat: 59,      long: 17.5,   label: "<b>Named Bosses:</b><br/>Cpt.Wilson<br/>Cpt.Carter<br/>Sgt.Thompson<br/>Gambit<br/>Cpl. Newhouser"}, // The Pit
-                            { id: 167,  lat: 62.3,    long: -23,    label: "<b>Named Bosses:</b><br/>Shadow<br/>Cpt.Bryant<br/>Gambit"}, // Mid Town Music
+                            { id: 166,  lat: 59,      long: 17.5,   label: "<b>Named Bosses:</b><br/>Cpt. Wilson<br/>Cpt. Carter<br/>Sgt. Thompson<br/>Gambit<br/>Cpl. Newhouser<br/>Sgt. Morgan"}, // The Pit
+                            { id: 167,  lat: 62.3,    long: -23,    label: "<b>Named Bosses:</b><br/>Shadow<br/>Cpt. Bryant<br/>Gambit<br/>Cpt. Rollins"}, // Mid Town Music
                             { id: 168,  lat: 72.15,   long: -59.3,  label: "<b>(Subway) Named Bosses:</b><br/>Greenberg<br/>Coveleski<br/>O'Rourke"}, // 7th Ave Station (Subway)
                             { id: 169,  lat: 70.0,    long: 0,      label: "<b>Named Bosses:</b><br/>Coveleski<br/>Mazeroski"}, // Q Building
                             { id: 170,  lat: 45,      long: -28.2,  label: "<b>(Subway) Named Bosses:</b><br/>Barkley<br/>O'Rourke"}, // 47-50th St Rockefeller Center station (Subway)
@@ -465,10 +465,11 @@
 // ||  Cannibal       ||  Tank           ||  Riker     ||
 // ||  Claxton        ||  Engineer       ||  Cleaner   ||
 // ||  Coveleski      ||  Sniper         ||  Cleaner   ||
-// ||  Cpt. Wilson    ||  Sniper         ||  LMB       ||
+// ||  Cpl. Newhouser ||  Engineer       ||  LMB       ||
 // ||  Cpt. Bryant    ||                 ||  LMB       ||
 // ||  Cpt. Carter    ||  Leader         ||  LMB       ||
-// ||  Cpl. Newhouser ||  Engineer       ||  LMB       ||
+// ||  Cpt. Rollins   ||                 ||  LMB       ||
+// ||  Cpt. Wilson    ||  Sniper         ||  LMB       ||
 // ||  Draxler        ||                 ||            ||
 // ||  Dropkick       ||  Heavy Weapons  ||  Rioter    ||
 // ||  Gambit         ||  Specialist     ||  LMB       || Spec-ops pads
@@ -483,6 +484,7 @@
 // ||  Scrapper       ||  Heavy Weapons  ||  Rioter    ||
 // ||  Stojacovich    ||                 ||            ||
 // ||  Sgt. Thompson  ||  Heavy Weapons  ||  LMB       ||
+// ||  Sgt. Morgan    ||                 ||  LMB       ||
 // ||  Shadow         ||  Special        ||  LMB       ||
 // ||  Short Fuse     ||  Leader         ||  Riker     || Prototype Performance Mod
 // ||  Torch          ||  Thrower        ||  Riker     || Spec-ops gloves/ Prototype Performance Mod

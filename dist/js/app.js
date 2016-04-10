@@ -1187,7 +1187,7 @@
                             { id: 165,  lat: 39.2,    long: -23.2,  label: "<b>(Subway) Named Bosses:</b><br/>Barkley"},
                             { id: 166,  lat: 59,      long: 17.5,   label: "<b>Named Bosses:</b><br/>Cpt.Wilson<br/>Cpt.Carter<br/>Sgt.Thompson<br/>Gambit<br/>Cpl. Newhouser"}, // The Pit
                             { id: 167,  lat: 62.3,    long: -23,    label: "<b>Named Bosses:</b><br/>Shadow<br/>Cpt.Bryant<br/>Gambit"}, // Mid Town Music
-                            { id: 168,  lat: 72.15,   long: -59.3,  label: "<b>(Subway) Named Bosses:</b><br/>Greenberg<br/>Coveleski"}, // 7th Ave Station (Subway)
+                            { id: 168,  lat: 72.15,   long: -59.3,  label: "<b>(Subway) Named Bosses:</b><br/>Greenberg<br/>Coveleski<br/>O'Rourke"}, // 7th Ave Station (Subway)
                             { id: 169,  lat: 70.0,    long: 0,      label: "<b>Named Bosses:</b><br/>Coveleski<br/>Mazeroski"}, // Q Building
                             { id: 170,  lat: 45,      long: -28.2,  label: "<b>(Subway) Named Bosses:</b><br/>Barkley<br/>O'Rourke"}, // 47-50th St Rockefeller Center station (Subway)
                         ]}

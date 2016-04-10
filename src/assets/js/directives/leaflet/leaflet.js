@@ -456,12 +456,12 @@
 // ||===========================================================================||
 // ||  [Boss Name]    || [Archtype]      || [Faction]  || [Confirmed HE Drops]  ||
 // ||===========================================================================||
-// ||  Animal         ||  Tank           ||  Riker     || Midas/ Gloves/ Strike pack/ Advanced Stamina Mod
+// ||  Animal         ||  Tank           ||  Riker     || Midas/ Gloves/ Strike pack/ Advanced Stamina Mod/ Operator vest
 // ||  Barkley        ||  Controller     ||  Cleaner   || Tactical pack
 // ||  Baz            ||  Leader         ||  Riker     || Socom M1A
-// ||  Bonnie         ||  Special        ||  Rioter    ||
+// ||  Bonnie         ||  Special        ||  Rioter    || Custom PF45 (pistol)
 // ||  Boomerang      ||  Sniper         ||  Riker     || Angled Grip
-// ||  Buckshot       ||  Sniper         ||  Rioter    || Magazine
+// ||  Buckshot       ||  Sniper         ||  Rioter    || Magazine/ PEQ-15 Laser-Red
 // ||  Cannibal       ||  Tank           ||  Riker     ||
 // ||  Claxton        ||  Engineer       ||  Cleaner   ||
 // ||  Coveleski      ||  Sniper         ||  Cleaner   ||
@@ -475,7 +475,7 @@
 // ||  Greenberg      ||  Thrower        ||  Cleaner   || Holster
 // ||  Hardaway       ||  Tank           ||  Cleaner   ||
 // ||  Hawkeye        ||  Sniper         ||  Riker     || Midas
-// ||  Hot Rod        ||  Thrower        ||  Riker     || Magazine
+// ||  Hot Rod        ||  Thrower        ||  Riker     || Magazine/ Midas
 // ||  Hundly         ||  Sniper         ||  Cleaner   || M1911/ Spec-ops pads/ Operator pads/ Prototype Performance Mod
 // ||  Mazeroski      ||  Tank           ||  Cleaner   ||
 // ||  McGrady        ||                 ||            ||
@@ -484,7 +484,11 @@
 // ||  Stojacovich    ||                 ||            ||
 // ||  Sgt. Thompson  ||  Heavy Weapons  ||  LMB       ||
 // ||  Shadow         ||  Special        ||  LMB       ||
-// ||  Short Fuse     ||  Leader         ||  Riker     || Prototype Performance Mod
+// ||  Short Fuse     ||  Leader         ||  Riker     || Prototype Performance Mod/ Spec-ops pack
 // ||  Torch          ||  Thrower        ||  Riker     || Spec-ops gloves/ Prototype Performance Mod
 // ||  Zeke           ||  Tank           ||  Riker     ||
 // ||===========================================================================||
+
+
+//DZ chest drops
+// Tactical Vector 45 ACP

@@ -287,8 +287,12 @@
         vm.slot = null;
         vm.equipment = {
             "Chest": {
-                "Armor": { low: "706", high: "864" },
-                "Primary": {
+                "Base": {
+                    "List": [
+                        { name: "Armor",                           low: "706",   high: "864"   },
+                    ]
+                },
+				"Primary": {
                     "Limit": "1",
                     "List": [
                         { name: "Firearms",                        low: "470",   high: "575"   },
@@ -338,7 +342,12 @@
                 ]
             },
             "Mask": {
-                "Armor": { low: "353", high: "431" },
+                "Base": {
+                    "List": [
+                        { name: "Armor",                           low: "353",   high: "431"   },
+                        { name: "+1 Gear Mod Slot",                                            },
+                    ]
+                },
                 "Primary": {
                     "Limit": "1",
                     "List": [
@@ -393,7 +402,13 @@
                 ]
             },
             "Backpack": {
-                "Armor": { low: "470", high: "575" },
+                "Base": {
+                    "List": [
+                        { name: "Armor",                           low: "470",   high: "575"   },
+						{ name: "Backpack Capacity",               low: "21",    high: "24"    },
+                        { name: "+1 Gear Mod Slot",                                            },
+                    ]
+                },
                 "Primary": {
                     "Limit": "1",
                     "List": [
@@ -457,7 +472,11 @@
                 ]
             },
             "Gloves": {
-                "Armor": { low: "353", high: "431" },
+                "Base": {
+                    "List": [
+                        { name: "Armor",                           low: "353",   high: "431"   },
+                    ]
+                },
                 "Primary": {
                     "Limit": "1",
                     "List": [
@@ -507,7 +526,11 @@
                 ]
             },
             "Holster": {
-                "Armor": { low: "353", high: "431" },
+                "Base": {
+                    "List": [
+                        { name: "Armor",                           low: "353",   high: "431"   },
+                    ]
+                },
                 "Primary": {
                     "Limit": "2 or 3",
                     "List": [
@@ -552,7 +575,11 @@
                 ]
             },
             "Kneepads": {
-                "Armor": { low: "588", high: "719" },
+                "Base": {
+                    "List": [
+                        { name: "Armor",                           low: "588",   high: "719"   },
+                    ]
+                },
                 "Primary": {
                     "Limit": "1",
                     "List": [
@@ -1081,8 +1108,8 @@
                             { id: 96,   lat: 70,      long: -29.4,  label: "Rooftop: Just north of the elevator shaft"},
                             { id: 97,   lat: 69.6,    long: -27.6,  label: "First Floor: Northwest corner of building behind elevator"},
                             { id: 98,   lat: 68.3,    long: -27.6,  label: "First Floor: Southeast corner of building just left of entrance"},
-                            { id: 99,   lat: 74,      long: -36,    label: "Back of alley behind fencing"},
-                            { id: 100,  lat: 72.7,    long: -43.6,  label: "Back of tent"},
+                            { id: 99,   lat: 74.4,    long: -39.1,  label: "Back of alley behind fencing"},
+                            { id: 100,  lat: 73.4,    long: -48.5,  label: "Back of tent"},
                             { id: 101,  lat: 70.3,    long: -53.2,  label: "Middle of alleyway on the west side"},
                             { id: 102,  lat: 65.0,    long: 10.1,   label: "West side of the street on the sidewalk"},
                             { id: 103,  lat: 57.4,    long: -12.1,  label: "In Subway"},
@@ -1103,11 +1130,14 @@
                             { id: 116,  lat: -13.25,  long: -22.4,  label: "In Subway"},
                             { id: 117,  lat: 58.95,   long: 13.2,   label: "Middle of the pit against the west wall"},
                             { id: 118,  lat: 68.5,    long: 2.5,    label: "Second floor just south of escalator"},
-                            { id: 119,  lat: 62.4,    long: -77.6,  label: "Behind the tent"},
-                            { id: 120,  lat: 59,      long: -70,    label: "In a tent, back of truck"},
-                            { id: 121,  lat: 64,      long: -20.3,  label: "On west sidewalk near the wall of Mid Town Music"},
-                            { id: 122,  lat: 72.4,    long: -49.6,  label: "Subway behind stairs"},
-                            { id: 171,  lat: 33.6,    long: -52.0,  label: "Rooftop"},
+                            { id: 119,  lat: 59,      long: -70,    label: "In a tent, back of truck"},
+                            { id: 120,  lat: 64,      long: -20.3,  label: "On west sidewalk near the wall of Mid Town Music"},
+                            { id: 121,  lat: 72.4,    long: -49.6,  label: "Subway behind stairs"},
+                            { id: 122,  lat: 33.6,    long: -52.0,  label: "Rooftop"},
+                            { id: 171,  lat: -9.2,    long: -2.0,   label: "Small Room in Subway"},
+                            { id: 172,  lat: 49.6,    long: -28,    label: "Back of Subway"},
+                            { id: 173,  lat: 72.7,    long: -44.4,  label: "Back of Subway"},
+                            { id: 174,  lat: 73.6,    long: -55.2,  label: "Small Room in Subway"},
                         ]},
                         { type: "SubwayEntrances", locations: [
                             { id: 123,  lat: 68.5,    long: -68.5,  label: "<b>7th Ave station</b>"},
@@ -1144,7 +1174,7 @@
                             { id: 152,  lat: -12.8,   long: -4,     label: "<b>Named Bosses:</b><br/>Animal<br/>Torch"}, // Bryant Park
                             { id: 153,  lat: -6,      long: 11,     label: "<b>(Subway) Named Bosses:</b><br/>McGrady<br/>Hundly<br/>O'Rourke"}, // Public Library Station (Subway)
                             { id: 154,  lat: 62.3,    long: -70.3,  label: "<b>Named Bosses:</b><br/>Hardaway<br/>McGrady<br/>Claxton<br/>Draxler<br/>O'Rourke<br/>Hundly"}, // Containment zone next to DZ06 West Entrance
-                            { id: 155,  lat: 27.3,    long: 59.5,   label: "<b>Named Bosses:</b><br/>Hardaway<br/>Greenberg<br/>Claxton<br/>McGrady<br/>Draxler"}, // Containment zone East 45th St
+                            { id: 155,  lat: 27.3,    long: 59.5,   label: "<b>Named Bosses:</b><br/>Hardaway<br/>Greenberg<br/>Claxton<br/>McGrady<br/>Draxler<br/>Barkley"}, // Containment zone East 45th St
                             { id: 156,  lat: -77,     long: 52.7,   label: "<b>Named Bosses:</b><br/>Bonnie<br/>Dropkick<br/>Cowboy"}, // South Spawn (no landmark)
                             { id: 157,  lat: -66.9,   long: -6.7,   label: "<b>(Subway) Named Bosses:</b><br/>Claxton<br/>Hardaway"}, // 33rd St station
                             { id: 158,  lat: -66.9,   long: 31.8,   label: "<b>Named Bosses:</b><br/>Buckshot<br/>Scrapper<br/>Dropkick"}, // Blockade
@@ -1157,7 +1187,7 @@
                             { id: 165,  lat: 39.2,    long: -23.2,  label: "<b>(Subway) Named Bosses:</b><br/>Barkley"},
                             { id: 166,  lat: 59,      long: 17.5,   label: "<b>Named Bosses:</b><br/>Cpt.Wilson<br/>Cpt.Carter<br/>Sgt.Thompson<br/>Gambit<br/>Cpl. Newhouser"}, // The Pit
                             { id: 167,  lat: 62.3,    long: -23,    label: "<b>Named Bosses:</b><br/>Shadow<br/>Cpt.Bryant<br/>Gambit"}, // Mid Town Music
-                            { id: 168,  lat: 72.15,   long: -59.3,  label: "<b>(Subway) Named Bosses:</b><br/>Greenberg<br/>Coveleski"}, // 7th Ave Station (Subway)
+                            { id: 168,  lat: 72.15,   long: -59.3,  label: "<b>(Subway) Named Bosses:</b><br/>Greenberg<br/>Coveleski<br/>O'Rourke"}, // 7th Ave Station (Subway)
                             { id: 169,  lat: 70.0,    long: 0,      label: "<b>Named Bosses:</b><br/>Coveleski<br/>Mazeroski"}, // Q Building
                             { id: 170,  lat: 45,      long: -28.2,  label: "<b>(Subway) Named Bosses:</b><br/>Barkley<br/>O'Rourke"}, // 47-50th St Rockefeller Center station (Subway)
                         ]}
@@ -1173,7 +1203,7 @@
 // ||  [Boss Name]    || [Archtype]      || [Faction]  || [Confirmed HE Drops]  ||
 // ||===========================================================================||
 // ||  Animal         ||  Tank           ||  Riker     || Midas/ Gloves/ Strike pack/ Advanced Stamina Mod
-// ||  Barkley        ||  Controller     ||  Cleaner   ||
+// ||  Barkley        ||  Controller     ||  Cleaner   || Tactical pack
 // ||  Baz            ||  Leader         ||  Riker     || Socom M1A
 // ||  Bonnie         ||  Special        ||  Rioter    ||
 // ||  Boomerang      ||  Sniper         ||  Riker     || Angled Grip
@@ -1187,7 +1217,7 @@
 // ||  Cpl. Newhouser ||  Engineer       ||  LMB       ||
 // ||  Draxler        ||                 ||            ||
 // ||  Dropkick       ||  Heavy Weapons  ||  Rioter    ||
-// ||  Gambit         ||  Specialist     ||  LMB       ||
+// ||  Gambit         ||  Specialist     ||  LMB       || Spec-ops pads
 // ||  Greenberg      ||  Thrower        ||  Cleaner   || Holster
 // ||  Hardaway       ||  Tank           ||  Cleaner   ||
 // ||  Hawkeye        ||  Sniper         ||  Riker     || Midas

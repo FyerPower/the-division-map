@@ -391,7 +391,7 @@
                             { id: 171,  lat: -9.2,    long: -2.0,   label: "Small Room in Subway"},
                             { id: 172,  lat: 49.6,    long: -28,    label: "Back of Subway"},
                             { id: 173,  lat: 72.7,    long: -44.4,  label: "Back of Subway"},
-                            { id: 174,  lat: 73.6,    long: -55.2,  label: "Small Room in Subway"},
+                            { id: 174,  lat: 73.6,    long: -55.2,  label: "Machine Room in Subway"},
                         ]},
                         { type: "SubwayEntrances", locations: [
                             { id: 123,  lat: 68.5,    long: -68.5,  label: "<b>7th Ave station</b>"},

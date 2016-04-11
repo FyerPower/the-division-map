@@ -7,6 +7,6 @@
 	<circle fill="#FEDD00" stroke="#766026" stroke-width="2" stroke-miterlimit="10" cx="128" cy="128" r="108"/>
 </g>
 <g id="Arrow">
-	<polygon fill="#766026" points="100,64 156,64 156,152 180,152 128,212 72,152 100,152"/>
+	<polygon fill="#766026" points="100,64 156,64 156,152 184,152 128,212 72,152 100,152"/>
 </g>
 </svg>

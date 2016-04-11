@@ -208,3 +208,63 @@ rzslider .rz-ticks .rz-tick .rz-tick-value {
     top: -35px;
     color: #ccc;
 }
+
+
+.timer-wrapper{
+    position: relative;
+    font-size: 0.95rem;
+    width: 72px;
+}
+.timer {
+    position: absolute;
+    top: auto;
+    bottom: 0;
+    color: #fff;
+    font-weight: 100;
+    line-height: 1rem;
+    text-align: center;
+    width: 100%;
+}
+
+#map-sidebar{
+    ul.list-group {
+        li {
+            height: 44px;
+            clear:both;
+            margin-bottom: 6px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            .list-group-item-content {
+                p {
+                    font-size: 0.9rem;
+                    padding-top: 6px;
+                    margin-bottom: 6px;
+                    color: white;
+                }
+            }
+            .block-link {
+                margin-top: 6px;
+                padding: 4px 12px;
+                float: right;
+                + .block-link {
+                    margin-right: 10px;
+                }
+            }
+        }
+    }
+}
+
+
+.leaflet-marker-pulse {
+    border: 3px solid #bbb;
+    -webkit-border-radius: 32px;
+    height: 64px;
+    width: 64px;
+    -webkit-animation: pulsate 1s ease-out;
+    -webkit-animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes pulsate {
+    0% {-webkit-transform: scale(0.1, 0.1); opacity: 0.0;}
+    50% {opacity: 1.0;}
+    100% {-webkit-transform: scale(1.2, 1.2); opacity: 0.0;}
+}

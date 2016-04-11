@@ -4,114 +4,40 @@
     angular.module('theDivisionAgent')
         .controller('MapController', MapController);
 
-    MapController.$inject = ['$scope', '$rootScope', '$stateParams', '$timeout', '$document', '$window', 'GoogleURLShortener', 'localStorageService'];
-    function MapController($scope, $rootScope, $stateParams, $timeout, $document, $window, GoogleURLShortener, localStorageService){
+    MapController.$inject = ['$scope', '$rootScope', '$stateParams', '$timeout', '$document', '$window', '$interval', 'GoogleURLShortener', 'localStorageService'];
+    function MapController($scope, $rootScope, $stateParams, $timeout, $document, $window, $interval, GoogleURLShortener, localStorageService){
         var vm = this;
 
         vm.initialized = false;
-        $timeout(function(){ vm.initialized = true; }, 100);
         vm.menuCollapsed = ($window.innerWidth < 768);
+        vm.tab = 'filters';
+
+        $timeout(function(){ vm.initialized = true; }, 100);
         vm.toggleMenu = function(){
             vm.menuCollapsed = !vm.menuCollapsed;
         };
-
-        vm.filters = [
-            { enabled: filterEnabled('Checkpoints'),     markerType: 'Checkpoints',     icon: "/img/icons/checkpoint.png",       name: "Checkpoints" },
-            { enabled: filterEnabled('DZEntrances'),     markerType: 'DZEntrances',     icon: "/img/icons/dz-enterance.png",     name: "DZ Entrances" },
-            { enabled: filterEnabled('SafeHouses'),      markerType: 'SafeHouses',      icon: "/img/icons/saferoom.png",         name: "Safe Houses" },
-            { enabled: filterEnabled('Extractions'),     markerType: 'Extractions',     icon: "/img/icons/extraction.png",       name: "Extractions" },
-            { enabled: filterEnabled('Landmarks'),       markerType: 'Landmarks',       icon: "/img/icons/landmark-off.png",     name: "Landmarks" },
-            { enabled: filterEnabled('SubwayEntrances'), markerType: 'SubwayEntrances', icon: "/img/icons/subway.png",           name: "Subway Entrances"},
-            { enabled: filterEnabled('DivisionTech'),    markerType: 'DivisionTech',    icon: "/img/icons/division-tech.png",    name: "Division Tech" },
-            { enabled: filterEnabled('DarkzoneChests'),  markerType: "DarkzoneChests",  icon: "/img/icons/darkzone-chest.png",   name: "Darkzone Chests"},
-            { enabled: filterEnabled('NamedBosses'),     markerType: 'NamedBosses',     icon: "/img/icons/enemy-named.png",      name: "Named Bosses" },
-        ];
-
-        function filterEnabled(key){
-            return localStorageService.get('map-filter-'+key.toLowerCase()) !== false;
-        }
-
-        vm.toggleFilter = function(filter){
-            filter.enabled = !filter.enabled;
-            localStorageService.set('map-filter-'+filter.markerType.toLowerCase(), filter.enabled);
-            if( filter.markerType !== null)
-                $rootScope.$broadcast('map-switch-filter', filter.markerType, filter.enabled);
+        vm.showTab = function(tabName){
+            if(vm.menuCollapsed || vm.tab === tabName)
+                vm.toggleMenu();
+            vm.tab = tabName;
         };
 
-        vm.toggleAllFilters = function(){
-            var status = !_.find(vm.filters, {enabled: true});
-            _.each(vm.filters, function(filter){
-                filter.enabled = status;
-                localStorageService.set('map-filter-'+filter.markerType.toLowerCase(), filter.enabled);
-                if( filter.markerType !== null )
-                    $rootScope.$broadcast('map-switch-filter', filter.markerType, filter.enabled);
-            });
-        };
-
-        if($stateParams.path) {
-            getShareableURL($stateParams.path);
-            var points = $stateParams.path.split('_');
-            points = _.map(points, function(pt){
-                var latlng = pt.split(',');
-                return [+latlng[0], +latlng[1]];
-            });
-            $timeout(function(){
-                $rootScope.$broadcast('map-pathing-init', points);
-            }, 100);
-        }
-
-        vm.pathing = false;
-        vm.shareableUrl = null;
-        var pathArray = [];
-        vm.beginPathing = function(){
-            vm.pathing = true;
-            vm.shareableUrl = null;
-            $rootScope.$broadcast('map-pathing', true);
-        };
-        vm.endPathing = function(){
-            vm.pathing = false;
-            $rootScope.$broadcast('map-pathing', false);
-
-            var pathStr = "";
-            _.each(pathArray, function(point){
-                if(pathStr !== "")
-                    pathStr = pathStr + "_";
-                pathStr = pathStr + point[0] + "," + point[1];
-            });
-            getShareableURL(pathStr);
-            pathArray = [];
-        };
-        vm.undoLastPath = function(){
-            $rootScope.$broadcast('map-pathing-undo');
-        };
-
-        function getShareableURL(pathStr){
-            var longUrl = "http://thedivisionagent.com/map?path="+pathStr;
-            GoogleURLShortener.shorten(longUrl).then(function(shortUrl){
-                vm.shareableUrl = shortUrl;
-            }, function(){
-                vm.shareableUrl = "Error";
-            });
-        }
-
-        $scope.$on('map-pathing-update', function(event, newPathArray){
-            pathArray = newPathArray;
-        });
 
         //
         // Zoom In / Out
         //
 
+
         vm.zoomAtMin = false;
         vm.zoomAtMax = false;
         vm.zoomDecrease = function(){
-            $rootScope.$broadcast('map-decrease-zoom-level', updateZoomSettings);
+            $scope.$broadcast('map-decrease-zoom-level', updateZoomSettings);
         };
         vm.zoomIncrease = function(){
-            $rootScope.$broadcast('map-increase-zoom-level', updateZoomSettings);
+            $scope.$broadcast('map-increase-zoom-level', updateZoomSettings);
         };
 
-        $rootScope.$on('map-zoom-changed', function(e, atMinimumZoom, atMaximumZoom){
+        $scope.$on('map-zoom-changed', function(e, atMinimumZoom, atMaximumZoom){
             $scope.$apply(function(){
                 updateZoomSettings(e, atMinimumZoom, atMaximumZoom);
             });
@@ -122,9 +48,11 @@
             vm.zoomAtMax = atMaximumZoom;
         }
 
+
         //
         // Full Screen
         //
+
 
         vm.fullscreenEnabled = (document.fullscreenEnabled || document.webkitFullscreenEnabled || document.mozFullScreenEnabled || document.msFullscreenEnabled);
         vm.fullscreenActive = false;
@@ -162,12 +90,11 @@
             });
         });
 
-        vm.tab = 'filters';
-        vm.showTab = function(tabName){
-            if(vm.menuCollapsed || vm.tab === tabName)
-                vm.toggleMenu();
-            vm.tab = tabName;
-        };
+
+        //
+        // Map Filter Tab
+        //
+
 
         $scope.slider = {
             value: localStorageService.get('map-icon-scale') || 1,
@@ -178,10 +105,158 @@
                 precision: 1,
                 showTicksValues: true,
                 onChange: function(sliderId, modelValue, highValue){
-                    $rootScope.$broadcast('map-marker-size', modelValue);
+                    $scope.$broadcast('map-marker-size', modelValue);
                 }
             }
         };
+
+        vm.filters = [
+            { enabled: filterEnabled('Checkpoints'),     markerType: 'Checkpoints',     icon: "/img/icons/checkpoint.svg",       name: "Checkpoints" },
+            { enabled: filterEnabled('DZEntrances'),     markerType: 'DZEntrances',     icon: "/img/icons/dz-enterance.svg",     name: "DZ Entrances" },
+            { enabled: filterEnabled('SafeHouses'),      markerType: 'SafeHouses',      icon: "/img/icons/saferoom.svg",         name: "Safe Houses" },
+            { enabled: filterEnabled('Extractions'),     markerType: 'Extractions',     icon: "/img/icons/extraction.svg",       name: "Extractions" },
+            { enabled: filterEnabled('Landmarks'),       markerType: 'Landmarks',       icon: "/img/icons/landmark-off.svg",     name: "Landmarks" },
+            { enabled: filterEnabled('SubwayEntrances'), markerType: 'SubwayEntrances', icon: "/img/icons/subway.svg",           name: "Subway Entrances"},
+            { enabled: filterEnabled('DivisionTech'),    markerType: 'DivisionTech',    icon: "/img/icons/division-tech.svg",    name: "Division Tech" },
+            { enabled: filterEnabled('DarkzoneChests'),  markerType: "DarkzoneChests",  icon: "/img/icons/darkzone-chest.svg",   name: "Darkzone Chests"},
+            { enabled: filterEnabled('NamedBosses'),     markerType: 'NamedBosses',     icon: "/img/icons/enemy-named.svg",      name: "Named Bosses" },
+            { enabled: filterEnabled('SupplyDrops'),     markerType: 'SupplyDrops',     icon: "/img/icons/supply-drop.svg",      name: "Supply Drops" },
+        ];
+
+        function filterEnabled(key){
+            return localStorageService.get('map-filter-'+key.toLowerCase()) !== false;
+        }
+
+        vm.toggleFilter = function(filter){
+            filter.enabled = !filter.enabled;
+            localStorageService.set('map-filter-'+filter.markerType.toLowerCase(), filter.enabled);
+            if( filter.markerType !== null)
+                $scope.$broadcast('map-switch-filter', filter.markerType, filter.enabled);
+        };
+
+        vm.toggleAllFilters = function(){
+            var status = !_.find(vm.filters, {enabled: true});
+            _.each(vm.filters, function(filter){
+                filter.enabled = status;
+                localStorageService.set('map-filter-'+filter.markerType.toLowerCase(), filter.enabled);
+                if( filter.markerType !== null )
+                    $scope.$broadcast('map-switch-filter', filter.markerType, filter.enabled);
+            });
+        };
+
+
+        //
+        // Custom Path Tab
+        //
+
+
+        if($stateParams.path) {
+            getShareableURL($stateParams.path);
+            var points = $stateParams.path.split('_');
+            points = _.map(points, function(pt){
+                var latlng = pt.split(',');
+                return [+latlng[0], +latlng[1]];
+            });
+            $timeout(function(){
+                $scope.$broadcast('map-pathing-init', points);
+            }, 100);
+        }
+
+        vm.pathing = false;
+        vm.shareableUrl = null;
+        var pathArray = [];
+        vm.beginPathing = function(){
+            vm.pathing = true;
+            vm.shareableUrl = null;
+            $scope.$broadcast('map-pathing', true);
+        };
+        vm.endPathing = function(){
+            vm.pathing = false;
+            $scope.$broadcast('map-pathing', false);
+
+            var pathStr = "";
+            _.each(pathArray, function(point){
+                if(pathStr !== "")
+                    pathStr = pathStr + "_";
+                pathStr = pathStr + point[0] + "," + point[1];
+            });
+            getShareableURL(pathStr);
+            pathArray = [];
+        };
+        vm.undoLastPath = function(){
+            $scope.$broadcast('map-pathing-undo');
+        };
+
+        function getShareableURL(pathStr){
+            var longUrl = "http://thedivisionagent.com/map?path="+pathStr;
+            GoogleURLShortener.shorten(longUrl).then(function(shortUrl){
+                vm.shareableUrl = shortUrl;
+            }, function(){
+                vm.shareableUrl = "Error";
+            });
+        }
+
+        $scope.$on('map-pathing-update', function(event, newPathArray){
+            pathArray = newPathArray;
+        });
+
+        //
+        // Timer Tab
+        //
+
+        vm.timersEnabled = false;
+        vm.activeTimers = [];
+
+        vm.toggleTimerMode = function(state){
+            vm.timersEnabled = state;
+            $scope.$broadcast('map-timer-toggle', state);
+            if(!state){
+                vm.activeTimers = [];
+            }
+        };
+
+        vm.locateMarker = function(marker){
+            $scope.$broadcast('map-marker-center', marker);
+            $scope.$broadcast('map-marker-pulse', marker);
+        };
+
+        function setupTimerLocation(location) {
+            location.respawnTime = moment().add(location.respawn, 'seconds');
+            location.respawnTimeTotal = location.respawn * 1000;
+            location.respawnMilli = location.respawn * 1000;
+            location.respawned = false;
+        }
+
+        vm.resetTimer = function(location) {
+            setupTimerLocation(location);
+        };
+
+        $scope.$on('map-timer-start', function(event, marker, location){
+            console.log("$on", Date.now());
+            if( !_.find(vm.activeTimers, {id: location.id}) ){
+                setupTimerLocation(location);
+                location.type = marker.typeFriendly;
+                vm.activeTimers.push(location);
+                $scope.$apply();
+            }
+        });
+
+        $interval(function(){
+            var current = moment();
+            var grace_period = moment().add(2, 'minutes');
+            _.each(vm.activeTimers, function(location){
+                if(location){
+                    location.respawnMilli = location.respawnTime.diff(current);
+                    if( location.respawnMilli <= -120000 ){
+                        _.remove(vm.activeTimers, location);
+                    } else if( location.respawnMilli <= 0 && !location.respawned ){
+                        location.respawned = true;
+                        vm.locateMarker(location);
+                        // play sound
+                    }
+                }
+            });
+        }, 1000);
 
         return vm;
     }

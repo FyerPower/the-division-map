@@ -19,13 +19,14 @@ var PATHS = {
         'src/assets/js/app.js',
         'src/assets/js/components/**/*.js',
         'src/assets/js/directives/**/*.js',
+        'src/assets/js/filters/**/*.js',
         'src/assets/js/services/**/*.js'
     ],
     templates: [
         'src/assets/js/**/*.html',
     ],
     static: [
-        'src/assets/**/*.{png,jpg,ico}',
+        'src/assets/**/*.{png,jpg,ico,svg}',
         'src/index.html',
     ],
     lib: [

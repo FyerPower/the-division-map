@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="256px"
+	 height="256px" viewBox="0 0 256 256" enable-background="new 0 0 256 256" xml:space="preserve">
+<g id="Background">
+	<circle fill="#535980" stroke="#CCCDE7" stroke-width="2" stroke-miterlimit="10" cx="128" cy="128" r="108"/>
+</g>
+<g id="Diamonds">
+	<polygon fill="#CCCDE7" points="156,72 155.9,108 127.9,124 100,107.8 100,72 128,56 	"/>
+	<polygon fill="#CCCDE7" points="124,132 123.9,168 95.9,184 68,167.8 68,132 96,116 	"/>
+	<polygon fill="#CCCDE7" points="188,132 187.9,168 159.9,184 132,167.8 132,132 160,116 	"/>
+</g>
+</svg>

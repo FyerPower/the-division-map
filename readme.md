@@ -14,12 +14,13 @@ Welcome to The Division Agent.  I've created this site for the sole purpose of p
 * Undo functionality when adding custom paths
 * Scale Markers on Map
 * Remember user map preferences
+* Improved Map Graphics
+* Custom Timers
 
 #### Upcoming Features
 * Search feature to search all markers
 * Add image preview of locations on hover
 * Add boss profiles (Name, Faction, Archetype, Image, Known Drops)
-* Improved Map Graphics
 * Underground / Subway Maps
 * Other Pages
 
@@ -32,9 +33,14 @@ If you notice anything missing or have any improvements please create a pull req
 How do I contribute code changes?
 --------------------------------------
 
-`npm install`: Install all dev dependencies (livereload, sass, minification, etc)
-`gulp`: run gulp build processes and then starts to watch for changes.
+* Install NPM
+* `npm install`: Install all dev dependencies (livereload, sass, minification, etc)
+* `gulp`: run gulp build processes and then starts to watch for changes.
 
+#### How to generate map tiles
+* `brew install python`
+* `brew install gdal`
+* `[project]/gdal2leaflet.py -l -p raster -z 2-4 -w none [input_image] [project]/src/assets/img/map_v[x]/`
 
 Credits & Licence
 --------------------------------------

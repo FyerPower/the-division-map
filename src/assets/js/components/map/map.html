@@ -40,6 +40,43 @@
                 </div>
             </div>
 
+            <!-- Timer Tab -->
+            <div class="sidebar-component" ng-show="vm.tab == 'timer'">
+                <h4>Custom Timers</h4>
+                <div class="text-center" ng-show="vm.activeTimers.length == 0">
+                    <p>You have no active timers.</p>
+                    <p ng-show="vm.timersEnabled">Click on a boss, landmark, or collectable on the map to start a respawn timer for it.</p>
+                </div>
+                <ul class="list-group timer-list-group" ng-show="vm.activeTimers.length > 0">
+                    <li class="list-group-item" ng-repeat="timer in vm.activeTimers | orderBy: 'respawnMilli'">
+                        <a class="block-link" ng-hide="timer.respawnMilli > 0" ng-click="vm.resetTimer(timer)"><i class="fa fa-undo"></i> Reset</a>
+                        <div class="timer-wrapper pull-right" ng-show="timer.respawnMilli > 0">
+                            <div class="timer ng-cloak" ng-style="getStyle()">{{timer.respawnMilli | msToMinSec}}</div>
+                            <div round-progress
+                                max="timer.respawnTimeTotal"
+                                current="timer.respawnMilli"
+                                color="#ff8c00"
+                                bgcolor="rgba(255,255,255,0.1)"
+                                radius="36"
+                                stroke="8"
+                                semi="true"
+                                rounded="false"
+                                clockwise="false"
+                                responsive="false"
+                                duration="500"
+                                animation="easeInOutQuart"
+                                animation-delay="0">
+                            </div>
+                        </div>
+                        <div class="list-group-item-content">
+                            <p class="clickable" ng-click="vm.locateMarker(timer)">{{timer.name || timer.label}}</p>
+                        </div>
+                    </li>
+                </ul>
+                <a class="block-link" style="display:block;" ng-click="vm.toggleTimerMode(true)" ng-hide="vm.timersEnabled">Enable Timers</a>
+                <a class="block-link" style="display:block;" ng-click="vm.toggleTimerMode(false)" ng-show="vm.timersEnabled">Clear & Disable Timers</a>
+            </div>
+
             <div class="sidebar-component">
                 <div id="map-sidebar-footer">
                     <div>
@@ -54,6 +91,7 @@
                 <a class="btn btn-default" tda-popover="Collapse / Expand Menu" popover-position="left" ng-click="vm.toggleMenu();"><i class="fa fa-bars"></i></a>
                 <a class="btn" ng-class="{'btn-primary': vm.tab == 'filters', 'btn-default': vm.tab != 'filters'}" tda-popover="Manage Map Markers" popover-position="left" ng-click="vm.showTab('filters');"><i class="fa fa-map"></i></a>
                 <a class="btn" ng-class="{'btn-primary': vm.tab == 'paths', 'btn-default': vm.tab != 'paths'}" tda-popover="Create & Share Custom Paths" popover-position="left" ng-click="vm.showTab('paths');"><i class="tda-icon tda-path"></i></a>
+                <a class="btn" ng-class="{'btn-primary': vm.tab == 'timer', 'btn-default': vm.tab != 'timer'}" tda-popover="Set Custom Respawn Timers" popover-position="left" ng-click="vm.showTab('timer');"><i class="tda-icon tda-timer"></i></a>
             </div>
             <div class="btn-group-vertical" ng-show="vm.fullscreenEnabled">
                 <a class="btn btn-default" tda-popover="Toggle Fullscreen" popover-position="left" ng-click="vm.toggleFullscreen();">

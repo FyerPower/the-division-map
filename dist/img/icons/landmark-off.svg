@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="256px"
+	 height="256px" viewBox="0 0 256 256" enable-background="new 0 0 256 256" xml:space="preserve">
+<g id="Background">
+	<circle fill="#515557" stroke="#C8C9C9" stroke-width="2" stroke-miterlimit="10" cx="128" cy="128" r="108"/>
+</g>
+<g id="Landmark">
+	<path fill="#C8C9C9" d="M48,200l20-28l-4-88l52-24l32,44c0,0-8,8-16,8s-16-16-16-16l-16,8l16,32l-4,48l20-24l16,16l32-8l-4,12c0,0-25.9,18.6-40,28c-12,8-24,28-24,28s-20-4-40-16C59.6,212.6,48,200,48,200z"/>
+	<path fill="#C8C9C9" d="M124,56c0,0,24-12,32-8s16,12,16,16s-28,16-28,16L124,56z"/>
+	<path fill="#C8C9C9" d="M148,88c0,0,24-16,28-16s12,20,12,24c0,8-32,16-32,16h-4l4-8L148,88z"/>
+	<path fill="#C8C9C9" d="M140,128c0,0,44-24,48-20s8,16,8,20s-48,16-48,16l-4-4L140,128z"/>
+	<path fill="#C8C9C9" d="M148,152v12l8,4c0,0,36-4,40-8s4-16,0-20S148,152,148,152z"/>
+</g>
+</svg>

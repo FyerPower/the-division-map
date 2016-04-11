@@ -4,8 +4,8 @@
     angular.module('theDivisionAgent')
         .directive('leaflet', MapDirective);
 
-    MapDirective.$inject = ['$rootScope', '$stateParams', 'localStorageService'];
-    function MapDirective($rootScope, $stateParams, localStorageService){
+    MapDirective.$inject = ['$rootScope', '$stateParams', '$timeout', 'localStorageService'];
+    function MapDirective($rootScope, $stateParams, $timeout, localStorageService){
         return {
             restrict: 'E',
             replace: true,
@@ -29,16 +29,17 @@
                     center: [STARTING_LAT, STARTING_LNG],
                     zoom: current_zoom,
                     zoomControl: false,
+                    maxZoom: MAX_ZOOM,
+                    minZoom: MIN_ZOOM,
                 }); // Default
 
                 // Add Mouse Position to bottom left of map
                 L.control.mousePosition().addTo(theDivisionMap);
 
                 // Define custom map
-                L.tileLayer('/img/map/{z}/{x}/{y}.jpg', {
+                // L.tileLayer('/img/map/{z}/{x}/{y}.jpg', {
+                L.tileLayer('/img/map_v2/{z}/{x}/{y}.png', {
                     attribution: '',
-                    maxZoom: MAX_ZOOM,
-                    minZoom: MIN_ZOOM,
                     noWrap: true,
                     reuseTiles: true
                 }).addTo(theDivisionMap);
@@ -54,6 +55,7 @@
                     var icon = _.get(Icons, marker.type);
                     _.each(marker.locations, function(loc){
                         loc.marker = L.marker([loc.lat, loc.long], {icon: icon});
+                        buildMarkerLabel(marker, loc);
                         if(DEBUG_MODE) {
                             loc.label = "("+loc.id+"): "+loc.label;
                         }
@@ -68,12 +70,21 @@
                         }
                         loc.marker.on('click', function(e){
                             mapPointClicked(e);
+                            markerClicked(e, marker, loc);
                         });
                         if( localStorageService.get('map-filter-'+marker.type.toLowerCase()) !== false ) {
                             loc.marker.addTo(theDivisionMap);
                         }
                     });
                 });
+
+                function buildMarkerLabel(marker, location){
+                    if( !location.label ) {
+                        if( marker.type == "NamedBosses" ) {
+                            location.label = "<b>"+(location.subway ? "(Subway) " : "")+"Named Bosses:</b><br/>" + location.bosses.join("<br/>");
+                        }
+                    }
+                }
 
                 //
                 // Filter Markers
@@ -109,7 +120,7 @@
 
                 scope.$on('map-pathing-undo', function(){
                     pathArray.pop();
-                    $rootScope.$broadcast('map-pathing-update', pathArray);
+                    scope.$emit('map-pathing-update', pathArray);
 
                     var lastPolygon = pathPolygons[pathPolygons.length - 1];
                     theDivisionMap.removeLayer(lastPolygon);
@@ -131,7 +142,7 @@
                     var lastPoint = pathArray.length > 0 ? pathArray[pathArray.length-1] : null;
                     if( lastPoint === null || !(lastPoint[0] === lat && lastPoint[1] === lng) ){
                         pathArray.push([lat,lng]);
-                        $rootScope.$broadcast('map-pathing-update', pathArray);
+                        scope.$emit('map-pathing-update', pathArray);
 
                         if(lastPoint === null){
                             lastPoint = [lat,lng];
@@ -179,7 +190,7 @@
                 theDivisionMap.on('zoomend', function(e){
                     current_zoom = e.target._zoom;
                     localStorageService.set('map-zoom', current_zoom);
-                    $rootScope.$broadcast('map-zoom-changed', current_zoom === MIN_ZOOM, current_zoom === MAX_ZOOM);
+                    scope.$emit('map-zoom-changed', current_zoom === MIN_ZOOM, current_zoom === MAX_ZOOM);
                 });
 
                 theDivisionMap.on('moveend', function(e){
@@ -220,6 +231,47 @@
                 }
 
                 //
+                // Timers
+                //
+
+                var timerEnabled = false;
+
+                scope.$on('map-timer-toggle', function(e, state){
+                    timerEnabled = state;
+                });
+
+                function markerClicked(e, marker, loc){
+                    if(timerEnabled && (loc.respawn || loc.link)){
+                        if(loc.link){
+                            var found = false;
+                            _.each(Markers, function(m){
+                                _.each(m.locations, function(l){
+                                    if(!found && loc.link == l.id){
+                                        loc = l;
+                                        marker = m;
+                                        found = true;
+                                    }
+                                });
+                            });
+                        }
+                        scope.$emit('map-timer-start', marker, loc);
+                    }
+                }
+
+                scope.$on('map-marker-center', function(e, marker){
+                    theDivisionMap.setView(new L.LatLng(marker.lat, marker.long));
+                });
+
+                scope.$on('map-marker-pulse', function(e, marker){
+                    var pulse = L.marker([marker.lat, marker.long], {icon: Icons.Pulse});
+                    pulse.addTo(theDivisionMap);
+                    $timeout(function(){
+                        theDivisionMap.removeLayer(pulse);
+                    }, 10000);
+                });
+
+
+                //
                 // Special Icons
                 //
 
@@ -234,17 +286,25 @@
                     });
 
                     Icons = {
-                        'Extractions':     new DivisionIcon({iconUrl: '/img/icons/extraction.png'}),
-                        'SubwayEntrances': new DivisionIcon({iconUrl: '/img/icons/subway.png'}),
-                        'Landmarks':       new DivisionIcon({iconUrl: '/img/icons/landmark-off.png'}),
-                        'SafeHouses':      new DivisionIcon({iconUrl: '/img/icons/saferoom.png'}),
-                        'Checkpoints':     new DivisionIcon({iconUrl: '/img/icons/checkpoint.png'}),
-                        'DZEntrances':     new DivisionIcon({iconUrl: '/img/icons/dz-enterance.png'}),
-                        'Containment':     new DivisionIcon({iconUrl: '/img/icons/containment.png'}),
-                        'DivisionTech':    new DivisionIcon({iconUrl: '/img/icons/division-tech.png'}),
-                        'DarkzoneChests':  new DivisionIcon({iconUrl: '/img/icons/darkzone-chest.png'}),
-                        'NamedBosses':     new DivisionIcon({iconUrl: '/img/icons/enemy-named.png'}),
+                        'Extractions':     new DivisionIcon({iconUrl: '/img/icons/extraction.svg'}),
+                        'SubwayEntrances': new DivisionIcon({iconUrl: '/img/icons/subway.svg'}),
+                        'Landmarks':       new DivisionIcon({iconUrl: '/img/icons/landmark-off.svg'}),
+                        'SafeHouses':      new DivisionIcon({iconUrl: '/img/icons/saferoom.svg'}),
+                        'Checkpoints':     new DivisionIcon({iconUrl: '/img/icons/checkpoint.svg'}),
+                        'DZEntrances':     new DivisionIcon({iconUrl: '/img/icons/dz-enterance.svg'}),
+                        'Containment':     new DivisionIcon({iconUrl: '/img/icons/containment.svg'}),
+                        'DivisionTech':    new DivisionIcon({iconUrl: '/img/icons/division-tech.svg'}),
+                        'DarkzoneChests':  new DivisionIcon({iconUrl: '/img/icons/darkzone-chest.svg'}),
+                        'NamedBosses':     new DivisionIcon({iconUrl: '/img/icons/enemy-named.svg'}),
                     };
+
+                    Icons.Pulse = L.divIcon({
+                        className: 'css-icon',
+                        html: '<div class="leaflet-marker-pulse"></div>',
+                        iconSize: [64,64],
+                        iconAnchor:   [32, 32],
+                        popupAnchor:  [0, -32]
+                    });
                 }
 
                 //
@@ -253,7 +313,7 @@
 
                 function buildMarkers() {
                     Markers = [
-                        { type: "Checkpoints", locations: [
+                        { type: "Checkpoints", typeFriendly: "Checkpoint", locations: [
                             { id: 1,    lat: -78.32,  long: 32.20,   label: "DZ01 South Checkpoint"},
                             { id: 2,    lat: -75.95,  long: 82.70,   label: "DZ01 East Checkpoint"},
                             { id: 3,    lat: -75.75,  long: -17.50,  label: "DZ01 West Checkpoint"},
@@ -268,7 +328,7 @@
                             { id: 12,   lat: 38,      long: 28.2,    label: "DZ05 East Checkpoint"},
                             { id: 13,   lat: 38.8,    long: -65.3,   label: "DZ05 West Checkpoint"},
                         ]},
-                        { type: "DZEntrances", locations: [
+                        { type: "DZEntrances", typeFriendly: "Entrance", locations: [
                             { id: 14,   lat: -47.00,  long: 82.10,   label: "DZ02 East Entrance"},
                             { id: 15,   lat: -54.60,  long: -19.00,  label: "DZ02 West Entrance"},
                             { id: 16,   lat: -25.6,   long: -47,     label: "DZ03 West Entrance"},
@@ -277,22 +337,22 @@
                             { id: 19,   lat: 28,      long: -60.8,   label: "DZ04 West Entrance"},
                             { id: 20,   lat: 59,      long: 28.4,    label: "DZ05 East Entrance"},
                         ]},
-                        { type: "Landmarks", locations: [
-                            { id: 21,   lat: -72.30,  long: 28.00,   label: "Koreatown"},
-                            { id: 22,   lat: -65.10,  long: 32.20,   label: "Blockade"},
-                            { id: 23,   lat: -66.10,  long: 54.00,   label: "Abandoned Gas Station"},
-                            { id: 24,   lat: -58.70,  long: 48.00,   label: "Construction Site"},
-                            { id: 25,   lat: -41.80,  long: 25.30,   label: "Kalkesse Sporting Store"},
-                            { id: 26,   lat: -41.80,  long: 67.00,   label: "The Library"},
-                            { id: 27,   lat: -13.40,  long: 32.10,   label: "Refueling Station"},
-                            { id: 28,   lat: 8.80,    long: -4.7,    label: "Arch Plaza"},
-                            { id: 29,   lat: 38.5,    long: -41,     label: "News Chopper Crash"},
-                            { id: 30,   lat: 42,      long: -23,     label: "Scaffolding Collapse"},
-                            { id: 31,   lat: 59,      long: 15.0,    label: "The Pit"},
-                            { id: 32,   lat: 64.1,    long: -16,     label: "Mid Town Music"},
-                            { id: 33,   lat: 70,      long: 6.5,     label: "Q Building"},
+                        { type: "Landmarks", typeFriendly: "Landmark", locations: [
+                            { id: 21,   lat: -72.30,  long: 28.00,                 label: "Koreatown"},
+                            { id: 22,   lat: -65.10,  long: 32.20,   link: 158,    label: "Blockade"},
+                            { id: 23,   lat: -66.10,  long: 54.00,                 label: "Abandoned Gas Station"},
+                            { id: 24,   lat: -58.70,  long: 48.00,   link: 159,    label: "Construction Site"},
+                            { id: 25,   lat: -41.80,  long: 25.30,   link: 161,    label: "Kalkesse Sporting Store"},
+                            { id: 26,   lat: -41.80,  long: 67.00,   link: 162,    label: "The Library"},
+                            { id: 27,   lat: -13.40,  long: 32.10,   link: 151,    label: "Refueling Station"},
+/**/                        { id: 28,   lat: 8.80,    long: -6.0,    respawn: 300, label: "Arch Plaza"},
+                            { id: 29,   lat: 38.5,    long: -41,                   label: "News Chopper Crash"},
+                            { id: 30,   lat: 42,      long: -23,                   label: "Scaffolding Collapse"},
+                            { id: 31,   lat: 59,      long: 15.0,    link: 166,    label: "The Pit"},
+                            { id: 32,   lat: 64.1,    long: -16,     link: 167,    label: "Mid Town Music"},
+                            { id: 33,   lat: 70,      long: 6.5,     link: 169,    label: "Q Building"},
                         ]},
-                        { type: "Extractions", locations: [
+                        { type: "Extractions", typeFriendly: "Extraction", locations: [
                             { id: 34,   lat: -70.00,  long: 65.00,  label: "Gas Station Extraction"},
                             { id: 35,   lat: -72.30,  long: -9.50,  label: "Subway Extraction"},
                             { id: 36,   lat: -51.60,  long: 12.10,  label: "Garage Rooftop Extraction"},
@@ -302,7 +362,7 @@
                             { id: 40,   lat: 52.4,    long: -52,    label: "Rooftop Extraction"},
                             { id: 41,   lat: 69.2,    long: -27.5,  label: "Hotel Rooftop Extraction"},
                         ]},
-                        { type: "SafeHouses", locations: [
+                        { type: "SafeHouses", typeFriendly: "Safe House", locations: [
                             { id: 42,   lat: -45.50,  long: 50.00,  label: "DZ02 Safe Room"},
                             { id: 43,   lat: -35.20,  long: -4.20,  label: "DZ03 Safe Room"},
                             { id: 44,   lat: 25.9,    long: -1.70,  label: "DZ04 Safe Room"},
@@ -310,90 +370,90 @@
                             { id: 46,   lat: 72.7,    long: -8,     label: "DZ06 Safe Room"},
                         ]},
                         { type: "DivisionTech", locations: [
-                            { id: 47,   lat: -63,     long: 34,     label: "In the corner on top of the scaffolding"},
-                            { id: 48,   lat: -60.3,   long: 49.6,   label: "Second Floor: Southeast corner of building"},
-                            { id: 49,   lat: -57.0,   long: 49.6,   label: "Second Floor: Northeast corner of building"},
-                            { id: 50,   lat: -58.7,   long: 49.6,   label: "Third Floor: Middle of the building"},
-                            { id: 51,   lat: -53.5,   long: 77.0,   label: "Right of south entrance"},
-                            { id: 52,   lat: -51.5,   long: 77.0,   label: "Left room from the south entrance"},
-                            { id: 53,   lat: -53.5,   long: 74.0,   label: "Back right room from south entrance"},
-                            { id: 54,   lat: -41.0,   long: 63.0,   label: "Back left corner of boss area"},
-                            { id: 55,   lat: -39.0,   long: 28,     label: "Third Floor: Behind the christmas tree"},
-                            { id: 56,   lat: -44.3,   long: 28,     label: "Second Floor: Corner of building by the pool tables"},
-                            { id: 57,   lat: -44.7,   long: 20,     label: "Third Floor: Outside on scaffolding"},
-                            { id: 58,   lat: -43.3,   long: 23,     label: "First Floor"},
-                            { id: 59,   lat: -30,     long: 12.5,   label: "South east corner of alley"},
-                            { id: 60,   lat: -30,     long: 2,      label: "On top of the building behind a fence"},
-                            { id: 61,   lat: -24,     long: 50,     label: "In containment zone north side of street"},
-                            { id: 62,   lat: -13.4,   long: 30.5,   label: "Middle of the area as you walk up the steps"},
-                            { id: 63,   lat: -6,      long: 6.5,    label: "Second Floor: Northeast corner of buildings"},
-                            { id: 64,   lat: 8.80,    long: -4.7,   label: "Middle of building down one of the main hallways"},
-                            { id: 65,   lat: 8.80,    long: -50,    label: "End of Alley"},
-                            { id: 66,   lat: 15.3,    long: -57,    label: "End of street behind the truck"},
-                            { id: 67,   lat: 9.5,     long: 53.6,   label: "In the backroom behind the desks"},
-                            { id: 68,   lat: 6.5,     long: 53.6,   label: "Directly as you walk in from the south entrance"},
-                            { id: 69,   lat: 13.5,    long: 68.6,   label: "End of street on the south side"},
-                            { id: 70,   lat: 19.6,    long: 16,     label: "Left side of the truck in the middle"},
-                            { id: 71,   lat: 29.5,    long: 28,     label: "Second Floor: By a desk in southeast corner"},
-                            { id: 72,   lat: 31,      long: 29,     label: "Second Floor: In the server room"},
-                            { id: 73,   lat: 32.5,    long: 28,     label: "Frist Floor: Back hallway near the northwest side"},
-                            { id: 74,   lat: 32.5,    long: 25,     label: "First Floor: Northwest corner room"},
-                            { id: 75,   lat: 34.5,    long: 34,     label: "Northeast corner of the street by shipping containers"},
-                            { id: 76,   lat: 44.9,    long: 15.8,   label: "Middle of building slightly left of entrance"},
-                            { id: 77,   lat: 50,      long: 9.9,    label: "Near subway entrance on west side of street"},
-                            { id: 78,   lat: 44.5,    long: 0.5,    label: "Second Floor: West side of north building"},
-                            { id: 79,   lat: 42,      long: -2,     label: "Second Floor: West side of south building"},
-                            { id: 80,   lat: 37.5,    long: -41,    label: "Next to crashed helicopter"},
-                            { id: 81,   lat: 43.5,    long: -35,    label: "In alleyway on the east side near the building"},
-                            { id: 82,   lat: 48,      long: -62,    label: "End of the street on the southwest corner"},
-                            { id: 83,   lat: 53,      long: -42,    label: "In alleyway on the east side near the building"},
-                            { id: 84,   lat: 57,      long: -42,    label: "Northwest corner of the sidewalk near building"},
-                            { id: 85,   lat: 65.5,    long: -66.5,  label: "In the tent on the south side"},
-                            { id: 86,   lat: 71,      long: -66.5,  label: "In a small side alley east of the street"},
-                            { id: 87,   lat: 73,      long: -66.5,  label: "In a small side alley east of the street"},
-                            { id: 88,   lat: -74.8,   long: 54,     label: "Southeast corner of parking lot behind cars"},
-                            { id: 89,   lat: -70.3,   long: -15.2,  label: "Northeast edge of park, along the benchs"},
-                            { id: 90,   lat: 50.5,    long: -31.1,  label: "Middle of building south passage"},
-                            { id: 91,   lat: 55,      long: 3.8,    label: "South side of the street on the sidewalk"},
-                            { id: 92,   lat: 59.2,    long: 20.3,   label: "Top of the stairs behind the planter"},
-                            { id: 93,   lat: -13.6,   long: 79.4,   label: "Middle of street inside the fencing"},
-                            { id: 94,   lat: 70,      long: -7,     label: "In the alleyway just south of saferoom"},
-                            { id: 95,   lat: 70,      long: -25.3,  label: "Outside building on the northeast corner"},
-                            { id: 96,   lat: 70,      long: -29.4,  label: "Rooftop: Just north of the elevator shaft"},
-                            { id: 97,   lat: 69.6,    long: -27.6,  label: "First Floor: Northwest corner of building behind elevator"},
-                            { id: 98,   lat: 68.3,    long: -27.6,  label: "First Floor: Southeast corner of building just left of entrance"},
-                            { id: 99,   lat: 74.4,    long: -39.1,  label: "Back of alley behind fencing"},
-                            { id: 100,  lat: 73.4,    long: -48.5,  label: "Back of tent"},
-                            { id: 101,  lat: 70.3,    long: -53.2,  label: "Middle of alleyway on the west side"},
-                            { id: 102,  lat: 65.0,    long: 10.1,   label: "West side of the street on the sidewalk"},
-                            { id: 103,  lat: 57.4,    long: -12.1,  label: "In Subway"},
+                            { id: 47,   lat: -63,     long: 34,     respawn: 7200, name: "Div Tech: Blockade",            label: "In the corner on top of the scaffolding"},
+                            { id: 48,   lat: -60.3,   long: 49.6,   respawn: 7200, name: "Div Tech: S. Construction (1)", label: "Second Floor: Southeast corner of building"},
+                            { id: 49,   lat: -57.0,   long: 49.6,   respawn: 7200, name: "Div Tech: S. Construction (2)", label: "Second Floor: Northeast corner of building"},
+                            { id: 50,   lat: -58.7,   long: 49.6,   respawn: 7200, name: "Div Tech: S. Construction (3)", label: "Third Floor: Middle of the building"},
+                            { id: 51,   lat: -53.5,   long: 77.0,   respawn: 7200, name: "Div Tech: Laundromat (1)",      label: "Right of south entrance"},
+                            { id: 52,   lat: -51.5,   long: 77.0,   respawn: 7200, name: "Div Tech: Laundromat (3)",      label: "Left room from the south entrance"},
+                            { id: 53,   lat: -53.5,   long: 74.0,   respawn: 7200, name: "Div Tech: Laundromat (2)",      label: "Back right room from south entrance"},
+                            { id: 54,   lat: -41.0,   long: 63.0,   respawn: 7200, name: "Div Tech: Library",             label: "Back left corner of boss area"},
+                            { id: 55,   lat: -39.0,   long: 28,     respawn: 7200, name: "Div Tech: Sports Store (3)",    label: "Third Floor: Behind the christmas tree"},
+                            { id: 56,   lat: -44.3,   long: 28,     respawn: 7200, name: "Div Tech: Sports Store (2)",    label: "Second Floor: Corner of building by the pool tables"},
+                            { id: 57,   lat: -44.7,   long: 20,     respawn: 7200, name: "Div Tech: Sports Store (4)",    label: "Third Floor: Outside on scaffolding"},
+                            { id: 58,   lat: -43.3,   long: 23,     respawn: 7200, name: "Div Tech: Sports Store (1)",    label: "First Floor"},
+                            { id: 59,   lat: -30,     long: 12.5,   respawn: 7200, name: "Div Tech: Christmas Alley",     label: "South east corner of alley"},
+                            { id: 60,   lat: -30,     long: 2,      respawn: 7200, name: "Div Tech: Roof DZ03 S.House",   label: "On top of the building behind a fence"},
+                            { id: 61,   lat: -24,     long: 50,     respawn: 7200, name: "Div Tech: DZ03 Containment ",   label: "In containment zone north side of street"},
+                            { id: 62,   lat: -13.4,   long: 30.5,   respawn: 7200, name: "Div Tech: Refueling Station",   label: "Middle of the area as you walk up the steps"},
+                            { id: 63,   lat: -6,      long: 6.5,    respawn: 7200, name: "Div Tech: Bryant Park",         label: "Second Floor: Northeast corner of buildings"},
+                            { id: 64,   lat: 8.80,    long: -3.6,   respawn: 7200, name: "Div Tech: Arch Plaza",          label: "Middle of building down one of the main hallways"},
+                            { id: 65,   lat: 8.80,    long: -50,    respawn: 7200, name: "Div Tech: W 43rd Alley",        label: "End of Alley"},
+                            { id: 66,   lat: 15.3,    long: -57,    respawn: 7200, name: "Div Tech: W 43rd Road End",     label: "End of street behind the truck"},
+                            { id: 67,   lat: 9.5,     long: 53.6,   respawn: 7200, name: "Div Tech: DZ03 DT Bldg (2)",    label: "In the backroom behind the desks"},
+                            { id: 68,   lat: 6.5,     long: 53.6,   respawn: 7200, name: "Div Tech: DZ03 DT Bldg (1)",    label: "Directly as you walk in from the south entrance"},
+                            { id: 69,   lat: 13.5,    long: 68.6,   respawn: 7200, name: "Div Tech: E 43rd Road End",     label: "End of street on the south side"},
+                            { id: 70,   lat: 19.6,    long: 16,     respawn: 7200, name: "Div Tech: Sniper Poach",        label: "Left side of the truck in the middle"},
+                            { id: 71,   lat: 29.5,    long: 28,     respawn: 7200, name: "Div Tech: DZ04 DT Bldg (3)",    label: "Second Floor: By a desk in southeast corner"},
+                            { id: 72,   lat: 31,      long: 29,     respawn: 7200, name: "Div Tech: DZ04 DT Bldg (4)",    label: "Second Floor: In the server room"},
+                            { id: 73,   lat: 32.5,    long: 28,     respawn: 7200, name: "Div Tech: DZ04 DT Bldg (2)",    label: "Frist Floor: Back hallway near the northwest side"},
+                            { id: 74,   lat: 32.5,    long: 25,     respawn: 7200, name: "Div Tech: DZ04 DT Bldg (1)",    label: "First Floor: Northwest corner room"},
+                            { id: 75,   lat: 34.5,    long: 34,     respawn: 7200, name: "Div Tech: 5th Ave Shipping",    label: "Northeast corner of the street by shipping containers"},
+                            { id: 76,   lat: 44.9,    long: 15.8,   respawn: 7200, name: "Div Tech: DZ05 DT Bldg",        label: "Middle of building slightly left of entrance"},
+                            { id: 77,   lat: 50,      long: 9.9,    respawn: 7200, name: "Div Tech: S. Rockefeller Pl",   label: "Near subway entrance on west side of street"},
+                            { id: 78,   lat: 44.5,    long: 0.5,    respawn: 7200, name: "Div Tech: DZ05 Extract N Bldg", label: "Second Floor: West side of north building"},
+                            { id: 79,   lat: 42,      long: -2,     respawn: 7200, name: "Div Tech: DZ05 Extract S Bldg", label: "Second Floor: West side of south building"},
+                            { id: 80,   lat: 37.5,    long: -41,    respawn: 7200, name: "Div Tech: News Chopper Crash",  label: "Next to crashed helicopter"},
+                            { id: 81,   lat: 43.5,    long: -35,    respawn: 7200, name: "Div Tech: News Chopper Alley",  label: "In alleyway on the east side near the building"},
+                            { id: 82,   lat: 48,      long: -62,    respawn: 7200, name: "Div Tech: W 47th Road End",     label: "End of the street on the southwest corner"},
+                            { id: 83,   lat: 53,      long: -42,    respawn: 7200, name: "Div Tech: W 49th Alley",        label: "In alleyway on the east side near the building"},
+                            { id: 84,   lat: 57,      long: -42,    respawn: 7200, name: "Div Tech: W 49th Road",         label: "Northwest corner of the sidewalk near building"},
+                            { id: 85,   lat: 65.5,    long: -66.5,  respawn: 7200, name: "Div Tech: North Cleaners",      label: "In the tent on the south side"},
+                            { id: 86,   lat: 71,      long: -66.5,  respawn: 7200, name: "Div Tech: 7th Ave (S)",         label: "In a small side alley east of the street"},
+                            { id: 87,   lat: 73,      long: -66.5,  respawn: 7200, name: "Div Tech: 7th Ave (N)",         label: "In a small side alley east of the street"},
+                            { id: 88,   lat: -74.8,   long: 54,     respawn: 7200, name: "Div Tech: South Parking Lot",   label: "Southeast corner of parking lot behind cars"},
+                            { id: 89,   lat: -70.3,   long: -15.2,  respawn: 7200, name: "Div Tech: Greeley Park",        label: "Northeast edge of park, along the benchs"},
+                            { id: 90,   lat: 50.5,    long: -31.1,  respawn: 7200, name: "Div Tech: DZ05 Central Bldg",   label: "South side of building"},
+                            { id: 91,   lat: 55,      long: 3.8,    respawn: 7200, name: "Div Tech: DZ05 Safe House",     label: "South side of the street on the sidewalk"},
+                            { id: 92,   lat: 59.2,    long: 20.3,   respawn: 7200, name: "Div Tech: The Pit",             label: "Top of the stairs behind the planter"},
+                            { id: 93,   lat: -13.6,   long: 79.4,   respawn: 7200, name: "Div Tech: E 41st Road End",     label: "Middle of street inside the fencing"},
+                            { id: 94,   lat: 70,      long: -7,     respawn: 7200, name: "Div Tech: DZ06 Safe House",     label: "In the alleyway just south of saferoom"},
+                            { id: 95,   lat: 70,      long: -25.3,  respawn: 7200, name: "Div Tech: DZ06 Extract (1)",    label: "Outside building on the northeast corner"},
+                            { id: 96,   lat: 69.6,    long: -27.6,  respawn: 7200, name: "Div Tech: DZ06 Extract (4)",    label: "Rooftop: Just north of the elevator shaft"},
+                            { id: 97,   lat: 70,      long: -29.4,  respawn: 7200, name: "Div Tech: DZ06 Extract (3)",    label: "First Floor: Northwest corner of building behind elevator"},
+                            { id: 98,   lat: 68.3,    long: -27.6,  respawn: 7200, name: "Div Tech: DZ06 Extract (2)",    label: "First Floor: Southeast corner of building just left of entrance"},
+                            { id: 99,   lat: 74.4,    long: -39.1,  respawn: 7200, name: "Div Tech: W 55th Fencing",      label: "Back of alley behind fencing"},
+                            { id: 100,  lat: 73.4,    long: -48.5,  respawn: 7200, name: "Div Tech: W 55th Tent",         label: "Back of tent"},
+                            { id: 101,  lat: 70.3,    long: -53.2,  respawn: 7200, name: "Div Tech: W 55th - S. Alley",   label: "Middle of alleyway on the west side"},
+                            { id: 102,  lat: 65.0,    long: 10.1,   respawn: 7200, name: "Div Tech: N. Rockefeller Pl",   label: "West side of the street on the sidewalk"},
+                            { id: 103,  lat: 57.4,    long: -12.1,  respawn: 7200, name: "Div Tech: Underground Mall",    label: "In Subway"},
                         ]},
                         { type: "DarkzoneChests", locations: [
-                            { id: 104,  lat: -78.2,   long: 52.7,   label: "End of Alley"},
-                            { id: 105,  lat: -65.15,  long: 29.6,   label: "Middle of blockade against building"},
-                            { id: 106,  lat: -59.75,  long: 47.9,   label: "Middle of Building on 1st Floor"},
-                            { id: 107,  lat: -43,     long: 25.2,   label: "Middle of Building on 2nd Floor"},
-                            { id: 108,  lat: -42,     long: 63,     label: "Middle of area against building"},
-                            { id: 109,  lat: -69.2,   long: -10.8,  label: "Against Wall in Subway"},
-                            { id: 110,  lat: -63.1,   long: -6.7,   label: "Back of Subway"},
-                            { id: 111,  lat: -46.6,   long: -29.5,  label: "End of Road"},
-                            { id: 112,  lat: 18.9,    long: 18,     label: "Back of truck"},
-                            { id: 113,  lat: -12.8,   long: -1.8,   label: "Middle of extraction near the helipad"},
-                            { id: 114,  lat: 27,      long: 69,     label: "End of Road"},
-                            { id: 115,  lat: -6,      long: 12.5,   label: "In Subway"},
-                            { id: 116,  lat: -13.25,  long: -22.4,  label: "In Subway"},
-                            { id: 117,  lat: 58.95,   long: 13.2,   label: "Middle of the pit against the west wall"},
-                            { id: 118,  lat: 68.5,    long: 2.5,    label: "Second floor just south of escalator"},
-                            { id: 119,  lat: 59,      long: -70,    label: "In a tent, back of truck"},
-                            { id: 120,  lat: 64,      long: -20.3,  label: "On west sidewalk near the wall of Mid Town Music"},
-                            { id: 121,  lat: 72.4,    long: -49.6,  label: "Subway behind stairs"},
-                            { id: 122,  lat: 33.6,    long: -52.0,  label: "Rooftop"},
-                            { id: 171,  lat: -9.2,    long: -2.0,   label: "Small Room in Subway"},
-                            { id: 172,  lat: 49.6,    long: -28,    label: "Back of Subway"},
-                            { id: 173,  lat: 72.7,    long: -44.4,  label: "Back of Subway"},
-                            { id: 174,  lat: 73.6,    long: -55.2,  label: "Machine Room in Subway"},
+                            { id: 104,  lat: -78.2,   long: 52.7,   respawn: 3600, name: "DZ Chest: South Spawn",        label: "End of Alley"},
+                            { id: 105,  lat: -65.15,  long: 29.6,   respawn: 3600, name: "DZ Chest: Blockade",           label: "Middle of blockade against building"},
+                            { id: 106,  lat: -59.75,  long: 47.9,   respawn: 3600, name: "DZ Chest: South Construction", label: "Middle of Building on 1st Floor"},
+                            { id: 107,  lat: -43,     long: 25.2,   respawn: 3600, name: "DZ Chest: Sports Store",       label: "Middle of Building on 2nd Floor"},
+                            { id: 108,  lat: -42,     long: 63,     respawn: 3600, name: "DZ Chest: Library",            label: "Middle of area against building"},
+                            { id: 109,  lat: -69.2,   long: -10.8,  respawn: 3600, name: "DZ Chest: South Subway (1)",   label: "Against Wall in Subway"},
+                            { id: 110,  lat: -63.1,   long: -6.7,   respawn: 3600, name: "DZ Chest: South Subway (2)",   label: "Back of Subway"},
+                            { id: 111,  lat: -46.6,   long: -29.5,  respawn: 3600, name: "DZ Chest: South Cleaners",     label: "End of Road"},
+                            { id: 112,  lat: 18.9,    long: 18,     respawn: 3600, name: "DZ Chest: Sniper Poach",       label: "Back of truck"},
+                            { id: 113,  lat: -12.8,   long: -1.8,   respawn: 3600, name: "DZ Chest: Bryant Park",        label: "Middle of extraction near the helipad"},
+                            { id: 114,  lat: 27,      long: 69,     respawn: 3600, name: "DZ Chest: East Cleaners",      label: "End of Road"},
+                            { id: 115,  lat: -6,      long: 12.5,   respawn: 3600, name: "DZ Chest: East Park Subway",   label: "In Subway"},
+                            { id: 116,  lat: -13.25,  long: -22.4,  respawn: 3600, name: "DZ Chest: West Park Subway",   label: "In Subway"},
+                            { id: 117,  lat: 58.95,   long: 13.2,   respawn: 3600, name: "DZ Chest: The Pit",            label: "Middle of the pit against the west wall"},
+                            { id: 118,  lat: 68.5,    long: 2.5,    respawn: 3600, name: "DZ Chest: Q Building",         label: "Second floor just south of escalator"},
+                            { id: 119,  lat: 59,      long: -70,    respawn: 3600, name: "DZ Chest: North Cleaners",     label: "In a tent, back of truck"},
+                            { id: 120,  lat: 64,      long: -20.3,  respawn: 3600, name: "DZ Chest: Mid Town Music",     label: "On west sidewalk near the wall of Mid Town Music"},
+                            { id: 121,  lat: 72.4,    long: -49.6,  respawn: 3600, name: "DZ Chest: DZ06 Subway (1)",    label: "Subway behind stairs"},
+                            { id: 122,  lat: 33.6,    long: -52.0,  respawn: 3600, name: "DZ Chest: North Construction", label: "Rooftop"},
+                            { id: 171,  lat: -9.2,    long: -2.0,   respawn: 3600, name: "DZ Chest: Mid Park Subway",    label: "Small Room in Subway"},
+                            { id: 172,  lat: 49.6,    long: -28,    respawn: 3600, name: "DZ Chest: DZ05 Subway",        label: "Back of Subway"},
+                            { id: 173,  lat: 72.7,    long: -44.4,  respawn: 3600, name: "DZ Chest: DZ06 Subway (2)",    label: "Back of Subway"},
+                            { id: 174,  lat: 73.6,    long: -55.2,  respawn: 3600, name: "DZ Chest: DZ06 Subway (3)",    label: "Machine Room in Subway"},
                         ]},
-                        { type: "SubwayEntrances", locations: [
+                        { type: "SubwayEntrances", typeFriendly: "Subway", locations: [
                             { id: 123,  lat: 68.5,    long: -68.5,  label: "<b>7th Ave station</b>"},
                             { id: 124,  lat: 72.6,    long: -65,    label: "<b>7th Ave station</b>"},
                             { id: 125,  lat: 71.7,    long: -65.8,  label: "<b>7th Ave station</b>"},
@@ -422,28 +482,30 @@
                             { id: 148,  lat: -71.8,   long: -14.9,  label: "<b>33rd St station"},
                             { id: 149,  lat: -75.0,   long: -6.6,   label: "<b>33rd St station"},
                         ]},
-                        { type: "NamedBosses", locations: [
-                            { id: 150,  lat: 17.5,    long: 19,     label: "<b>Named Bosses:</b><br/>Boomerang<br/>Hawkeye"}, // W 43rd St parking
-                            { id: 151,  lat: -11.5,   long: 30.5,   label: "<b>Named Bosses:</b><br/>Animal<br/>Short Fuse"}, // Refueling Station
-                            { id: 152,  lat: -12.8,   long: -4,     label: "<b>Named Bosses:</b><br/>Animal<br/>Torch"}, // Bryant Park
-                            { id: 153,  lat: -6,      long: 11,     label: "<b>(Subway) Named Bosses:</b><br/>Hundly<br/>McGrady<br/>O'Rourke"}, // Public Library Station (Subway)
-                            { id: 154,  lat: 62.3,    long: -70.3,  label: "<b>Named Bosses:</b><br/>Claxton<br/>Draxler<br/>Hardaway<br/>Hundly<br/>McGrady<br/>O'Rourke"}, // Containment zone next to DZ06 West Entrance
-                            { id: 155,  lat: 27.3,    long: 59.5,   label: "<b>Named Bosses:</b><br/>Barkley<br/>Claxton<br/>Draxler<br/>Greenberg<br/>Hardaway<br/>McGrady"}, // Containment zone East 45th St
-                            { id: 156,  lat: -77,     long: 52.7,   label: "<b>Named Bosses:</b><br/>Bonnie<br/>Cowboy<br/>Dropkick"}, // South Spawn (no landmark)
-                            { id: 157,  lat: -66.9,   long: -6.7,   label: "<b>(Subway) Named Bosses:</b><br/>Claxton<br/>Hardaway"}, // 33rd St station
-                            { id: 158,  lat: -66.9,   long: 31.8,   label: "<b>Named Bosses:</b><br/>Buckshot<br/>Dropkick<br/>Scrapper"}, // Blockade
-                            { id: 159,  lat: -57.2,   long: 46.5,   label: "<b>Named Bosses:</b><br/>Animal<br/>Baz<br/>Hot Rod"}, // 34th St Construction Site
-                            { id: 160,  lat: -46.86,  long: -23,    label: "<b>Named Bosses:</b><br/>Coveleski<br/>Hundly<br/>Mazeroski<br/>O'Rourke"},
-                            { id: 161,  lat: -41.7,   long: 27.9,   label: "<b>Named Bosses:</b><br/>Animal<br/>Zeke"}, // Kalkesse Sporting Store
-                            { id: 162,  lat: -42,     long: 60.8,   label: "<b>Named Bosses:</b><br/>Animal<br/>Boomerang<br/>Cannibal"}, // The Library
-                            { id: 163,  lat: -13,     long: -25.3,  label: "<b>(Subway) Named Bosses:</b><br/>Draxler<br/>Mazeroski<br/>O'Rourke"}, // Bryant Park Station (Subway)
-                            { id: 164,  lat: 30,      long: -50,    label: "<b>Named Bosses:</b><br/>Animal<br/>Hot Rod"}, // West 54th
-                            { id: 165,  lat: 39.2,    long: -23.2,  label: "<b>(Subway) Named Bosses:</b><br/>Barkley"},
-                            { id: 166,  lat: 59,      long: 17.5,   label: "<b>Named Bosses:</b><br/>Cpl. Newhouser<br/>Cpt. Carter<br/>Cpt. Wilson<br/>Gambit<br/>Sgt. Morgan<br/>Sgt. Thompson"}, // The Pit
-                            { id: 167,  lat: 62.3,    long: -23,    label: "<b>Named Bosses:</b><br/>Cpt. Bryant<br/>Cpt. Rollins<br/>Gambit<br/>Shadow"}, // Mid Town Music
-                            { id: 168,  lat: 72.15,   long: -59.3,  label: "<b>(Subway) Named Bosses:</b><br/>Coveleski<br/>Greenberg<br/>O'Rourke"}, // 7th Ave Station (Subway)
-                            { id: 169,  lat: 70.0,    long: 0,      label: "<b>Named Bosses:</b><br/>Coveleski<br/>Mazeroski"}, // Q Building
-                            { id: 170,  lat: 45,      long: -28.2,  label: "<b>(Subway) Named Bosses:</b><br/>Barkley<br/>O'Rourke"}, // 47-50th St Rockefeller Center station (Subway)
+                        { type: "NamedBosses", typeFriendly: "Boss", locations: [
+/* CONFIRMED */             { id: 150,  lat: 17.5,    long: 19,     respawn: 600, subway: false, name: "Sniper Poach",                     bosses: ["Boomerang", "Hawkeye"] },                     // W 43rd St parking
+/* CONFIRMED */             { id: 151,  lat: -11.5,   long: 30.5,   respawn: 10, subway: false, name: "Refueling Station",                bosses: ["Short Fuse", "Animal"] },                     // Refueling Station
+/* CONFIRMED */             { id: 152,  lat: -12.8,   long: -4,     respawn: 600, subway: false, name: "Bryant Park",                      bosses: ["Animal", "Torch"] },                          // Bryant Park
+/* CONFIRMED */             { id: 153,  lat: -6,      long: 11,     respawn: 600, subway: true,  name: "Bryant Park Subway (East)",        bosses: ["McGrady", "Hundly", "O'Rourke"] },            // Public Library Station (Subway)
+/* CONFIRMED */             { id: 154,  lat: 62.3,    long: -70.3,  respawn: 600, subway: false, name: "Northwest Cleaner Boss",           bosses: ["Hardaway", "McGrady", "Claxton", "Draxler", "O'Rourke", "Hundly", "Barkley"] }, // Containment zone next to DZ06 West Entrance
+/* CONFIRMED */             { id: 155,  lat: 27.3,    long: 59.5,   respawn: 600, subway: false, name: "East Cleaner Boss",                bosses: ["Hardaway", "Greenberg", "Claxton", "McGrady", "Coveleski"] }, // Containment zone East 45th St
+/* CONFIRMED */             { id: 156,  lat: -77,     long: 52.7,   respawn: 600, subway: false, name: "South Spawn",                      bosses: ["Bonnie", "Dropkick", "Cowboy"] },             // South Spawn (no landmark)
+/* CONFIRMED */             { id: 157,  lat: -66.9,   long: -6.7,   respawn: 600, subway: true,  name: "Greeley Sq. Subway (DZ01)",        bosses: ["Claxton", "Hardaway"] },                      // 33rd St station
+/* CONFIRMED */             { id: 158,  lat: -66.9,   long: 31.8,   respawn: 600, subway: false, name: "Blockade",                         bosses: ["Buckshot", "Scrapper", "Dropkick"] },         // Blockade
+/* CONFIRMED */             { id: 159,  lat: -57.2,   long: 46.5,   respawn: 600, subway: false, name: "South Construction Site",          bosses: ["Hot Rod", "Baz", "Animal"] },                 // 34th St Construction Site
+/* CONFIRMED */             { id: 160,  lat: -46.86,  long: -23,    respawn: 900, subway: false, name: "South Cleaner Boss",               bosses: ["Mazeroski", "Hundly", "O'Rourke", "Greenberg", "Claxton"] },
+/* CONFIRMED */             { id: 161,  lat: -41.7,   long: 27.9,   respawn: 600, subway: false, name: "Kalkesse Sporting Store",          bosses: ["Zeke", "Animal"] },                           // Kalkesse Sporting Store
+/* CONFIRMED */             { id: 162,  lat: -42,     long: 60.8,   respawn: 600, subway: false, name: "The Library",                      bosses: ["Cannibal", "Boomerang", "Animal"] },          // The Library
+/* CONFIRMED */             { id: 163,  lat: -13,     long: -25.3,  respawn: 600, subway: true,  name: "Bryant Park Subway (West)",        bosses: ["O'Rourke", "Mazeroski"] },                    // Bryant Park Station (Subway) W
+/*  */                      { id: 164,  lat: 30,      long: -50,    respawn: 600, subway: false, name: "West Construction Site",           bosses: ["Hot Rod"] },                                  // West 54th (West Construction Site)
+/* CONFIRMED */             { id: 166,  lat: 59,      long: 17.5,   respawn: 600, subway: false, name: "The Pit",                          bosses: ["Cpt.Wilson", "Cpt.Carter", "Sgt.Thompson", "Gambit", "Sgt.Morgan"] }, // The Pit
+/*  */                      { id: 167,  lat: 62.3,    long: -23,    respawn: 600, subway: false, name: "Mid Town Music",                   bosses: ["Shadow", "Cpt.Bryant", "Gambit", "Cpt.Rollins"] },           // Mid Town Music
+/* CONFIRMED */             { id: 168,  lat: 72.15,   long: -59.3,  respawn: 600, subway: true,  name: "North Subway (DZ06)",              bosses: ["Greenberg", "Coveleski", "O'Rourke"] },       // 7th Ave Station (Subway)
+/*  */                      { id: 169,  lat: 70.0,    long: 0,      respawn: 600, subway: false, name: "Q Building",                       bosses: ["Coveleski", "Mazeroski"] },                   // Q Building
+/* CONFIRMED */             { id: 170,  lat: 45,      long: -28.2,  respawn: 600, subway: true,  name: "Rockefeller Subway (DZ05)",        bosses: ["Barkley", "O'Rourke"] },                      // 47-50th St Rockefeller Center station (Subway)
+                        ]},
+                        { type: "SupplyDrops", typeFriendly: "Supply Drop", locations: [
+                            // { id: 175, lat: 0, long: 0, label: ""},
                         ]}
                     ];
                 }
@@ -463,14 +525,15 @@
 // ||  Boomerang      ||  Sniper         ||  Riker     || Angled Grip
 // ||  Buckshot       ||  Sniper         ||  Rioter    || Magazine
 // ||  Cannibal       ||  Tank           ||  Riker     ||
-// ||  Claxton        ||  Engineer       ||  Cleaner   ||
+// ||  Claxton        ||  Controller     ||  Cleaner   ||
 // ||  Coveleski      ||  Sniper         ||  Cleaner   ||
-// ||  Cpl. Newhouser ||  Engineer       ||  LMB       ||
-// ||  Cpt. Bryant    ||                 ||  LMB       ||
+// ||  Cowboy         ||                 ||  Rioter    ||
+// ||  Cpt. Bryant    ||  Tank           ||  LMB       ||
 // ||  Cpt. Carter    ||  Leader         ||  LMB       ||
+// ||  Cpl. Newhouser ||  Controller     ||  LMB       ||
 // ||  Cpt. Rollins   ||                 ||  LMB       ||
 // ||  Cpt. Wilson    ||  Sniper         ||  LMB       ||
-// ||  Draxler        ||                 ||            ||
+// ||  Draxler        ||  Controller     ||  Cleaner   ||
 // ||  Dropkick       ||  Heavy Weapons  ||  Rioter    ||
 // ||  Gambit         ||  Specialist     ||  LMB       || Spec-ops pads
 // ||  Greenberg      ||  Thrower        ||  Cleaner   || Holster
@@ -479,10 +542,11 @@
 // ||  Hot Rod        ||  Thrower        ||  Riker     || Magazine
 // ||  Hundly         ||  Sniper         ||  Cleaner   || M1911/ Spec-ops pads/ Operator pads/ Prototype Performance Mod
 // ||  Mazeroski      ||  Tank           ||  Cleaner   ||
-// ||  McGrady        ||                 ||            ||
+// ||  McGrady        ||  Thrower        ||  Cleaner   ||
 // ||  O'Rourke       ||  Tank           ||  Cleaner   ||
 // ||  Scrapper       ||  Heavy Weapons  ||  Rioter    ||
 // ||  Stojacovich    ||                 ||            ||
+// ||  Cpt. Morgan    ||                 ||  LMB       ||
 // ||  Sgt. Thompson  ||  Heavy Weapons  ||  LMB       ||
 // ||  Sgt. Morgan    ||                 ||  LMB       ||
 // ||  Shadow         ||  Special        ||  LMB       ||

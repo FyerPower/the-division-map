@@ -10,6 +10,7 @@
         'angular-google-gapi',
         'angulartics',
         'angulartics.google.analytics',
+        'angular-svg-round-progressbar',
         'rzModule',
         'LocalStorageModule'
     ]);

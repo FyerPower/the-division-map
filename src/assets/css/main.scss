@@ -38,7 +38,9 @@ body {
     background-position: top center;
 }
 
-
+.clickable {
+    cursor: pointer;
+}
 
 .container {
     background-color: rgba(20, 20, 20, .9);
@@ -294,4 +296,5 @@ body {
 }
 .tda-icon.tda-path { background-position: 0 0; }
 .tda-icon.tda-fire { background-position: 0 -16px; }
+.tda-icon.tda-timer { background-position: 0 -32px; }
 #map-sidebar-buttons .tda-icon { margin: 2px 0 2px -2px; }

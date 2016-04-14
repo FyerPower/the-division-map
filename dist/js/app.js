@@ -1359,7 +1359,7 @@
 /* CONFIRMED */             { id: 161,  lat: -41.7,   long: 27.9,   respawn: 600, subway: false, name: "Kalkesse Sporting Store",          bosses: ["Animal", "Zeke"] },                           // Kalkesse Sporting Store
 /* CONFIRMED */             { id: 162,  lat: -42,     long: 60.8,   respawn: 600, subway: false, name: "The Library",                      bosses: ["Animal", "Boomerang", "Cannibal"] },          // The Library
 /* CONFIRMED */             { id: 163,  lat: -13,     long: -25.3,  respawn: 600, subway: true,  name: "Bryant Park Subway (West)",        bosses: ["Draxler", "Mazeroski", "O'Rourke"] },         // Bryant Park Station (Subway) W
-/*  */                      { id: 164,  lat: 30,      long: -50,    respawn: 600, subway: false, name: "West Construction Site",           bosses: ["Animal", "Hot Rod"] },                        // West 54th (West Construction Site)
+/*  */                      { id: 164,  lat: 30,      long: -50,    respawn: 600, subway: false, name: "West Construction Site",           bosses: ["Animal", "Greyhound", "Hot Rod"] },           // West 54th (West Construction Site)
 /* CONFIRMED */             { id: 166,  lat: 59,      long: 17.5,   respawn: 600, subway: false, name: "The Pit",                          bosses: ["Cpl. Newhouser", "Cpt. Carter", "Cpt. Wilson", "Gambit", "Sgt. Morgan", "Sgt. Thompson"] }, // The Pit
 /*  */                      { id: 167,  lat: 62.3,    long: -23,    respawn: 600, subway: false, name: "Mid Town Music",                   bosses: ["Cpt. Bryant", "Cpt. Rollins", "Gambit", "Shadow"] }, // Mid Town Music
 /* CONFIRMED */             { id: 168,  lat: 72.15,   long: -59.3,  respawn: 600, subway: true,  name: "North Subway (DZ06)",              bosses: ["Coveleski", "Greenberg", "O'Rourke"] },       // 7th Ave Station (Subway)
@@ -1400,6 +1400,7 @@
 // ||  Dropkick       ||  Heavy Weapons  ||  Rioter    ||
 // ||  Gambit         ||  Specialist     ||  LMB       || Spec-ops pads
 // ||  Greenberg      ||  Thrower        ||  Cleaner   || Holster
+// ||  Greyhound      ||                 ||  Riker     ||
 // ||  Hardaway       ||  Tank           ||  Cleaner   ||
 // ||  Hawkeye        ||  Sniper         ||  Riker     || Midas
 // ||  Hot Rod        ||  Thrower        ||  Riker     || Magazine

@@ -203,6 +203,7 @@
             { enabled: filterEnabled('SafeHouses'),      markerType: 'SafeHouses',      icon: "/img/icons/saferoom.svg",         name: "Safe Houses" },
             { enabled: filterEnabled('Extractions'),     markerType: 'Extractions',     icon: "/img/icons/extraction.svg",       name: "Extractions" },
             { enabled: filterEnabled('Landmarks'),       markerType: 'Landmarks',       icon: "/img/icons/landmark-off.svg",     name: "Landmarks" },
+            { enabled: filterEnabled('ContaminatedZone'), markerType: 'ContaminatedZone', icon: "/img/icons/containment-zone.svg", name: "Contaminated Zones" },
             { enabled: filterEnabled('SubwayEntrances'), markerType: 'SubwayEntrances', icon: "/img/icons/subway.svg",           name: "Subway Entrances"},
             { enabled: filterEnabled('DivisionTech'),    markerType: 'DivisionTech',    icon: "/img/icons/division-tech.svg",    name: "Division Tech" },
             { enabled: filterEnabled('DarkzoneChests'),  markerType: "DarkzoneChests",  icon: "/img/icons/darkzone-chest.svg",   name: "Darkzone Chests"},
@@ -1148,16 +1149,16 @@
                     });
 
                     Icons = {
-                        'Extractions':     new DivisionIcon({iconUrl: '/img/icons/extraction.svg'}),
-                        'SubwayEntrances': new DivisionIcon({iconUrl: '/img/icons/subway.svg'}),
-                        'Landmarks':       new DivisionIcon({iconUrl: '/img/icons/landmark-off.svg'}),
-                        'SafeHouses':      new DivisionIcon({iconUrl: '/img/icons/saferoom.svg'}),
-                        'Checkpoints':     new DivisionIcon({iconUrl: '/img/icons/checkpoint.svg'}),
-                        'DZEntrances':     new DivisionIcon({iconUrl: '/img/icons/dz-enterance.svg'}),
-                        'Containment':     new DivisionIcon({iconUrl: '/img/icons/containment.svg'}),
-                        'DivisionTech':    new DivisionIcon({iconUrl: '/img/icons/division-tech.svg'}),
-                        'DarkzoneChests':  new DivisionIcon({iconUrl: '/img/icons/darkzone-chest.svg'}),
-                        'NamedBosses':     new DivisionIcon({iconUrl: '/img/icons/enemy-named.svg'}),
+                        'Extractions':       new DivisionIcon({iconUrl: '/img/icons/extraction.svg'}),
+                        'SubwayEntrances':   new DivisionIcon({iconUrl: '/img/icons/subway.svg'}),
+                        'Landmarks':         new DivisionIcon({iconUrl: '/img/icons/landmark-off.svg'}),
+                        'SafeHouses':        new DivisionIcon({iconUrl: '/img/icons/saferoom.svg'}),
+                        'Checkpoints':       new DivisionIcon({iconUrl: '/img/icons/checkpoint.svg'}),
+                        'DZEntrances':       new DivisionIcon({iconUrl: '/img/icons/dz-enterance.svg'}),
+                        'ContaminatedZone':  new DivisionIcon({iconUrl: '/img/icons/containment-zone.svg'}),
+                        'DivisionTech':      new DivisionIcon({iconUrl: '/img/icons/division-tech.svg'}),
+                        'DarkZoneChests':    new DivisionIcon({iconUrl: '/img/icons/darkzone-chest.svg'}),
+                        'NamedBosses':       new DivisionIcon({iconUrl: '/img/icons/enemy-named.svg'}),
                     };
 
                     Icons.Pulse = L.divIcon({
@@ -1350,7 +1351,7 @@
 /* CONFIRMED */             { id: 152,  lat: -12.8,   long: -4,     respawn: 600, subway: false, name: "Bryant Park",                      bosses: ["Animal", "Torch"] },                          // Bryant Park
 /* CONFIRMED */             { id: 153,  lat: -6,      long: 11,     respawn: 600, subway: true,  name: "Bryant Park Subway (East)",        bosses: ["Hundley", "McGrady", "O'Rourke"] },           // Public Library Station (Subway)
 /* CONFIRMED */             { id: 154,  lat: 62.3,    long: -70.3,  respawn: 600, subway: false, name: "Northwest Cleaner Boss",           bosses: ["Barkley", "Claxton", "Draxler", "Hardaway", "Hundley", "McGrady", "O'Rourke"] }, // Containment zone next to DZ06 West Entrance
-/* CONFIRMED */             { id: 155,  lat: 27.3,    long: 59.5,   respawn: 600, subway: false, name: "East Cleaner Boss",                bosses: ["Barkley", "Claxton", "Coveleski", "Draxler", "Greenberg", "Hardaway", "McGrady"] }, // Containment zone East 45th St
+/* CONFIRMED */             { id: 155,  lat: 27.3,    long: 62,     respawn: 600, subway: false, name: "East Cleaner Boss",                bosses: ["Barkley", "Claxton", "Coveleski", "Draxler", "Greenberg", "Hardaway", "McGrady"] }, // Containment zone East 45th St
 /* CONFIRMED */             { id: 156,  lat: -77,     long: 52.7,   respawn: 600, subway: false, name: "South Spawn",                      bosses: ["Bonnie", "Cowboy", "Dropkick"] },             // South Spawn (no landmark)
 /* CONFIRMED */             { id: 157,  lat: -66.9,   long: -6.7,   respawn: 600, subway: true,  name: "Greeley Sq. Subway (DZ01)",        bosses: ["Claxton", "Hardaway"] },                      // 33rd St station
 /* CONFIRMED */             { id: 158,  lat: -66.9,   long: 31.8,   respawn: 600, subway: false, name: "Blockade",                         bosses: ["Buckshot", "Dropkick", "Scrapper"] },         // Blockade
@@ -1365,6 +1366,39 @@
 /* CONFIRMED */             { id: 168,  lat: 72.15,   long: -59.3,  respawn: 600, subway: true,  name: "North Subway (DZ06)",              bosses: ["Coveleski", "Greenberg", "O'Rourke"] },       // 7th Ave Station (Subway)
 /*  */                      { id: 169,  lat: 70.0,    long: 0,      respawn: 600, subway: false, name: "Q Building",                       bosses: ["Coveleski", "Mazeroski"] },                   // Q Building
 /* CONFIRMED */             { id: 170,  lat: 45,      long: -28.2,  respawn: 600, subway: true,  name: "Rockefeller Subway (DZ05)",        bosses: ["Barkley", "O'Rourke"] },                      // 47-50th St Rockefeller Center station (Subway)
+                        ]},
+                        { type: "ContaminatedZone", locations: [
+                            { id: 204,  lat: -74.7,   long: 21.45,  label: "Contamination level: 2"},
+                            { id: 205,  lat: -70.9,   long: 20.5,   label: "Contamination level: 2"},
+                            { id: 206,  lat: -70.3,   long: 40.7,   label: "Contamination level: 2"},
+                            { id: 207,  lat: -66.9,   long: -5,     label: "<b>Subway:</b><br/>Contamination level: 4"},
+                            { id: 208,  lat: -64.15,  long: -4.7,   label: "Contamination level: 3"},
+                            { id: 209,  lat: -65.4,   long: 43.7,   label: "Contamination level: 2"},
+                            { id: 210,  lat: -58.2,   long: -1.5,   label: "Contamination level: 2"},
+                            { id: 211,  lat: -58.75,  long: 71.3,   label: "Contamination level: 2"},
+                            { id: 212,  lat: -47.1,   long: -17.7,  label: "Contamination level: 3"},
+                            { id: 213,  lat: -50.55,  long: 24.4,   label: "Contamination level: 2"},
+                            { id: 214,  lat: -41.9,   long: 3.7,    label: "Contamination level: 2"},
+                            { id: 215,  lat: -34,     long: 42.3,   label: "Contamination level: 3"},
+                            { id: 216,  lat: -31.5,   long: -12.6,  label: "Contamination level: 3"},
+                            { id: 217,  lat: -25.2,   long: 46.8,   label: "Contamination level: 3"},
+                            { id: 218,  lat: -9.4,    long: -14,    label: "<b>Subway:</b><br/>Contamination level: 4"},
+                            { id: 219,  lat: 19.5,    long: 4,      label: "Contamination level: 3"},
+                            { id: 220,  lat: 27.3,    long: 59.5,   label: "Contamination level: 4"},
+                            { id: 221,  lat: 33,      long: 13.45,  label: "Contamination level: 3"},
+                            { id: 222,  lat: 43.2,    long: 13,     label: "Contamination level: 4"},
+                            { id: 223,  lat: 43.2,    long: -28.2,  label: "<b>Subway:</b><br/>Contamination level: 4"},
+                            { id: 224,  lat: 52.2,    long: -61.2,  label: "Contamination level: 4"},
+                            { id: 225,  lat: 60.6,    long: -69.8,  label: "Contamination level: 4"},
+                            { id: 226,  lat: 59.2,    long: -53.7,  label: "Contamination level: 4"},
+                            { id: 227,  lat: 59,      long: -8,     label: "<b>Subway:</b><br/>Contamination level: 4"},
+                            { id: 228,  lat: 55.8,    long: 23.7,   label: "Contamination level: 4"},
+                            { id: 229,  lat: 62.15,   long: 23.7,   label: "Contamination level: 4"},
+                            { id: 230,  lat: 65.2,    long: -50.9,  label: "Contamination level: 4"},
+                            { id: 231,  lat: 72.3,    long: -79.7,  label: "Contamination level: 4"},
+                            { id: 232,  lat: 72.5,    long: -54.6,  label: "<b>Subway:</b><br/>Contamination level: 4"},
+                            { id: 233,  lat: 74.2,    long: -51.65, label: "Contamination level: 4"},
+                            { id: 234,  lat: 70.5,    long: 11,     label: "Contamination level: 4"},
                         ]},
                         { type: "SupplyDrops", typeFriendly: "Supply Drop", locations: [
                             // { id: 175, lat: 0, long: 0, label: ""},

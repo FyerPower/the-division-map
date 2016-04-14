@@ -486,20 +486,20 @@
 /* CONFIRMED */             { id: 150,  lat: 17.5,    long: 19,     respawn: 600, subway: false, name: "Sniper Poach",                     bosses: ["Boomerang", "Hawkeye"] },                     // W 43rd St parking
 /* CONFIRMED */             { id: 151,  lat: -11.5,   long: 30.5,   respawn: 300, subway: false, name: "Refueling Station",                bosses: ["Animal", "Short Fuse"] },                     // Refueling Station
 /* CONFIRMED */             { id: 152,  lat: -12.8,   long: -4,     respawn: 600, subway: false, name: "Bryant Park",                      bosses: ["Animal", "Torch"] },                          // Bryant Park
-/* CONFIRMED */             { id: 153,  lat: -6,      long: 11,     respawn: 600, subway: true,  name: "Bryant Park Subway (East)",        bosses: ["Hundly", "McGrady", "O'Rourke"] },            // Public Library Station (Subway)
-/* CONFIRMED */             { id: 154,  lat: 62.3,    long: -70.3,  respawn: 600, subway: false, name: "Northwest Cleaner Boss",           bosses: ["Barkley", "Claxton", "Draxler", "Hardaway", "Hundly", "McGrady", "O'Rourke"] }, // Containment zone next to DZ06 West Entrance
+/* CONFIRMED */             { id: 153,  lat: -6,      long: 11,     respawn: 600, subway: true,  name: "Bryant Park Subway (East)",        bosses: ["Hundley", "McGrady", "O'Rourke"] },           // Public Library Station (Subway)
+/* CONFIRMED */             { id: 154,  lat: 62.3,    long: -70.3,  respawn: 600, subway: false, name: "Northwest Cleaner Boss",           bosses: ["Barkley", "Claxton", "Draxler", "Hardaway", "Hundley", "McGrady", "O'Rourke"] }, // Containment zone next to DZ06 West Entrance
 /* CONFIRMED */             { id: 155,  lat: 27.3,    long: 59.5,   respawn: 600, subway: false, name: "East Cleaner Boss",                bosses: ["Barkley", "Claxton", "Coveleski", "Draxler", "Greenberg", "Hardaway", "McGrady"] }, // Containment zone East 45th St
 /* CONFIRMED */             { id: 156,  lat: -77,     long: 52.7,   respawn: 600, subway: false, name: "South Spawn",                      bosses: ["Bonnie", "Cowboy", "Dropkick"] },             // South Spawn (no landmark)
 /* CONFIRMED */             { id: 157,  lat: -66.9,   long: -6.7,   respawn: 600, subway: true,  name: "Greeley Sq. Subway (DZ01)",        bosses: ["Claxton", "Hardaway"] },                      // 33rd St station
 /* CONFIRMED */             { id: 158,  lat: -66.9,   long: 31.8,   respawn: 600, subway: false, name: "Blockade",                         bosses: ["Buckshot", "Dropkick", "Scrapper"] },         // Blockade
 /* CONFIRMED */             { id: 159,  lat: -57.2,   long: 46.5,   respawn: 600, subway: false, name: "South Construction Site",          bosses: ["Animal", "Baz", "Hot Rod"] },                 // 34th St Construction Site
-/* CONFIRMED */             { id: 160,  lat: -46.86,  long: -23,    respawn: 900, subway: false, name: "South Cleaner Boss",               bosses: ["Claxton", "Coveleski", "Greenberg", "Hundly", "Mazeroski", "O'Rourke"] },
+/* CONFIRMED */             { id: 160,  lat: -46.86,  long: -23,    respawn: 900, subway: false, name: "South Cleaner Boss",               bosses: ["Claxton", "Coveleski", "Greenberg", "Hundley", "Mazeroski", "O'Rourke"] },
 /* CONFIRMED */             { id: 161,  lat: -41.7,   long: 27.9,   respawn: 600, subway: false, name: "Kalkesse Sporting Store",          bosses: ["Animal", "Zeke"] },                           // Kalkesse Sporting Store
 /* CONFIRMED */             { id: 162,  lat: -42,     long: 60.8,   respawn: 600, subway: false, name: "The Library",                      bosses: ["Animal", "Boomerang", "Cannibal"] },          // The Library
 /* CONFIRMED */             { id: 163,  lat: -13,     long: -25.3,  respawn: 600, subway: true,  name: "Bryant Park Subway (West)",        bosses: ["Draxler", "Mazeroski", "O'Rourke"] },         // Bryant Park Station (Subway) W
 /*  */                      { id: 164,  lat: 30,      long: -50,    respawn: 600, subway: false, name: "West Construction Site",           bosses: ["Animal", "Hot Rod"] },                        // West 54th (West Construction Site)
-/* CONFIRMED */             { id: 166,  lat: 59,      long: 17.5,   respawn: 600, subway: false, name: "The Pit",                          bosses: ["Cpl. Newhouser", "Cpt.Carter", "Cpt.Wilson", "Gambit", "Sgt.Morgan", "Sgt.Thompson"] }, // The Pit
-/*  */                      { id: 167,  lat: 62.3,    long: -23,    respawn: 600, subway: false, name: "Mid Town Music",                   bosses: ["Cpt.Bryant", "Cpt.Rollins", "Gambit", "Shadow"] },           // Mid Town Music
+/* CONFIRMED */             { id: 166,  lat: 59,      long: 17.5,   respawn: 600, subway: false, name: "The Pit",                          bosses: ["Cpl. Newhouser", "Cpt. Carter", "Cpt. Wilson", "Gambit", "Sgt. Morgan", "Sgt. Thompson"] }, // The Pit
+/*  */                      { id: 167,  lat: 62.3,    long: -23,    respawn: 600, subway: false, name: "Mid Town Music",                   bosses: ["Cpt. Bryant", "Cpt. Rollins", "Gambit", "Shadow"] }, // Mid Town Music
 /* CONFIRMED */             { id: 168,  lat: 72.15,   long: -59.3,  respawn: 600, subway: true,  name: "North Subway (DZ06)",              bosses: ["Coveleski", "Greenberg", "O'Rourke"] },       // 7th Ave Station (Subway)
 /*  */                      { id: 169,  lat: 70.0,    long: 0,      respawn: 600, subway: false, name: "Q Building",                       bosses: ["Coveleski", "Mazeroski"] },                   // Q Building
 /* CONFIRMED */             { id: 170,  lat: 45,      long: -28.2,  respawn: 600, subway: true,  name: "Rockefeller Subway (DZ05)",        bosses: ["Barkley", "O'Rourke"] },                      // 47-50th St Rockefeller Center station (Subway)
@@ -541,7 +541,7 @@
 // ||  Hardaway       ||  Tank           ||  Cleaner   ||
 // ||  Hawkeye        ||  Sniper         ||  Riker     || Midas
 // ||  Hot Rod        ||  Thrower        ||  Riker     || Magazine
-// ||  Hundly         ||  Sniper         ||  Cleaner   || M1911/ Spec-ops pads/ Operator pads/ Prototype Performance Mod
+// ||  Hundley        ||  Sniper         ||  Cleaner   || M1911/ Spec-ops pads/ Operator pads/ Prototype Performance Mod
 // ||  Mazeroski      ||  Tank           ||  Cleaner   ||
 // ||  McGrady        ||  Thrower        ||  Cleaner   ||
 // ||  O'Rourke       ||  Tank           ||  Cleaner   ||

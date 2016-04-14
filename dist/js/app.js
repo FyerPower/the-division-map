@@ -206,7 +206,8 @@
             { enabled: filterEnabled('ContaminatedZone'), markerType: 'ContaminatedZone', icon: "/img/icons/containment-zone.svg", name: "Contaminated Zones" },
             { enabled: filterEnabled('SubwayEntrances'), markerType: 'SubwayEntrances', icon: "/img/icons/subway.svg",           name: "Subway Entrances"},
             { enabled: filterEnabled('DivisionTech'),    markerType: 'DivisionTech',    icon: "/img/icons/division-tech.svg",    name: "Division Tech" },
-            { enabled: filterEnabled('DarkzoneChests'),  markerType: "DarkzoneChests",  icon: "/img/icons/darkzone-chest.svg",   name: "Darkzone Chests"},
+            { enabled: filterEnabled('DarkZoneChests'),  markerType: "DarkZoneChests",  icon: "/img/icons/darkzone-chest.svg",   name: "Dark Zone Chests"},
+            // { enabled: filterEnabled('DDZRank30Chests'), markerType: "DZRank30Chests",  icon: "/img/icons/dz-rank30-chest.png",  name: "Dark Zone Rank 30 Chests"},
             { enabled: filterEnabled('NamedBosses'),     markerType: 'NamedBosses',     icon: "/img/icons/enemy-named.svg",      name: "Named Bosses" },
             { enabled: filterEnabled('SupplyDrops'),     markerType: 'SupplyDrops',     icon: "/img/icons/supply-drop.svg",      name: "Supply Drops" },
         ];
@@ -1159,6 +1160,7 @@
                         'DivisionTech':      new DivisionIcon({iconUrl: '/img/icons/division-tech.svg'}),
                         'DarkZoneChests':    new DivisionIcon({iconUrl: '/img/icons/darkzone-chest.svg'}),
                         'NamedBosses':       new DivisionIcon({iconUrl: '/img/icons/enemy-named.svg'}),
+                        'DZRank30Chests':    new DivisionIcon({iconUrl: '/img/icons/dz-rank30-chest.svg'}),
                     };
 
                     Icons.Pulse = L.divIcon({
@@ -1203,7 +1205,7 @@
                         { type: "Landmarks", typeFriendly: "Landmark", locations: [
                             { id: 21,   lat: -72.30,  long: 28.00,                 label: "Koreatown"},
                             { id: 22,   lat: -65.10,  long: 32.20,   link: 158,    label: "Blockade"},
-                            { id: 23,   lat: -66.10,  long: 54.00,                 label: "Abandoned Gas Station"},
+                            { id: 23,   lat: -66.25,  long: 54.00,                 label: "Abandoned Gas Station"},
                             { id: 24,   lat: -58.70,  long: 48.00,   link: 159,    label: "Construction Site"},
                             { id: 25,   lat: -41.80,  long: 25.30,   link: 161,    label: "Kalkesse Sporting Store"},
                             { id: 26,   lat: -41.80,  long: 67.00,   link: 162,    label: "The Library"},
@@ -1291,7 +1293,7 @@
                             { id: 102,  lat: 65.0,    long: 10.1,   respawn: 7200, name: "Div Tech: N. Rockefeller Pl",   label: "West side of the street on the sidewalk"},
                             { id: 103,  lat: 57.4,    long: -12.1,  respawn: 7200, name: "Div Tech: Underground Mall",    label: "In Subway"},
                         ]},
-                        { type: "DarkzoneChests", locations: [
+                        { type: "DarkZoneChests", locations: [
                             { id: 104,  lat: -78.2,   long: 52.7,   respawn: 3600, name: "DZ Chest: South Spawn",        label: "End of Alley"},
                             { id: 105,  lat: -65.15,  long: 29.6,   respawn: 3600, name: "DZ Chest: Blockade",           label: "Middle of blockade against building"},
                             { id: 106,  lat: -59.75,  long: 47.9,   respawn: 3600, name: "DZ Chest: South Construction", label: "Middle of Building on 1st Floor"},
@@ -1302,7 +1304,7 @@
                             { id: 111,  lat: -46.6,   long: -29.5,  respawn: 3600, name: "DZ Chest: South Cleaners",     label: "End of Road"},
                             { id: 112,  lat: 18.9,    long: 18,     respawn: 3600, name: "DZ Chest: Sniper Poach",       label: "Back of truck"},
                             { id: 113,  lat: -12.8,   long: -1.8,   respawn: 3600, name: "DZ Chest: Bryant Park",        label: "Middle of extraction near the helipad"},
-                            { id: 114,  lat: 27,      long: 69,     respawn: 3600, name: "DZ Chest: East Cleaners",      label: "End of Road"},
+                            { id: 114,  lat: 27.9,    long: 68.6,   respawn: 3600, name: "DZ Chest: East Cleaners",      label: "End of Road"},
                             { id: 115,  lat: -6,      long: 12.5,   respawn: 3600, name: "DZ Chest: East Park Subway",   label: "In Subway"},
                             { id: 116,  lat: -13.25,  long: -22.4,  respawn: 3600, name: "DZ Chest: West Park Subway",   label: "In Subway"},
                             { id: 117,  lat: 58.95,   long: 13.2,   respawn: 3600, name: "DZ Chest: The Pit",            label: "Middle of the pit against the west wall"},
@@ -1367,6 +1369,37 @@
 /*  */                      { id: 169,  lat: 70.0,    long: 0,      respawn: 600, subway: false, name: "Q Building",                       bosses: ["Coveleski", "Mazeroski"] },                   // Q Building
 /* CONFIRMED */             { id: 170,  lat: 45,      long: -28.2,  respawn: 600, subway: true,  name: "Rockefeller Subway (DZ05)",        bosses: ["Barkley", "O'Rourke"] },                      // 47-50th St Rockefeller Center station (Subway)
                         ]},
+                        { type: "DZRank30Chests", locations: [
+                            // { id: 175,  lat: 62.7,    long: -76.6,  label: "Behind the tent"},
+                            // { id: 176,  lat: -74.4,   long: 20.7,   label: "Against left wall at end of contaminated zone"},
+                            // { id: 177,  lat: -70.1,   long: 39.3,   label: "Against wall near truck"},
+                            // { id: 178,  lat: -70,     long: 20.4,   label: "End of contaminated zone"},
+                            // { id: 179,  lat: 34.5,    long: 59.5,   label: "End of the street in the tent"},
+                            // { id: 180,  lat: 50.4,    long: -63.4,  label: "End of the street in the tent"},
+                            // { id: 181,  lat: -59.1,   long: 72.4,   label: "Downstairs right side"},
+                            // { id: 182,  lat: -65.2,   long: 43.4,   label: "Near ambulance"},
+                            // { id: 183,  lat: -52.3,   long: -23,    label: "In tent"},
+                            // { id: 184,  lat: -42.5,   long: 0.7,    label: "Against wall"},
+                            // { id: 185,  lat: -31.4,   long: -14.4,  label: "End of alley"},
+                            // { id: 186,  lat: -33,     long: 42.9,   label: "Against wall"},
+                            // { id: 187,  lat: -27.1,   long: 48.6,   label: "Near forklift"},
+                            // { id: 188,  lat: 26.6,    long: 69,     label: "End of Road"},
+                            // { id: 189,  lat: 34.3,    long: 13.9,   label: "Against wall"},
+                            // { id: 190,  lat: 20.9,    long: 3.9,    label: "Behind big forklift"},
+                            // { id: 191,  lat: 44.5,    long: 9.9,    label: "Against wall"},
+                            // { id: 192,  lat: 55.4,    long: 27.2,   label: "Right corner behind truck"},
+                            // { id: 193,  lat: 62.5,    long: 25.5,   label: "Against tent"},
+                            // { id: 194,  lat: 69.5,    long: 13,     label: "First Floor: Southeast corner room"},
+                            // { id: 195,  lat: 72.2,    long: 26.2,   label: "On left truck"},
+                            // { id: 196,  lat: 74.9,    long: 10.5,   label: "Left corner in shop"},
+                            // { id: 197,  lat: 75,      long: -51.8,  label: "End of Alley"},
+                            // { id: 198,  lat: 72.2,    long: -84.6,  label: "On truck"},
+                            // { id: 199,  lat: 65.6,    long: -51.4,  label: "Against wall"},
+                            // { id: 200,  lat: 59.4,    long: -52.8,  label: "Corner near WarrenGate building"},
+                            // { id: 201,  lat: -64.5,   long: -2.8,   label: "On Rooftop"},
+                            // { id: 202,  lat: -57.5,   long: -1.4,   label: "Against wall"},
+                            // { id: 203,  lat: -50.2,   long: 21.6,   label: "Against wall"},
+                        ]},
                         { type: "ContaminatedZone", locations: [
                             { id: 204,  lat: -74.7,   long: 21.45,  label: "Contamination level: 2"},
                             { id: 205,  lat: -70.9,   long: 20.5,   label: "Contamination level: 2"},
@@ -1401,7 +1434,7 @@
                             { id: 234,  lat: 70.5,    long: 11,     label: "Contamination level: 4"},
                         ]},
                         { type: "SupplyDrops", typeFriendly: "Supply Drop", locations: [
-                            // { id: 175, lat: 0, long: 0, label: ""},
+                            // { id: 235, lat: 0, long: 0, label: ""},
                         ]}
                     ];
                 }

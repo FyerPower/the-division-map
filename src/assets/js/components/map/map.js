@@ -116,9 +116,11 @@
             { enabled: filterEnabled('SafeHouses'),      markerType: 'SafeHouses',      icon: "/img/icons/saferoom.svg",         name: "Safe Houses" },
             { enabled: filterEnabled('Extractions'),     markerType: 'Extractions',     icon: "/img/icons/extraction.svg",       name: "Extractions" },
             { enabled: filterEnabled('Landmarks'),       markerType: 'Landmarks',       icon: "/img/icons/landmark-off.svg",     name: "Landmarks" },
+            { enabled: filterEnabled('ContaminatedZone'), markerType: 'ContaminatedZone', icon: "/img/icons/containment-zone.svg", name: "Contaminated Zones" },
             { enabled: filterEnabled('SubwayEntrances'), markerType: 'SubwayEntrances', icon: "/img/icons/subway.svg",           name: "Subway Entrances"},
             { enabled: filterEnabled('DivisionTech'),    markerType: 'DivisionTech',    icon: "/img/icons/division-tech.svg",    name: "Division Tech" },
-            { enabled: filterEnabled('DarkzoneChests'),  markerType: "DarkzoneChests",  icon: "/img/icons/darkzone-chest.svg",   name: "Darkzone Chests"},
+            { enabled: filterEnabled('DarkZoneChests'),  markerType: "DarkZoneChests",  icon: "/img/icons/darkzone-chest.svg",   name: "Dark Zone Chests"},
+            // { enabled: filterEnabled('DDZRank30Chests'), markerType: "DZRank30Chests",  icon: "/img/icons/dz-rank30-chest.png",  name: "Dark Zone Rank 30 Chests"},
             { enabled: filterEnabled('NamedBosses'),     markerType: 'NamedBosses',     icon: "/img/icons/enemy-named.svg",      name: "Named Bosses" },
             { enabled: filterEnabled('SupplyDrops'),     markerType: 'SupplyDrops',     icon: "/img/icons/supply-drop.svg",      name: "Supply Drops" },
         ];

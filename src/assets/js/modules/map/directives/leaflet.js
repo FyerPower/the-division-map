@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('theDivisionAgent')
+    angular.module('theDivisionAgent.map')
         .directive('leaflet', MapDirective);
 
     MapDirective.$inject = ['$rootScope', '$stateParams', '$timeout', 'localStorageService'];

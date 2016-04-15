@@ -8,7 +8,7 @@
         return {
             restrict: 'E',
             replace: true,
-            templateUrl: 'directives/footer/footer.html'
+            templateUrl: 'common/directives/footer/footer.html'
         };
     }
 }());

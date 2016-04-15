@@ -17,10 +17,8 @@ var PATHS = {
     styles:     'src/assets/**/*.scss',
     javascript: [
         'src/assets/js/app.js',
-        'src/assets/js/components/**/*.js',
-        'src/assets/js/directives/**/*.js',
-        'src/assets/js/filters/**/*.js',
-        'src/assets/js/services/**/*.js'
+        'src/assets/js/modules/**/*.module.js',
+        'src/assets/js/**/*.js',
     ],
     templates: [
         'src/assets/js/**/*.html',

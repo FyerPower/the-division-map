@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('theDivisionAgent')
+    angular.module('theDivisionAgent.map')
         .controller('MapController', MapController);
 
     MapController.$inject = ['$scope', '$rootScope', '$stateParams', '$timeout', '$document', '$window', '$interval', 'GoogleURLShortener', 'localStorageService'];

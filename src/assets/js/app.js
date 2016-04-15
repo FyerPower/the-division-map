@@ -3,6 +3,7 @@
     'use strict';
 
     angular.module('theDivisionAgent', [
+        // External Libraries
         'ui.router',
         'ui.bootstrap',
         'ngAnimate',
@@ -12,41 +13,20 @@
         'angulartics.google.analytics',
         'angular-svg-round-progressbar',
         'rzModule',
-        'LocalStorageModule'
+        'LocalStorageModule',
+
+        // Internal Modules
+        'theDivisionAgent.home',
+        'theDivisionAgent.news',
+        'theDivisionAgent.map',
+        'theDivisionAgent.builds',
+        'theDivisionAgent.equipment'
     ]);
 
     angular.module('theDivisionAgent')
         .config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             $urlRouterProvider.otherwise('/home');
             $locationProvider.html5Mode(true).hashPrefix('*');
-            $stateProvider
-                .state('map', {
-                    url: '/map?path&center&zoom&debug',
-                    templateUrl: 'components/map/map.html',
-                    controller: 'MapController',
-                    controllerAs: 'vm'
-                })
-                .state('home', {
-                    url: '/home',
-                    templateUrl: 'components/home/home.html',
-                    controller: 'HomeController',
-                    controllerAs: 'vm'
-                })
-                .state('news', {
-                    url: '/news/{slug}',
-                    templateUrl: function (stateParams){
-                        return 'components/news/news-' + stateParams.slug + '.html';
-                    }
-                })
-                .state('equipment', {
-                    url: '/equipment?slot',
-                    templateUrl: 'components/talents/talents.html',
-                    controller: 'TalentsController',
-                    controllerAs: 'vm',
-                    params: {
-                        slot: { value: '', squash: true },
-                    }
-                });
         });
 
 

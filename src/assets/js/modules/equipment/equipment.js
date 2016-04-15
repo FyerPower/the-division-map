@@ -2,10 +2,10 @@
     'use strict';
 
     angular.module('theDivisionAgent')
-        .controller('TalentsController', TalentsController);
+        .controller('EquipmentController', EquipmentController);
 
-    TalentsController.$inject = ['$state', '$stateParams'];
-    function TalentsController($state, $stateParams){
+    EquipmentController.$inject = ['$state', '$stateParams'];
+    function EquipmentController($state, $stateParams){
         var vm = this;
 
         vm.slot = null;

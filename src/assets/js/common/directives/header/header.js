@@ -8,7 +8,7 @@
         return {
             restrict: 'E',
             replace: true,
-            templateUrl: 'directives/header/header.html',
+            templateUrl: 'common/directives/header/header.html',
             controller: HeaderController,
             controllerAs: 'vm'
         };

@@ -3,6 +3,7 @@
     'use strict';
 
     angular.module('theDivisionAgent', [
+        // External Libraries
         'ui.router',
         'ui.bootstrap',
         'ngAnimate',
@@ -12,41 +13,20 @@
         'angulartics.google.analytics',
         'angular-svg-round-progressbar',
         'rzModule',
-        'LocalStorageModule'
+        'LocalStorageModule',
+
+        // Internal Modules
+        'theDivisionAgent.home',
+        'theDivisionAgent.news',
+        'theDivisionAgent.map',
+        'theDivisionAgent.builds',
+        'theDivisionAgent.equipment'
     ]);
 
     angular.module('theDivisionAgent')
         .config(["$stateProvider", "$urlRouterProvider", "$locationProvider", function($stateProvider, $urlRouterProvider, $locationProvider) {
             $urlRouterProvider.otherwise('/home');
             $locationProvider.html5Mode(true).hashPrefix('*');
-            $stateProvider
-                .state('map', {
-                    url: '/map?path&center&zoom&debug',
-                    templateUrl: 'components/map/map.html',
-                    controller: 'MapController',
-                    controllerAs: 'vm'
-                })
-                .state('home', {
-                    url: '/home',
-                    templateUrl: 'components/home/home.html',
-                    controller: 'HomeController',
-                    controllerAs: 'vm'
-                })
-                .state('news', {
-                    url: '/news/{slug}',
-                    templateUrl: function (stateParams){
-                        return 'components/news/news-' + stateParams.slug + '.html';
-                    }
-                })
-                .state('equipment', {
-                    url: '/equipment?slot',
-                    templateUrl: 'components/talents/talents.html',
-                    controller: 'TalentsController',
-                    controllerAs: 'vm',
-                    params: {
-                        slot: { value: '', squash: true },
-                    }
-                });
         }]);
 
 
@@ -65,30 +45,95 @@
 (function() {
     'use strict';
 
-    angular.module('theDivisionAgent')
-        .controller('HomeController', HomeController);
+    angular.module('theDivisionAgent.builds', []);
 
-    HomeController.$inject = ['$state', '$stateParams'];
-    function HomeController($state, $stateParams){
-        var vm = this;
-
-        vm.routes = [
-            { id: 1, types: ['Division Tech'], name: 'Entire Map Division Tech Farming',      popularity: 21758, zoom: 3, center: [-66, 40], path: '-76.0,82.7_-75.9,55.4_-78.2,52.7_-72.4,52.9_-72.3,31.6_-61.8,31.8_-62.1,47.9_-54.8,48.3_-55.0,75.7_-51.2,75.2_-51.1,70.1_-47.0,69.3_-47.0,60.6_-42.0,60.8_-46.9,58.7_-46.7,25.0_-37.3,24.9_-36.9,11.7_-25.6,11.8_-25.3,31.6_-13.4,32.1_-13.6,79.4_-12.8,59.2_2.4,59.2_2.4,53.7_6.5,53.6_8.1,51.2_9.5,53.6_15.1,53.4_15.0,64.8_13.5,68.6_16.3,65.2_16.3,59.3_27.3,59.5_27.5,31.8_34.5,34.0_27.5,30.7_27.4,27.8_29.5,28.0_27.5,26.4_28.2,18.5_26.8,11.2_23.0,11.5_21.4,15.9_22.9,10.3_27.5,9.9_28.4,12.8_38.1,12.9_38.5,-2.4_42.0,-2.0_44.5,0.5_47.6,3.8_47.5,10.9_44.9,15.8_48.2,11.8_50.0,9.9_55.3,11.0_55.8,18.6_59.2,20.3_62.3,18.1_62.1,10.8_63.4,10.1_67.5,10.9_67.7,-6.7_70.0,-7.0_67.7,-8.3_68.3,-27.6_70.0,-25.3_72.0,-23.9_72.2,-34.6_74.0,-36.0_72.0,-36.9_72.7,-43.6_72.1,-52.2_70.3,-53.2_72.2,-53.1_72.1,-68.7_72.7,-68.7_73.0,-66.5_72.9,-70.0_71.1,-70.0_71.0,-66.5_70.8,-70.0_66.5,-70.2_65.5,-66.5_64.3,-67.7_63.4,-70.4_62.3,-70.3_55.9,-70.3_55.6,-45.7_57.0,-42.0_53.0,-42.0_48.2,-42.7_48.0,-62.0_47.5,-36.4_43.5,-35.0_38.5,-35.7_37.5,-41.0_38.8,-65.3' },
-            { id: 2, types: ['Leveling'],      name: 'Darkzone 1-2 Leveling / Farming Route', popularity: 17539, zoom: 3, center: [-68, 58], path: '-76.0,82.7_-75.8,53.3_-78.2,52.7_-74.9,52.2_-74.8,54.0_-72.4,53.1_-72.3,41.4_-68.2,39.3_-68.1,32.2_-63.7,32.3_-63.8,34.3_-63.0,34.0_-62.9,37.1_-62.2,37.1_-62.1,48.2_-54.9,48.2_-54.9,59.2_-43.8,59.9_-41.0,63.0_-43.1,58.9_-46.4,58.7_-46.5,30.3_-39.3,30.2_-39.4,21.9_-46.6,21.4_-46.9,17.4_-54.6,17.3_-54.7,11.0_-58.3,10.8_-58.4,8.2_-60.9,8.3_-63.0,2.1_-63.2,-2.5_-66.5,-2.6_-67.3,-11.3_-71.0,-10.6_-71.1,-14.8_-71.8,-14.9_-72.3,-9.5_-75.8,-2.0_-75.9,52.4' },
-            { id: 3, types: ['Leveling'],      name: 'Darkzone 3-4 Leveling / Farming Route', popularity: 14731, zoom: 4, center: [2, 30], path: '1.9,67.5_1.6,33.4_-13.3,33.3_-13.4,30.5_-0.1,29.7_-0.5,23.3_-6.8,22.7_-5.3,3.1_-2.2,3.2_-1.9,-4.0_-12.8,-6.6_-12.7,-20.0_-23.8,-13.4_-23.6,-17.2_-20.5,-17.7_-20.3,-25.9_-7.8,-25.8_-7.7,-19.0_-1.8,-17.5_-1.7,-12.2_4.7,-4.9_15.4,-5.4_15.9,16.2_19.6,16.0_15.5,20.2_15.7,31.9_28.0,32.0_27.3,59.5_1.8,59.1' },
-            { id: 4, types: ['Leveling'],      name: 'Darkzone 5-6 Leveling / Farming Route', popularity: 11973, zoom: 4, center: [64, -17], path: '67.7,-80.0_67.5,-70.7_55.8,-70.0_55.7,-22.8_62.3,-23.0_61.9,10.5_61.4,12.9_62.6,11.4_67.7,11.3_67.5,14.7_68.7,14.3_69.7,8.3_69.8,1.6_71.9,1.5_72.1,-22.5_72.8,-23.0_72.1,-24.0_72.2,-41.2_71.7,-42.5_71.6,-60.8_73.4,-60.8_74.0,-62.2_73.5,-64.2_72.6,-65.0_72.6,-70.8_67.6,-70.8' },
-        ];
-
-        return vm;
-    }
-
+    angular.module('theDivisionAgent.builds')
+        .config(["$stateProvider", function($stateProvider) {
+            $stateProvider
+                .state('builds', {
+                    url: '/builds',
+                    templateUrl: 'modules/builds/test.html',
+                    controller: 'TestController',
+                    controllerAs: 'vm'
+                });
+        }]);
 }());
-
 
 (function() {
     'use strict';
 
-    angular.module('theDivisionAgent')
+    angular.module('theDivisionAgent.home', []);
+
+    angular.module('theDivisionAgent.home')
+        .config(["$stateProvider", function($stateProvider) {
+            $stateProvider
+                .state('home', {
+                    url: '/home',
+                    templateUrl: 'modules/home/home.html',
+                    controller: 'HomeController',
+                    controllerAs: 'vm'
+                });
+        }]);
+}());
+
+(function() {
+    'use strict';
+
+    angular.module('theDivisionAgent.equipment', []);
+
+    angular.module('theDivisionAgent.equipment')
+        .config(["$stateProvider", function($stateProvider) {
+            $stateProvider
+                .state('equipment', {
+                    url: '/equipment?slot',
+                    templateUrl: 'modules/equipment/equipment.html',
+                    controller: 'EquipmentController',
+                    controllerAs: 'vm',
+                    params: {
+                        slot: { value: '', squash: true },
+                    }
+                });
+        }]);
+}());
+
+(function() {
+    'use strict';
+
+    angular.module('theDivisionAgent.map', []);
+
+    angular.module('theDivisionAgent.map')
+        .config(["$stateProvider", function($stateProvider) {
+            $stateProvider
+                .state('map', {
+                    url: '/map?path&center&zoom&debug',
+                    templateUrl: 'modules/map/controllers/map/map.html',
+                    controller: 'MapController',
+                    controllerAs: 'vm'
+                });
+        }]);
+}());
+
+(function() {
+    'use strict';
+
+    angular.module('theDivisionAgent.news', []);
+
+    angular.module('theDivisionAgent.news')
+        .config(["$stateProvider", function($stateProvider) {
+            $stateProvider
+                .state('news', {
+                    url: '/news/{slug}',
+                    templateUrl: function (stateParams){
+                        return 'modules/news/news-' + stateParams.slug + '.html';
+                    }
+                });
+        }]);
+}());
+
+(function() {
+    'use strict';
+
+    angular.module('theDivisionAgent.map')
         .controller('MapController', MapController);
 
     MapController.$inject = ['$scope', '$rootScope', '$stateParams', '$timeout', '$document', '$window', '$interval', 'GoogleURLShortener', 'localStorageService'];
@@ -352,14 +397,75 @@
 
 }());
 
+!function(window,angular,undefined){"use strict";angular.module("angulartics.google.analytics",["angulartics"]).config(["$analyticsProvider",function($analyticsProvider){function setDimensionsAndMetrics(properties){if(window.ga)for(var idx=1;200>=idx;idx++)properties["dimension"+idx.toString()]&&ga("set","dimension"+idx.toString(),properties["dimension"+idx.toString()]),properties["metric"+idx.toString()]&&ga("set","metric"+idx.toString(),properties["metric"+idx.toString()])}$analyticsProvider.settings.pageTracking.trackRelativePath=!0,$analyticsProvider.settings.ga={additionalAccountNames:undefined,userId:null},$analyticsProvider.registerPageTrack(function(path){window._gaq&&(_gaq.push(["_trackPageview",path]),angular.forEach($analyticsProvider.settings.ga.additionalAccountNames,function(accountName){_gaq.push([accountName+"._trackPageview",path])})),window.ga&&($analyticsProvider.settings.ga.userId&&ga("set","&uid",$analyticsProvider.settings.ga.userId),ga("send","pageview",path),angular.forEach($analyticsProvider.settings.ga.additionalAccountNames,function(accountName){ga(accountName+".send","pageview",path)}))}),$analyticsProvider.registerEventTrack(function(action,properties){if(properties&&properties.category||(properties=properties||{},properties.category="Event"),properties.value){var parsed=parseInt(properties.value,10);properties.value=isNaN(parsed)?0:parsed}if(window.ga){var eventOptions={eventCategory:properties.category,eventAction:action,eventLabel:properties.label,eventValue:properties.value,nonInteraction:properties.noninteraction,page:properties.page||window.location.hash.substring(1)||window.location.pathname,userId:$analyticsProvider.settings.ga.userId};setDimensionsAndMetrics(properties),$analyticsProvider.settings.ga.transport?ga("send","event",eventOptions,{transport:$analyticsProvider.settings.ga.transport}):ga("send","event",eventOptions),angular.forEach($analyticsProvider.settings.ga.additionalAccountNames,function(accountName){ga(accountName+".send","event",eventOptions)})}else window._gaq&&_gaq.push(["_trackEvent",properties.category,action,properties.label,properties.value,properties.noninteraction])}),$analyticsProvider.registerExceptionTrack(function(properties){return properties&&properties.appId&&properties.appName&&properties.appVersion?(properties.fatal===undefined&&(console.log('No "fatal" provided, sending with fatal=true'),properties.exFatal=!0),properties.exDescription=properties.description,void ga("send","exception",properties)):void console.error("Must be setted appId, appName and appVersion.")}),$analyticsProvider.registerSetUsername(function(userId){$analyticsProvider.settings.ga.userId=userId}),$analyticsProvider.registerSetUserProperties(function(properties){setDimensionsAndMetrics(properties)}),$analyticsProvider.registerUserTimings(function(properties){return properties&&properties.timingCategory&&properties.timingVar&&properties.timingValue?void(window.ga&&ga("send","timing",properties)):void console.error("Properties timingCategory, timingVar, and timingValue are required to be set.")})}])}(window,window.angular);
+
+// Mouse Position Plugin
+L.Control.MousePosition = L.Control.extend({
+    options: {
+        position: 'bottomleft'
+    },
+    onAdd: function (map) {
+        this._container = L.DomUtil.create('div', 'leaflet-control-mouseposition');
+        L.DomEvent.disableClickPropagation(this._container);
+        map.on('mousemove', this._onMouseMove, this);
+        return this._container;
+    },
+    onRemove: function (map) {
+        map.off('mousemove', this._onMouseMove);
+    },
+    _onMouseMove: function (e) {
+        var lng = L.Util.formatNum(e.latlng.lng, 2).toFixed(2);
+        var lat = L.Util.formatNum(e.latlng.lat, 2).toFixed(2);
+        this._container.innerHTML = lat + " : " + lng;
+    }
+});
+L.Map.mergeOptions({ positionControl: false });
+L.Map.addInitHook(function () {
+    if (this.options.positionControl) {
+        this.positionControl = new L.Control.MousePosition();
+        this.addControl(this.positionControl);
+    }
+});
+L.control.mousePosition = function (options) {
+    return new L.Control.MousePosition(options);
+};
+// End Mouse Position
+
 (function() {
     'use strict';
 
     angular.module('theDivisionAgent')
-        .controller('TalentsController', TalentsController);
+        .service('GoogleURLShortener', GoogleURLShortener);
 
-    TalentsController.$inject = ['$state', '$stateParams'];
-    function TalentsController($state, $stateParams){
+    GoogleURLShortener.$inject = ['GApi', 'GClient', '$q'];
+    function GoogleURLShortener(GApi, GClient, $q){
+        var service = {};
+
+        service.init = function(api_key){
+            GApi.load('urlshortener','v1',function(){});
+            GClient.setApiKey(api_key);
+        };
+
+        service.shorten = function(longUrl){
+            return GApi.execute('urlshortener', 'url.insert', {'longUrl': longUrl}).then(function(response) {
+                return response.id;
+            });
+        };
+
+        return service;
+    }
+
+
+}());
+
+(function() {
+    'use strict';
+
+    angular.module('theDivisionAgent')
+        .controller('EquipmentController', EquipmentController);
+
+    EquipmentController.$inject = ['$state', '$stateParams'];
+    function EquipmentController($state, $stateParams){
         var vm = this;
 
         vm.slot = null;
@@ -764,6 +870,28 @@
 }());
 
 (function() {
+    'use strict';
+
+    angular.module('theDivisionAgent')
+        .controller('HomeController', HomeController);
+
+    HomeController.$inject = ['$state', '$stateParams'];
+    function HomeController($state, $stateParams){
+        var vm = this;
+
+        vm.routes = [
+            { id: 1, types: ['Division Tech'], name: 'Entire Map Division Tech Farming',      popularity: 21758, zoom: 3, center: [-66, 40], path: '-76.0,82.7_-75.9,55.4_-78.2,52.7_-72.4,52.9_-72.3,31.6_-61.8,31.8_-62.1,47.9_-54.8,48.3_-55.0,75.7_-51.2,75.2_-51.1,70.1_-47.0,69.3_-47.0,60.6_-42.0,60.8_-46.9,58.7_-46.7,25.0_-37.3,24.9_-36.9,11.7_-25.6,11.8_-25.3,31.6_-13.4,32.1_-13.6,79.4_-12.8,59.2_2.4,59.2_2.4,53.7_6.5,53.6_8.1,51.2_9.5,53.6_15.1,53.4_15.0,64.8_13.5,68.6_16.3,65.2_16.3,59.3_27.3,59.5_27.5,31.8_34.5,34.0_27.5,30.7_27.4,27.8_29.5,28.0_27.5,26.4_28.2,18.5_26.8,11.2_23.0,11.5_21.4,15.9_22.9,10.3_27.5,9.9_28.4,12.8_38.1,12.9_38.5,-2.4_42.0,-2.0_44.5,0.5_47.6,3.8_47.5,10.9_44.9,15.8_48.2,11.8_50.0,9.9_55.3,11.0_55.8,18.6_59.2,20.3_62.3,18.1_62.1,10.8_63.4,10.1_67.5,10.9_67.7,-6.7_70.0,-7.0_67.7,-8.3_68.3,-27.6_70.0,-25.3_72.0,-23.9_72.2,-34.6_74.0,-36.0_72.0,-36.9_72.7,-43.6_72.1,-52.2_70.3,-53.2_72.2,-53.1_72.1,-68.7_72.7,-68.7_73.0,-66.5_72.9,-70.0_71.1,-70.0_71.0,-66.5_70.8,-70.0_66.5,-70.2_65.5,-66.5_64.3,-67.7_63.4,-70.4_62.3,-70.3_55.9,-70.3_55.6,-45.7_57.0,-42.0_53.0,-42.0_48.2,-42.7_48.0,-62.0_47.5,-36.4_43.5,-35.0_38.5,-35.7_37.5,-41.0_38.8,-65.3' },
+            { id: 2, types: ['Leveling'],      name: 'Darkzone 1-2 Leveling / Farming Route', popularity: 17539, zoom: 3, center: [-68, 58], path: '-76.0,82.7_-75.8,53.3_-78.2,52.7_-74.9,52.2_-74.8,54.0_-72.4,53.1_-72.3,41.4_-68.2,39.3_-68.1,32.2_-63.7,32.3_-63.8,34.3_-63.0,34.0_-62.9,37.1_-62.2,37.1_-62.1,48.2_-54.9,48.2_-54.9,59.2_-43.8,59.9_-41.0,63.0_-43.1,58.9_-46.4,58.7_-46.5,30.3_-39.3,30.2_-39.4,21.9_-46.6,21.4_-46.9,17.4_-54.6,17.3_-54.7,11.0_-58.3,10.8_-58.4,8.2_-60.9,8.3_-63.0,2.1_-63.2,-2.5_-66.5,-2.6_-67.3,-11.3_-71.0,-10.6_-71.1,-14.8_-71.8,-14.9_-72.3,-9.5_-75.8,-2.0_-75.9,52.4' },
+            { id: 3, types: ['Leveling'],      name: 'Darkzone 3-4 Leveling / Farming Route', popularity: 14731, zoom: 4, center: [2, 30], path: '1.9,67.5_1.6,33.4_-13.3,33.3_-13.4,30.5_-0.1,29.7_-0.5,23.3_-6.8,22.7_-5.3,3.1_-2.2,3.2_-1.9,-4.0_-12.8,-6.6_-12.7,-20.0_-23.8,-13.4_-23.6,-17.2_-20.5,-17.7_-20.3,-25.9_-7.8,-25.8_-7.7,-19.0_-1.8,-17.5_-1.7,-12.2_4.7,-4.9_15.4,-5.4_15.9,16.2_19.6,16.0_15.5,20.2_15.7,31.9_28.0,32.0_27.3,59.5_1.8,59.1' },
+            { id: 4, types: ['Leveling'],      name: 'Darkzone 5-6 Leveling / Farming Route', popularity: 11973, zoom: 4, center: [64, -17], path: '67.7,-80.0_67.5,-70.7_55.8,-70.0_55.7,-22.8_62.3,-23.0_61.9,10.5_61.4,12.9_62.6,11.4_67.7,11.3_67.5,14.7_68.7,14.3_69.7,8.3_69.8,1.6_71.9,1.5_72.1,-22.5_72.8,-23.0_72.1,-24.0_72.2,-41.2_71.7,-42.5_71.6,-60.8_73.4,-60.8_74.0,-62.2_73.5,-64.2_72.6,-65.0_72.6,-70.8_67.6,-70.8' },
+        ];
+
+        return vm;
+    }
+
+}());
+
+(function() {
     angular
         .module('theDivisionAgent')
         .directive('tdaCloseMenu', tdaCloseMenu);
@@ -793,7 +921,7 @@
         return {
             restrict: 'E',
             replace: true,
-            templateUrl: 'directives/footer/footer.html'
+            templateUrl: 'common/directives/footer/footer.html'
         };
     }
 }());
@@ -808,7 +936,7 @@
         return {
             restrict: 'E',
             replace: true,
-            templateUrl: 'directives/header/header.html',
+            templateUrl: 'common/directives/header/header.html',
             controller: HeaderController,
             controllerAs: 'vm'
         };
@@ -865,7 +993,7 @@
 (function() {
     'use strict';
 
-    angular.module('theDivisionAgent')
+    angular.module('theDivisionAgent.map')
         .directive('leaflet', MapDirective);
 
     MapDirective.$inject = ['$rootScope', '$stateParams', '$timeout', 'localStorageService'];
@@ -1488,16 +1616,11 @@
 (function() {
     'use strict';
 
-    angular.module('theDivisionAgent')
+    angular.module('theDivisionAgent.map')
         .filter('msToMinSec', msToMinSec);
 
     function msToMinSec() {
 		return function(value) {
-            // value = value / 1000;
-            // var minutes = Math.floor(value / 60);
-            // var seconds = ((value % 60)).toFixed(0);
-            // return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
-
             function addZ(n) {
                 return (n<10? '0':'') + n;
             }
@@ -1511,31 +1634,4 @@
             return (hrs ? (hrs + ':' + addZ(mins)) : mins) + ':' + addZ(secs);
 		};
 	}
-}());
-
-(function() {
-    'use strict';
-
-    angular.module('theDivisionAgent')
-        .service('GoogleURLShortener', GoogleURLShortener);
-
-    GoogleURLShortener.$inject = ['GApi', 'GClient', '$q'];
-    function GoogleURLShortener(GApi, GClient, $q){
-        var service = {};
-
-        service.init = function(api_key){
-            GApi.load('urlshortener','v1',function(){});
-            GClient.setApiKey(api_key);
-        };
-
-        service.shorten = function(longUrl){
-            return GApi.execute('urlshortener', 'url.insert', {'longUrl': longUrl}).then(function(response) {
-                return response.id;
-            });
-        };
-
-        return service;
-    }
-
-
 }());

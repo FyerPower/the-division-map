@@ -1,16 +1,11 @@
 (function() {
     'use strict';
 
-    angular.module('theDivisionAgent')
+    angular.module('theDivisionAgent.map')
         .filter('msToMinSec', msToMinSec);
 
     function msToMinSec() {
 		return function(value) {
-            // value = value / 1000;
-            // var minutes = Math.floor(value / 60);
-            // var seconds = ((value % 60)).toFixed(0);
-            // return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
-
             function addZ(n) {
                 return (n<10? '0':'') + n;
             }

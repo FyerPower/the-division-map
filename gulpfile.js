@@ -14,22 +14,22 @@ var gulp        = require('gulp'),
 //
 
 var PATHS = {
-    styles:     'src/assets/**/*.scss',
+    styles:     'src/**/*.scss',
     javascript: [
-        'src/assets/js/app.js',
-        'src/assets/js/modules/**/*.module.js',
-        'src/assets/js/**/*.js',
+        'src/js/app.js',
+        'src/js/modules/**/*.module.js',
+        'src/js/**/*.js',
     ],
     templates: [
-        'src/assets/js/**/*.html',
+        'src/js/**/*.html',
     ],
     static: [
-        'src/assets/**/*.{png,jpg,ico,svg}',
+        'src/**/*.{png,jpg,ico,svg}',
         'src/index.html',
     ],
     lib: [
-        'src/bower_components/angular-google-gapi/dist/angular-google-gapi.min.js',
-        'src/assets/js/libraries/*.js',
+        'bower_components/angular-google-gapi/dist/angular-google-gapi.min.js',
+        'src/js/libraries/*.js',
     ]
 };
 

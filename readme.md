@@ -37,6 +37,10 @@ How do I contribute code changes?
 * `npm install`: Install all dev dependencies (livereload, sass, minification, etc)
 * `gulp`: run gulp build processes and then starts to watch for changes.
 
+* Install Ruby and the Bundler Gem
+* `bundle install`: downloads and installs `rack` for a simple webserver
+* `rackup`: starts the server locally running on `localhost:9292/`
+
 #### How to generate map tiles
 * `brew install python`
 * `brew install gdal`

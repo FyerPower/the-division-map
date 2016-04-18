@@ -1,24 +1,31 @@
-var gulp        = require('gulp'),
-    del         = require('del'),
-    concat      = require('gulp-concat'),
-    livereload  = require('gulp-livereload'),
-    sass        = require('gulp-sass'),
-    cleanCSS    = require('gulp-clean-css'),
-    sourcemaps  = require('gulp-sourcemaps'),
-    uglify      = require('gulp-uglify'),
-    ngAnnotate  = require('gulp-ng-annotate'),
-    templateCache = require('gulp-angular-templatecache');
+var gulp          = require('gulp'),
+    del           = require('del'),
+    concat        = require('gulp-concat'),
+    livereload    = require('gulp-livereload'),
+    sass          = require('gulp-sass'),
+    cleanCSS      = require('gulp-clean-css'),
+    sourcemaps    = require('gulp-sourcemaps'),
+    uglify        = require('gulp-uglify'),
+    ngAnnotate    = require('gulp-ng-annotate'),
+    templateCache = require('gulp-angular-templatecache'),
+    browserify    = require("browserify"),
+    source        = require("vinyl-source-stream"),
+    tsify         = require('tsify');
 
 //
 // Paths
 //
 
 var PATHS = {
-    styles:     'src/**/*.scss',
+    styles: 'src/**/*.scss',
     javascript: [
         'src/js/app.js',
         'src/js/modules/**/*.module.js',
         'src/js/**/*.js',
+    ],
+    typescript: [
+        'src/js/modules/builds/*.ts',
+        'src/js/modules/builds/**/*.ts'
     ],
     templates: [
         'src/js/**/*.html',
@@ -45,6 +52,24 @@ gulp.task('js', function () {
         // .pipe(uglify())
         .pipe(gulp.dest('dist'))
         .pipe(livereload());
+});
+
+
+gulp.task('typescript', function(){
+    var browserifyOpts = {
+		debug: false,
+		paths: ['./node_modules', './src/js/'],
+		cache: {},
+		packageCache: {},
+		fullPaths: true
+	};
+
+    return browserify('src/js/modules/builds/builds.module.ts', browserifyOpts)
+            .plugin(tsify)
+            .bundle()
+			.pipe(source('ng2.js'))
+			.pipe(gulp.dest('dist/js'))
+            .pipe(livereload());
 });
 
 // Watch task templates and then move to /dist
@@ -78,7 +103,7 @@ gulp.task('lib', function() {
         .pipe(livereload());
 });
 
-gulp.task('build', ['js', 'styles', 'static', 'lib', 'templates']);
+gulp.task('build', ['js', 'styles', 'static', 'lib', 'templates', 'typescript']);
 
 //
 // Other Tasks
@@ -97,5 +122,6 @@ gulp.task('play', ['build'], function () {
     gulp.watch(PATHS.styles, ['styles']);
     gulp.watch(PATHS.lib, ['lib']);
     gulp.watch(PATHS.templates, ['templates']);
+    gulp.watch(PATHS.typescript, ['typescript']);
 });
 gulp.task('default', ['play']);
